@@ -21,6 +21,14 @@
 		D926679B197A42120096B50C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D926677D197A42110096B50C /* UIKit.framework */; };
 		D92667A3197A42120096B50C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D92667A1197A42120096B50C /* InfoPlist.strings */; };
 		D92667A5197A42120096B50C /* HighFiveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667A4197A42120096B50C /* HighFiveTests.m */; };
+		D92667AF197A44DE0096B50C /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667AE197A44DE0096B50C /* CoreMotion.framework */; };
+		D92667B2197AC6DB0096B50C /* Slapperometer.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667B1197AC6DB0096B50C /* Slapperometer.m */; };
+		D92667B4197AD1A40096B50C /* internet-high-five.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D92667B3197AD1A40096B50C /* internet-high-five.jpeg */; };
+		D92667B7197AD3610096B50C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667B5197AD3600096B50C /* AddressBook.framework */; };
+		D92667B8197AD3610096B50C /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667B6197AD3610096B50C /* AddressBookUI.framework */; };
+		D92667BA197ADB770096B50C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667B9197ADB770096B50C /* AudioToolbox.framework */; };
+		D92667BC197AE2F50096B50C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667BB197AE2F50096B50C /* MessageUI.framework */; };
+		D92667BF197B36E20096B50C /* SlapNet.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667BE197B36E20096B50C /* SlapNet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +61,16 @@
 		D92667A0197A42120096B50C /* HighFiveTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HighFiveTests-Info.plist"; sourceTree = "<group>"; };
 		D92667A2197A42120096B50C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D92667A4197A42120096B50C /* HighFiveTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HighFiveTests.m; sourceTree = "<group>"; };
+		D92667AE197A44DE0096B50C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		D92667B0197AC6DB0096B50C /* Slapperometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slapperometer.h; sourceTree = "<group>"; };
+		D92667B1197AC6DB0096B50C /* Slapperometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slapperometer.m; sourceTree = "<group>"; };
+		D92667B3197AD1A40096B50C /* internet-high-five.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "internet-high-five.jpeg"; sourceTree = "<group>"; };
+		D92667B5197AD3600096B50C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		D92667B6197AD3610096B50C /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		D92667B9197ADB770096B50C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D92667BB197AE2F50096B50C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		D92667BD197B36E20096B50C /* SlapNet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlapNet.h; sourceTree = "<group>"; };
+		D92667BE197B36E20096B50C /* SlapNet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlapNet.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +78,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D92667BC197AE2F50096B50C /* MessageUI.framework in Frameworks */,
+				D92667BA197ADB770096B50C /* AudioToolbox.framework in Frameworks */,
+				D92667B7197AD3610096B50C /* AddressBook.framework in Frameworks */,
+				D92667B8197AD3610096B50C /* AddressBookUI.framework in Frameworks */,
+				D92667AF197A44DE0096B50C /* CoreMotion.framework in Frameworks */,
 				D926677C197A42110096B50C /* CoreGraphics.framework in Frameworks */,
 				D926677E197A42110096B50C /* UIKit.framework in Frameworks */,
 				D926677A197A42110096B50C /* Foundation.framework in Frameworks */,
@@ -101,6 +124,11 @@
 		D9266778197A42110096B50C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D92667BB197AE2F50096B50C /* MessageUI.framework */,
+				D92667B9197ADB770096B50C /* AudioToolbox.framework */,
+				D92667B5197AD3600096B50C /* AddressBook.framework */,
+				D92667B6197AD3610096B50C /* AddressBookUI.framework */,
+				D92667AE197A44DE0096B50C /* CoreMotion.framework */,
 				D9266779197A42110096B50C /* Foundation.framework */,
 				D926677B197A42110096B50C /* CoreGraphics.framework */,
 				D926677D197A42110096B50C /* UIKit.framework */,
@@ -119,6 +147,10 @@
 				D926678F197A42120096B50C /* ViewController.m */,
 				D9266791197A42120096B50C /* Images.xcassets */,
 				D9266780197A42110096B50C /* Supporting Files */,
+				D92667B0197AC6DB0096B50C /* Slapperometer.h */,
+				D92667B1197AC6DB0096B50C /* Slapperometer.m */,
+				D92667BD197B36E20096B50C /* SlapNet.h */,
+				D92667BE197B36E20096B50C /* SlapNet.m */,
 			);
 			path = HighFive;
 			sourceTree = "<group>";
@@ -126,6 +158,7 @@
 		D9266780197A42110096B50C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D92667B3197AD1A40096B50C /* internet-high-five.jpeg */,
 				D9266781197A42110096B50C /* HighFive-Info.plist */,
 				D9266782197A42110096B50C /* InfoPlist.strings */,
 				D9266785197A42110096B50C /* main.m */,
@@ -199,6 +232,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Ipsum LLC";
 				TargetAttributes = {
+					D9266775197A42110096B50C = {
+						DevelopmentTeam = X68G8MHD24;
+					};
 					D9266796197A42120096B50C = {
 						TestTargetID = D9266775197A42110096B50C;
 					};
@@ -228,6 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D92667B4197AD1A40096B50C /* internet-high-five.jpeg in Resources */,
 				D9266792197A42120096B50C /* Images.xcassets in Resources */,
 				D9266784197A42110096B50C /* InfoPlist.strings in Resources */,
 				D926678D197A42120096B50C /* Main.storyboard in Resources */,
@@ -250,6 +287,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9266790197A42120096B50C /* ViewController.m in Sources */,
+				D92667B2197AC6DB0096B50C /* Slapperometer.m in Sources */,
+				D92667BF197B36E20096B50C /* SlapNet.m in Sources */,
 				D926678A197A42110096B50C /* AppDelegate.m in Sources */,
 				D9266786197A42110096B50C /* main.m in Sources */,
 			);
@@ -376,6 +415,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HighFive/HighFive-Prefix.pch";
 				INFOPLIST_FILE = "HighFive/HighFive-Info.plist";
@@ -389,6 +429,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HighFive/HighFive-Prefix.pch";
 				INFOPLIST_FILE = "HighFive/HighFive-Info.plist";
