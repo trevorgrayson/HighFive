@@ -30,6 +30,7 @@
 		D92667BC197AE2F50096B50C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667BB197AE2F50096B50C /* MessageUI.framework */; };
 		D92667BF197B36E20096B50C /* SlapNet.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667BE197B36E20096B50C /* SlapNet.m */; };
 		D92667C3197C6E550096B50C /* Slap.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667C2197C6E550096B50C /* Slap.m */; };
+		D92667C5197CBE4F0096B50C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667C4197CBE4F0096B50C /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		D92667BE197B36E20096B50C /* SlapNet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlapNet.m; sourceTree = "<group>"; };
 		D92667C1197C6E550096B50C /* Slap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slap.h; sourceTree = "<group>"; };
 		D92667C2197C6E550096B50C /* Slap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slap.m; sourceTree = "<group>"; };
+		D92667C4197CBE4F0096B50C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D92667C5197CBE4F0096B50C /* GameKit.framework in Frameworks */,
 				D92667BC197AE2F50096B50C /* MessageUI.framework in Frameworks */,
 				D92667BA197ADB770096B50C /* AudioToolbox.framework in Frameworks */,
 				D92667B7197AD3610096B50C /* AddressBook.framework in Frameworks */,
@@ -127,6 +130,7 @@
 		D9266778197A42110096B50C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D92667C4197CBE4F0096B50C /* GameKit.framework */,
 				D92667BB197AE2F50096B50C /* MessageUI.framework */,
 				D92667B9197ADB770096B50C /* AudioToolbox.framework */,
 				D92667B5197AD3600096B50C /* AddressBook.framework */,
@@ -239,6 +243,11 @@
 				TargetAttributes = {
 					D9266775197A42110096B50C = {
 						DevelopmentTeam = X68G8MHD24;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 					D9266796197A42120096B50C = {
 						TestTargetID = D9266775197A42110096B50C;
@@ -422,10 +431,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HighFive/HighFive-Prefix.pch";
 				INFOPLIST_FILE = "HighFive/HighFive-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -436,10 +447,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HighFive/HighFive-Prefix.pch";
 				INFOPLIST_FILE = "HighFive/HighFive-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

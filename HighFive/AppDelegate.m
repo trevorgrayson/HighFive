@@ -13,21 +13,20 @@
 //- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    ViewController *root = (ViewController*) self.window.rootViewController;
+    
     //if [url path] == ridiculous
-
-    NSArray *urlArray = [[url query] componentsSeparatedByString:@"&"];
+        NSArray *urlArray = [[url query] componentsSeparatedByString:@"&"];
     
     double fierocity = [urlArray[0] doubleValue];
     NSString *senderId = urlArray[1];
+    NSString *name = senderId;
 
-    ViewController *root = (ViewController*) self.window.rootViewController;
-    
     if([urlArray count] > 2) {
-        NSString *name = urlArray[2];
-        [root receiveHighFive:fierocity from:senderId as: name];
-    } else {
-        [root receiveHighFive:fierocity from:senderId];
+        name = urlArray[2];
     }
+    
+    [root receiveHighFive:fierocity from:senderId as: name];
 
     return YES;
 }
@@ -53,9 +52,25 @@
 //        [vc slapModeFor: slap];
 //    }];
      //addObserver: self selector: @selector(respondToSlap:from:) name:@"SLAP" object:nil];
-    // Override point for customization after application launch.
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     return YES;
 }
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+	NSLog(@"My token is: %@", deviceToken);
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+	NSLog(@"Failed to get token, error: %@", error);
+}
+
+
+
+
+
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {

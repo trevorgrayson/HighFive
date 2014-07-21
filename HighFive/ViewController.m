@@ -38,8 +38,8 @@ int kSLAP_MODE = 1;
             NSLog(@"%@", error);
         }
     }];
-    [self configureCamera];
-    
+    //[self configureCamera];
+
 //    [self.motionManager startGyroUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
 //  [self outputRotationData:gyroData.rotationRate]; }];
     
