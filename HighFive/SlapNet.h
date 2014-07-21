@@ -14,8 +14,9 @@
 
 @interface SlapNet : NSObject <UIAlertViewDelegate>//<MFMessageComposeViewControllerDelegate>
 
++(MFMessageComposeViewController*) sendInvite:(double) ferocity to:(NSString*) contact as:(NSString*) name;
 
-+(void) sendSlap:(double) ferocity to:(NSString*) contact;
++(MFMessageComposeViewController*) sendSlap:(double) ferocity to:(NSString*) contact as:(NSString*) name;
 
 +(void) receiveHighFive:(double) ferocity from:(NSString*) contact;
 @end

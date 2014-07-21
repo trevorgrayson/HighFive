@@ -36,8 +36,7 @@ int uiMode;
 @property (strong, nonatomic) IBOutlet UIImagePickerController *imagePicker;
 
 -(NSString*) highFiveDescription:(double) m/*agnetude*/;
-    
-- (void) sendHighFive:(double) ferocity to:(NSString*) contact as:(NSString*) name;
+
 - (void) receiveHighFive:(double) ferocity from:(NSString*) contact as:(NSString*) name;
 - (void) slapModeFor:(NSString*) name at:(NSString*) phone with:(double) ferocity;
 

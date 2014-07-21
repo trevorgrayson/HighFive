@@ -10,24 +10,26 @@
 
 @implementation SlapNet
 
-+(void) sendInvite:(double) ferocity to:(NSString*) contact
++(MFMessageComposeViewController*) sendInvite:(double) ferocity to:(NSString*) contact as:(NSString*) name
 {
     
-//    MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
+    MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
     if([MFMessageComposeViewController canSendText])
     {
-//        controller.body = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Slap me back", [self highFiveDescription:ferocity], ferocity];
-//        controller.recipients = [NSArray arrayWithObjects: contact, nil];
-//        controller.messageComposeDelegate = self;
-//        
-//        [self presentViewController:controller animated:YES completion:nil];
-//        [self reset:nil];
+        controller.body = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Slap me back: hi5://?%4.2f&%@&%@", [self highFiveDescription:ferocity], ferocity, ferocity, contact, name];
+        controller.recipients = [NSArray arrayWithObjects: contact, nil];
+        //controller.messageComposeDelegate = self;
+        //[self presentViewController:controller animated:YES completion:nil];
+
+        return controller;
     }
+    return nil;
 }
 
-+(void) sendSlap:(double) ferocity to:(NSString*) contact {
-    [self sendInvite: ferocity to: contact];
-    [self sendHttpRequest: ferocity to: contact];
++(MFMessageComposeViewController*) sendSlap:(double) ferocity to:(NSString*) contact /*from:(NSString*) from*/ as:(NSString*) name {
+
+    [self sendNotification: ferocity to: contact as: name];
+    return [self sendInvite: ferocity to: contact as: name];
 }
 
 + (void) receiveHighFive:(double) ferocity from:(NSString*) contact
@@ -48,6 +50,17 @@
         default:
             break;
     }
+}
+
++(void) sendNotification:(double) ferocity to:(NSString*) targetId as:(NSString*) name {
+    NSString *uri = [NSString stringWithFormat: @"http://ipsumllc.com/hi5/?id=%@&from=%@&name=%@&jerk=%4.2f", targetId, @"+18603849759", name, ferocity];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: uri]
+                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                       timeoutInterval:10];
+    [request setHTTPMethod: @"GET"];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:nil];
 }
 
 +(NSString*) highFiveDescription:(double) m/*agnetude*/ {
@@ -71,17 +84,6 @@
     }
     
     return judgement;
-}
-
-+(void) sendHttpRequest:(double) ferocity to:(NSString*) targetId {
-    NSString *uri = [NSString stringWithFormat: @"http://ipsumllc.com/hi5/?id=%@&from=%@&name=%@&jerk=%4.2f", targetId, @"+18603849759", @"Trevor", ferocity];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: uri]
-                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                       timeoutInterval:10];
-    [request setHTTPMethod: @"GET"];
-    
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:nil];
 }
 
 @end
