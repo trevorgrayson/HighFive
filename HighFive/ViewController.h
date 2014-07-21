@@ -12,6 +12,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <MessageUI/MessageUI.h>
 #import "Slapperometer.h"
+#import "Slap.h"
 
 double currentMaxAccelX;
 double currentMaxAccelY;
@@ -19,11 +20,11 @@ double currentMaxAccelZ;
 
 int uiMode;
 
-@interface ViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate>
+@interface ViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) CMMotionManager *motionManager;
 
-@property (weak, nonatomic) NSString *targetAddress;
+@property (strong, nonatomic) NSString *targetAddress;
 
 @property (weak, nonatomic) IBOutlet UILabel *slapDebug;
 @property (weak, nonatomic) IBOutlet UILabel *fiveCompanion;
@@ -36,7 +37,10 @@ int uiMode;
 
 -(NSString*) highFiveDescription:(double) m/*agnetude*/;
     
-- (void) sendHighFive:(double) ferocity to:(NSString*) contact;
+- (void) sendHighFive:(double) ferocity to:(NSString*) contact as:(NSString*) name;
+- (void) receiveHighFive:(double) ferocity from:(NSString*) contact;
+- (void) receiveHighFive:(double) ferocity from:(NSString*) contact as:(NSString*) name;
+- (void) slapModeFor:(NSString*) name at:(NSString*) phone with:(double) ferocity;
 
 - (void) waitingMode;
 //- (void) slapMode;

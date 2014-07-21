@@ -29,7 +29,47 @@
     [self sendInvite: ferocity to: contact];
 }
 
--(void) incomingSlap {
+- (void) receiveHighFive:(double) ferocity from:(NSString*) contact
+{
+    NSString *msg = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Would you like to slap them back?", [self highFiveDescription:ferocity], ferocity];
     
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SLAP!" message: msg delegate:nil cancelButtonTitle:@"Nope!" otherButtonTitles: @"Slap Back", nil];
+    [alert show];
 }
+
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 1:
+
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(NSString*) highFiveDescription:(double) m/*agnetude*/ {
+    
+    NSString *judgement = @"passable";
+    
+    if(m > 8) {
+        judgement = @"tremendous";
+    } else if(m > 7) {
+        judgement = @"fierce";
+    } else if(m > 6) {
+        judgement = @"braggable";
+    } else if(m > 5) {
+        judgement = @"strong";
+    } else if(m > 4) {
+        judgement = @"aggressive";
+    } else if(m > 3) {
+        judgement = @"strong";
+    } else if(m > 2) {
+        judgement = @"solid";
+    }
+    
+    return judgement;
+}
+
 @end

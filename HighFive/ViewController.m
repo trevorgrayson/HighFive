@@ -38,15 +38,18 @@ int kSLAP_MODE = 1;
             NSLog(@"%@", error);
         }
     }];
+    [self configureCamera];
     
 //    [self.motionManager startGyroUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
 //  [self outputRotationData:gyroData.rotationRate]; }];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(screenTap:)];
-    [self.view addGestureRecognizer: tap];
+    [self.hand addGestureRecognizer: tap];
 }
 
-- (IBAction)screenTap:(id)sender {
+- (IBAction)screenTap:(UITapGestureRecognizer*)sender {
+    
+    NSLog(@"%lu", (unsigned long)sender.numberOfTouches);
     if (uiMode == kWAITING_MODE) {
         ABPeoplePickerNavigationController *picker =[[ABPeoplePickerNavigationController alloc] init];
         picker.peoplePickerDelegate = self;
@@ -61,20 +64,20 @@ int kSLAP_MODE = 1;
     currentMaxAccelZ = MAX(fabs(acceleration.z), currentMaxAccelZ);
     
     if ( uiMode == kSLAP_MODE && [Slapperometer slapCheck:acceleration] ) {
-        [self waitingMode];
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         
         self.slapDebug.text = [NSString stringWithFormat: @"SLAP! %4.2f, %4.2f %4.2f", currentMaxAccelX, currentMaxAccelY, currentMaxAccelZ];
-        NSLog(@"SNAP %@", imagePicker);
-        [imagePicker takePicture];
+//        NSLog(@"SNAP %@", imagePicker);
+//        [imagePicker takePicture];
         
         if (false /*confirmation config?*/) {
             NSString *msg = [NSString stringWithFormat:@"You just slapped a %4.2f! Send this?", currentMaxAccelZ];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SLAP!" message:msg delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles: @"Send", nil];
             [alert show];
         } else {
-           [self sendHighFive:currentMaxAccelZ to: targetAddress];
+            [self sendHighFive:currentMaxAccelZ to: targetAddress as:@"I.O.U.NAME"];
         }
+        [self waitingMode];
         
     }
 }
@@ -82,7 +85,7 @@ int kSLAP_MODE = 1;
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     switch (buttonIndex) {
         case 1:
-            [self sendHighFive:currentMaxAccelZ to: targetAddress];
+            [self sendHighFive:currentMaxAccelZ to: targetAddress as: @"I.O.U.NAME"];
             break;
             
         default:
@@ -97,20 +100,29 @@ int kSLAP_MODE = 1;
     currentMaxAccelZ = 0;
 }
 
-- (void) sendHighFive:(double) ferocity to:(NSString*) contact
+- (void) sendHighFive:(double) ferocity to:(NSString*) contact as:(NSString*) name
 {
-    self.fiveCompanion.text = @"Tap";
-    
     MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
     if([MFMessageComposeViewController canSendText])
     {
-        controller.body = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Slap me back", [self highFiveDescription:ferocity], ferocity];
+        controller.body = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Slap me back: hi5://?%4.2f&%@&%@", [self highFiveDescription:ferocity], ferocity, ferocity,contact, name];
         controller.recipients = [NSArray arrayWithObjects: targetAddress, nil];
         controller.messageComposeDelegate = self;
         [self presentViewController:controller animated:YES completion:nil];
         [self reset:nil];
     }
 }
+
+- (void) receiveHighFive:(double) ferocity from:(NSString*) contact as:(NSString *)name
+{
+    [self slapModeFor: name at: contact with:ferocity];
+
+//    NSString *msg = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Would you like to slap them back?", [self highFiveDescription:ferocity], ferocity];
+//    
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SLAP!" message: msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//    [alert show];
+}
+
 
 -(NSString*) highFiveDescription:(double) m/*agnetude*/ {
     
@@ -137,6 +149,7 @@ int kSLAP_MODE = 1;
 
 - (void) waitingMode {
     uiMode = kWAITING_MODE;
+    self.fiveCompanion.text = @"Tap to Slap";
 }
 
 //PEOPLE PICKER
@@ -148,15 +161,11 @@ int kSLAP_MODE = 1;
 (ABPeoplePickerNavigationController *)peoplePicker
       shouldContinueAfterSelectingPerson:(ABRecordRef)person {
     
-    uiMode = kSLAP_MODE;
-    
     NSString* name = (__bridge_transfer NSString*)ABRecordCopyValue(person,kABPersonFirstNameProperty);
     
     //TODO Mobile phone?
     NSString* phone = @"";
-    NSMutableDictionary *contactInfoDict = [[NSMutableDictionary alloc]
-                                            initWithObjects:@[@"", @""]
-                                            forKeys:@[@"mobileNumber", @"homeNumber",]];
+    NSMutableDictionary *contactInfoDict = [[NSMutableDictionary alloc] initWithObjects:@[@"", @""] forKeys:@[@"mobileNumber", @"homeNumber",]];
     
     ABMultiValueRef *phones = ABRecordCopyValue(person, kABPersonPhoneProperty);
     for(CFIndex j = 0; j < ABMultiValueGetCount(phones); j++)
@@ -184,14 +193,14 @@ int kSLAP_MODE = 1;
         phone = [contactInfoDict valueForKeyPath:@"homeNumber"];
     }
     
+    phone = [[phone componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789+"] invertedSet]] componentsJoinedByString:@""];
     NSLog(@"(%@)", phone);
     
     if ( [phone length] > 0) {
-        targetAddress = phone;
-        self.fiveCompanion.text = name;
+        [self slapModeFor:name at:phone with: 0];
     } else {
         NSString *msg = [NSString stringWithFormat:@"It looks like %@ doesn't have a phone number", name];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Woah Dawg" message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Woah Dawg" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
     }
     CFRelease(phones);
@@ -199,6 +208,13 @@ int kSLAP_MODE = 1;
     [self dismissViewControllerAnimated:YES completion:nil];
     
     return NO;
+}
+
+- (void) slapModeFor:(NSString*) name at:(NSString*) phone with:(double) ferocity
+{
+    self.fiveCompanion.text = name;
+    targetAddress = phone;
+    uiMode = kSLAP_MODE;
 }
 
 - (BOOL)peoplePickerNavigationController:
@@ -213,8 +229,39 @@ int kSLAP_MODE = 1;
 //MESSAGE
 
 -(void) messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{ [self dismissViewControllerAnimated:YES completion:nil];}
+
+//image capture
+
+- (void) configureCamera
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        NSLog(@"Camera loaded.");
+        //NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+        imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.delegate = self;
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        //imagePicker.cameraCaptureMode = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+        imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+        //imagePicker.showsCameraControls = NO;
+        //imagePicker.cameraOverlayView = self.view;
+        //imagePicker.allowsEditing = YES;
+        [self.navigationController presentViewController:imagePicker animated:YES completion:nil];
+    } else {
+        NSLog(@"Sorry! No Camera");
+    }
+    //UIImage * flippedImage = [UIImage imageWithCGImage:picture.CGImage scale:picture.scale orientation:UIImageOrientationLeftMirrored];
+
+}
+
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSLog(@"photo taken");
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    UIImageView *iv = [[UIImageView alloc] initWithImage:image];
+    [self.view addSubview: iv];
+    
 }
 
 @end

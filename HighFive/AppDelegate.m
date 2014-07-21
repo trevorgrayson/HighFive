@@ -10,8 +10,49 @@
 
 @implementation AppDelegate
 
+//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    //if [url path] == ridiculous
+
+    NSArray *urlArray = [[url query] componentsSeparatedByString:@"&"];
+    
+    double fierocity = [urlArray[0] doubleValue];
+    NSString *senderId = urlArray[1];
+
+    ViewController *root = (ViewController*) self.window.rootViewController;
+    
+    if([urlArray count] > 2) {
+        NSString *name = urlArray[2];
+        [root receiveHighFive:fierocity from:senderId as: name];
+    } else {
+        [root receiveHighFive:fierocity from:senderId];
+    }
+
+    return YES;
+}
+
+- (void) respondToSlap:(double)ferocity from:(NSString*) phone as:(NSString*) name
+{
+    ViewController *root = (ViewController*) self.window.rootViewController;
+    [root slapModeFor: phone at: phone with: ferocity];
+}
+
+- (void) respondToSlap:(double)ferocity from:(NSString*) phone
+{
+    [self respondToSlap:ferocity from: phone as: phone];
+    
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+//    [[NSNotificationCenter defaultCenter] addObserverForName: @"SLAP" object:nil queue:nil usingBlock:^(NSNotification *note) {
+//        Slap *slap = (Slap*)note.object;
+//        ViewController* vc= (ViewController*)self.window.rootViewController;
+//        
+//        [vc slapModeFor: slap];
+//    }];
+     //addObserver: self selector: @selector(respondToSlap:from:) name:@"SLAP" object:nil];
     // Override point for customization after application launch.
     return YES;
 }
@@ -35,6 +76,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    //self.window.rootViewController
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
