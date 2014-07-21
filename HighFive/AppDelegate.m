@@ -34,12 +34,29 @@
 - (void) respondToSlap:(double)ferocity from:(NSString*) phone as:(NSString*) name
 {
     ViewController *root = (ViewController*) self.window.rootViewController;
-    [root slapModeFor: phone at: phone with: ferocity];
+    [root slapModeFor: name at: phone with: ferocity];
 }
 
 - (void) respondToSlap:(double)ferocity from:(NSString*) phone
 {
     [self respondToSlap:ferocity from: phone as: phone];
+    
+}
+
+- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    
+    NSDictionary *slap = [userInfo valueForKeyPath:@"slap"];
+    
+    NSString *phone = [slap valueForKeyPath:@"id"];
+    NSString *name = [slap valueForKeyPath:@"name"];
+    double jerk = [[slap valueForKeyPath:@"jerk"] doubleValue];
+
+    //if(UIApplication.application.state){ // 
+    [self respondToSlap: jerk from: phone as: name];
+    NSString *msg = [NSString stringWithFormat:@"%@ high fived you!", name];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Slap!!" message: msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
     
 }
 

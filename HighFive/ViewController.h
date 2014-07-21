@@ -12,7 +12,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <MessageUI/MessageUI.h>
 #import "Slapperometer.h"
-#import "Slap.h"
+#import "SlapNet.h"
 
 double currentMaxAccelX;
 double currentMaxAccelY;

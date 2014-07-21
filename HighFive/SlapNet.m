@@ -10,7 +10,7 @@
 
 @implementation SlapNet
 
-- (void) sendInvite:(double) ferocity to:(NSString*) contact
++(void) sendInvite:(double) ferocity to:(NSString*) contact
 {
     
 //    MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
@@ -25,11 +25,12 @@
     }
 }
 
--(void) sendSlap:(double) ferocity to:(NSString*) contact {
++(void) sendSlap:(double) ferocity to:(NSString*) contact {
     [self sendInvite: ferocity to: contact];
+    [self sendHttpRequest: ferocity to: contact];
 }
 
-- (void) receiveHighFive:(double) ferocity from:(NSString*) contact
++ (void) receiveHighFive:(double) ferocity from:(NSString*) contact
 {
     NSString *msg = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Would you like to slap them back?", [self highFiveDescription:ferocity], ferocity];
     
@@ -49,7 +50,7 @@
     }
 }
 
--(NSString*) highFiveDescription:(double) m/*agnetude*/ {
++(NSString*) highFiveDescription:(double) m/*agnetude*/ {
     
     NSString *judgement = @"passable";
     
@@ -70,6 +71,17 @@
     }
     
     return judgement;
+}
+
++(void) sendHttpRequest:(double) ferocity to:(NSString*) targetId {
+    NSString *uri = [NSString stringWithFormat: @"http://ipsumllc.com/hi5/?id=%@&from=%@&name=%@&jerk=%4.2f", targetId, @"+18603849759", @"Trevor", ferocity];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: uri]
+                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                       timeoutInterval:10];
+    [request setHTTPMethod: @"GET"];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:nil];
 }
 
 @end

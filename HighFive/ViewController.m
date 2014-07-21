@@ -34,14 +34,13 @@ int kSLAP_MODE = 1;
     [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMAccelerometerData  *accelerometerData, NSError *error) {
         [self outputAccelertionData:accelerometerData.acceleration];
         
-        if(error){
-            NSLog(@"%@", error);
-        }
+        if(error){ NSLog(@"%@", error); }
     }];
     //[self configureCamera];
 
-//    [self.motionManager startGyroUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
-//  [self outputRotationData:gyroData.rotationRate]; }];
+    //GYRO DATA
+    //[self.motionManager startGyroUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
+    //[self outputRotationData:gyroData.rotationRate]; }];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(screenTap:)];
     [self.hand addGestureRecognizer: tap];
@@ -66,9 +65,8 @@ int kSLAP_MODE = 1;
     if ( uiMode == kSLAP_MODE && [Slapperometer slapCheck:acceleration] ) {
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         
-        self.slapDebug.text = [NSString stringWithFormat: @"SLAP! %4.2f, %4.2f %4.2f", currentMaxAccelX, currentMaxAccelY, currentMaxAccelZ];
-//        NSLog(@"SNAP %@", imagePicker);
-//        [imagePicker takePicture];
+        //self.slapDebug.text = [NSString stringWithFormat: @"SLAP! %4.2f, %4.2f %4.2f", currentMaxAccelX, currentMaxAccelY, currentMaxAccelZ];
+        //[imagePicker takePicture];
         
         if (false /*confirmation config?*/) {
             NSString *msg = [NSString stringWithFormat:@"You just slapped a %4.2f! Send this?", currentMaxAccelZ];
@@ -102,6 +100,7 @@ int kSLAP_MODE = 1;
 
 - (void) sendHighFive:(double) ferocity to:(NSString*) contact as:(NSString*) name
 {
+    [SlapNet sendSlap: ferocity to: contact];
     MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
     if([MFMessageComposeViewController canSendText])
     {
