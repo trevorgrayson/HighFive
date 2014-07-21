@@ -67,28 +67,10 @@ int kSLAP_MODE = 1;
         
         //self.slapDebug.text = [NSString stringWithFormat: @"SLAP! %4.2f, %4.2f %4.2f", currentMaxAccelX, currentMaxAccelY, currentMaxAccelZ];
         //[imagePicker takePicture];
-        
-        if (false /*confirmation config?*/) {
-            NSString *msg = [NSString stringWithFormat:@"You just slapped a %4.2f! Send this?", currentMaxAccelZ];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SLAP!" message:msg delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles: @"Send", nil];
-            [alert show];
-        } else {
-            [self sendHighFive:currentMaxAccelZ to: targetAddress as:@"I.O.U.NAME"];
-        }
+       
+        [self sendHighFive:currentMaxAccelZ to: targetAddress as:@"I.O.U.NAME"];
         [self waitingMode];
         
-    }
-}
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    switch (buttonIndex) {
-        case 1:
-            [self sendHighFive:currentMaxAccelZ to: targetAddress as: @"I.O.U.NAME"];
-            break;
-            
-        default:
-            uiMode = kSLAP_MODE;
-            break;
     }
 }
 
