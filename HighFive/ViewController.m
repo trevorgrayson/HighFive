@@ -42,6 +42,12 @@ NSString *userName = nil;
     //[self configureCamera];
     [self checkUserName];
     
+    HandWidget *hw = [[HandWidget alloc] initWithCount: 5
+                                              andFrame: CGRectMake(self.view.frame.origin.x + 2,
+                                                                   self.view.frame.origin.y +
+                                                                   self.view.frame.size.height - 50 - 2,
+                                                                   50, 50)];
+    [self.view addSubview: hw];
     //GYRO DATA
     //[self.motionManager startGyroUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
     //[self outputRotationData:gyroData.rotationRate]; }];
