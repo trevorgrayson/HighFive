@@ -13,6 +13,7 @@
 #import <MessageUI/MessageUI.h>
 #import "Slapperometer.h"
 #import "SlapNet.h"
+#import "HandWidget.h"
 
 double currentMaxAccelX;
 double currentMaxAccelY;
@@ -20,7 +21,8 @@ double currentMaxAccelZ;
 
 int uiMode;
 
-@interface ViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface ViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
+    UITextFieldDelegate>
 
 @property (strong, nonatomic) CMMotionManager *motionManager;
 
@@ -28,14 +30,13 @@ int uiMode;
 
 @property (weak, nonatomic) IBOutlet UILabel *slapDebug;
 @property (weak, nonatomic) IBOutlet UILabel *fiveCompanion;
+@property (weak, nonatomic) IBOutlet UITextField *textArea;
 
 @property (weak, nonatomic) IBOutlet UIButton *resetBtn;
 
 @property (weak, nonatomic) IBOutlet UIImageView *hand;
 
 @property (strong, nonatomic) IBOutlet UIImagePickerController *imagePicker;
-
--(NSString*) highFiveDescription:(double) m/*agnetude*/;
 
 - (void) receiveHighFive:(double) ferocity from:(NSString*) contact as:(NSString*) name;
 - (void) slapModeFor:(NSString*) name at:(NSString*) phone with:(double) ferocity;

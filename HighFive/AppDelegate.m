@@ -34,13 +34,7 @@
 - (void) respondToSlap:(double)ferocity from:(NSString*) phone as:(NSString*) name
 {
     ViewController *root = (ViewController*) self.window.rootViewController;
-    [root slapModeFor: name at: phone with: ferocity];
-}
-
-- (void) respondToSlap:(double)ferocity from:(NSString*) phone
-{
-    [self respondToSlap:ferocity from: phone as: phone];
-    
+    [root receiveHighFive: ferocity from: phone as: name];
 }
 
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo

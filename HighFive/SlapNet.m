@@ -53,7 +53,7 @@
 }
 
 +(void) sendNotification:(double) ferocity to:(NSString*) targetId as:(NSString*) name {
-    NSString *uri = [NSString stringWithFormat: @"http://ipsumllc.com/hi5/?id=%@&from=%@&name=%@&jerk=%4.2f", targetId, @"+18603849759", name, ferocity];
+    NSString *uri = [NSString stringWithFormat: @"http://ipsumllc.com/hi5/?to=%@&from=%@&name=%@&jerk=%4.2f", targetId, @"+18603849759", name, ferocity];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: uri]
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -67,21 +67,13 @@
     
     NSString *judgement = @"passable";
     
-    if(m > 8) {
-        judgement = @"tremendous";
-    } else if(m > 7) {
-        judgement = @"fierce";
-    } else if(m > 6) {
-        judgement = @"braggable";
-    } else if(m > 5) {
-        judgement = @"strong";
-    } else if(m > 4) {
-        judgement = @"aggressive";
-    } else if(m > 3) {
-        judgement = @"strong";
-    } else if(m > 2) {
-        judgement = @"solid";
-    }
+    if(m > 8)      { judgement = @"tremendous"; }
+    else if(m > 7) { judgement = @"fierce"; }
+    else if(m > 6) { judgement = @"braggable"; }
+    else if(m > 5) { judgement = @"strong"; }
+    else if(m > 4) { judgement = @"aggressive"; }
+    else if(m > 3) { judgement = @"strong"; }
+    else if(m > 2) { judgement = @"solid"; }
     
     return judgement;
 }

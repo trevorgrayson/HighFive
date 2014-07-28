@@ -15,10 +15,13 @@
 @implementation ViewController
 @synthesize targetAddress;
 @synthesize imagePicker;
+@synthesize textArea;
 
 //TODO ENUMs
 int kWAITING_MODE =0;
 int kSLAP_MODE = 1;
+
+NSString *userName = nil;
 
 - (void)viewDidLoad
 {
@@ -37,7 +40,8 @@ int kSLAP_MODE = 1;
         if(error){ NSLog(@"%@", error); }
     }];
     //[self configureCamera];
-
+    [self checkUserName];
+    
     //GYRO DATA
     //[self.motionManager startGyroUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
     //[self outputRotationData:gyroData.rotationRate]; }];
@@ -46,29 +50,55 @@ int kSLAP_MODE = 1;
     [self.hand addGestureRecognizer: tap];
 }
 
+- (void) receiveHighFive:(double) ferocity from:(NSString*) contact as:(NSString *)name
+{
+    [self slapModeFor: name at: contact with:ferocity];
+}
+
+//f(x)
+-(void) checkUserName
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    userName = [prefs valueForKey: @"username"];
+    NSLog(@"Hello, %@", userName);
+    
+    if( [userName length] == 0 ) {
+        [self whoAreYou];
+    } else {
+        textArea.text = userName;
+        [textArea setHidden: YES];
+    }
+}
+
+-(void) whoAreYou
+{
+    [textArea setHidden: NO];
+}
+
+- (void) setUserName:(NSString*) name {
+    userName = name;
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject: userName forKey:@"username"];
+}
+
+- (void) slapModeFor:(NSString*) name at:(NSString*) phone with:(double) ferocity
+{
+    self.fiveCompanion.text = name;
+    targetAddress = phone;
+    uiMode = kSLAP_MODE;
+}
+
+- (void) waitingMode {
+    uiMode = kWAITING_MODE;
+    self.fiveCompanion.text = @"Tap to Slap";
+}
+
+//screen touch
 - (IBAction)screenTap:(UITapGestureRecognizer*)sender {
     if (uiMode == kWAITING_MODE) {
         ABPeoplePickerNavigationController *picker =[[ABPeoplePickerNavigationController alloc] init];
         picker.peoplePickerDelegate = self;
         [self presentViewController: picker animated:YES completion:nil];
-    }
-}
-
--(void)outputAccelertionData:(CMAcceleration)acceleration
-{
-    currentMaxAccelX = MAX(fabs(acceleration.x), currentMaxAccelX);
-    currentMaxAccelY = MAX(fabs(acceleration.y), currentMaxAccelY);
-    currentMaxAccelZ = MAX(fabs(acceleration.z), currentMaxAccelZ);
-    
-    if ( uiMode == kSLAP_MODE && [Slapperometer slapCheck:acceleration] ) {
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-        
-        //self.slapDebug.text = [NSString stringWithFormat: @"SLAP! %4.2f, %4.2f %4.2f", currentMaxAccelX, currentMaxAccelY, currentMaxAccelZ];
-        //[imagePicker takePicture];
-       
-        [SlapNet sendSlap: currentMaxAccelZ to: targetAddress as: @"I.O.U.NAME"];
-
-        [self waitingMode];
     }
 }
 
@@ -78,14 +108,19 @@ int kSLAP_MODE = 1;
     currentMaxAccelZ = 0;
 }
 
-- (void) receiveHighFive:(double) ferocity from:(NSString*) contact as:(NSString *)name
+//accelerometer
+-(void)outputAccelertionData:(CMAcceleration)acceleration
 {
-    [self slapModeFor: name at: contact with:ferocity];
-}
-
-- (void) waitingMode {
-    uiMode = kWAITING_MODE;
-    self.fiveCompanion.text = @"Tap to Slap";
+    currentMaxAccelX = MAX(fabs(acceleration.x), currentMaxAccelX);
+    currentMaxAccelY = MAX(fabs(acceleration.y), currentMaxAccelY);
+    currentMaxAccelZ = MAX(fabs(acceleration.z), currentMaxAccelZ);
+    
+    if ( uiMode == kSLAP_MODE && [Slapperometer slapCheck:acceleration] ) {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        //[imagePicker takePicture];
+        [SlapNet sendSlap: currentMaxAccelZ to: targetAddress as: userName];
+        [self waitingMode];
+    }
 }
 
 //PEOPLE PICKER
@@ -146,13 +181,6 @@ int kSLAP_MODE = 1;
     return NO;
 }
 
-- (void) slapModeFor:(NSString*) name at:(NSString*) phone with:(double) ferocity
-{
-    self.fiveCompanion.text = name;
-    targetAddress = phone;
-    uiMode = kSLAP_MODE;
-}
-
 - (BOOL)peoplePickerNavigationController:
 (ABPeoplePickerNavigationController *)peoplePicker
       shouldContinueAfterSelectingPerson:(ABRecordRef)person
@@ -162,13 +190,12 @@ int kSLAP_MODE = 1;
     return NO;
 }
 
-//MESSAGE
-
+//SMS MESSAGE Compose
 -(void) messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 { [self dismissViewControllerAnimated:YES completion:nil];}
 
 //image capture
-
+/*
 - (void) configureCamera
 {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -198,6 +225,13 @@ int kSLAP_MODE = 1;
     UIImageView *iv = [[UIImageView alloc] initWithImage:image];
     [self.view addSubview: iv];
     
-}
+}*/
 
+//textfield
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self setUserName: textField.text];
+    [textField resignFirstResponder];
+    return NO;
+}
 @end
