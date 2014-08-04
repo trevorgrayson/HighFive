@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 @interface HandWidget : UIImageView
 
-- (id) initWithCount:(NSInteger) count andFrame:(CGRect)frame;
+- (id) initWithCount:(int) count andFrame:(CGRect)frame;
 
+@property int count;
+@property double maxSlapFerocity;
+
+@property (nonatomic, weak) User *user;
 @end

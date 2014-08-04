@@ -10,9 +10,12 @@
 #import "SlapNet.h"
 #import "ViewController.h"
 #import "Slap.h"
+#import "User.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property int notificationCount;
 
 @end

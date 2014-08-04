@@ -23,7 +23,6 @@
 		D92667A5197A42120096B50C /* HighFiveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667A4197A42120096B50C /* HighFiveTests.m */; };
 		D92667AF197A44DE0096B50C /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667AE197A44DE0096B50C /* CoreMotion.framework */; };
 		D92667B2197AC6DB0096B50C /* Slapperometer.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667B1197AC6DB0096B50C /* Slapperometer.m */; };
-		D92667B4197AD1A40096B50C /* internet-high-five.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D92667B3197AD1A40096B50C /* internet-high-five.jpeg */; };
 		D92667B7197AD3610096B50C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667B5197AD3600096B50C /* AddressBook.framework */; };
 		D92667B8197AD3610096B50C /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667B6197AD3610096B50C /* AddressBookUI.framework */; };
 		D92667BA197ADB770096B50C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667B9197ADB770096B50C /* AudioToolbox.framework */; };
@@ -32,6 +31,8 @@
 		D92667C3197C6E550096B50C /* Slap.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667C2197C6E550096B50C /* Slap.m */; };
 		D92667C5197CBE4F0096B50C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667C4197CBE4F0096B50C /* GameKit.framework */; };
 		D96F2F2E198681EA00A41A6E /* HandWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = D96F2F2D198681EA00A41A6E /* HandWidget.m */; };
+		D96F2F31198B7FED00A41A6E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D96F2F30198B7FED00A41A6E /* User.m */; };
+		D96F2F33198BC07900A41A6E /* internet-high-five.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D96F2F32198BC07900A41A6E /* internet-high-five.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +68,6 @@
 		D92667AE197A44DE0096B50C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		D92667B0197AC6DB0096B50C /* Slapperometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slapperometer.h; sourceTree = "<group>"; };
 		D92667B1197AC6DB0096B50C /* Slapperometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slapperometer.m; sourceTree = "<group>"; };
-		D92667B3197AD1A40096B50C /* internet-high-five.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "internet-high-five.jpeg"; sourceTree = "<group>"; };
 		D92667B5197AD3600096B50C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		D92667B6197AD3610096B50C /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		D92667B9197ADB770096B50C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -79,6 +79,9 @@
 		D92667C4197CBE4F0096B50C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		D96F2F2C198681EA00A41A6E /* HandWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandWidget.h; sourceTree = "<group>"; };
 		D96F2F2D198681EA00A41A6E /* HandWidget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandWidget.m; sourceTree = "<group>"; };
+		D96F2F2F198B7FED00A41A6E /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		D96F2F30198B7FED00A41A6E /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		D96F2F32198BC07900A41A6E /* internet-high-five.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "internet-high-five.jpeg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +168,8 @@
 				D92667C2197C6E550096B50C /* Slap.m */,
 				D96F2F2C198681EA00A41A6E /* HandWidget.h */,
 				D96F2F2D198681EA00A41A6E /* HandWidget.m */,
+				D96F2F2F198B7FED00A41A6E /* User.h */,
+				D96F2F30198B7FED00A41A6E /* User.m */,
 			);
 			path = HighFive;
 			sourceTree = "<group>";
@@ -172,7 +177,7 @@
 		D9266780197A42110096B50C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D92667B3197AD1A40096B50C /* internet-high-five.jpeg */,
+				D96F2F32198BC07900A41A6E /* internet-high-five.jpeg */,
 				D9266781197A42110096B50C /* HighFive-Info.plist */,
 				D9266782197A42110096B50C /* InfoPlist.strings */,
 				D9266785197A42110096B50C /* main.m */,
@@ -283,7 +288,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D92667B4197AD1A40096B50C /* internet-high-five.jpeg in Resources */,
+				D96F2F33198BC07900A41A6E /* internet-high-five.jpeg in Resources */,
 				D9266792197A42120096B50C /* Images.xcassets in Resources */,
 				D9266784197A42110096B50C /* InfoPlist.strings in Resources */,
 				D926678D197A42120096B50C /* Main.storyboard in Resources */,
@@ -305,6 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D96F2F31198B7FED00A41A6E /* User.m in Sources */,
 				D96F2F2E198681EA00A41A6E /* HandWidget.m in Sources */,
 				D9266790197A42120096B50C /* ViewController.m in Sources */,
 				D92667B2197AC6DB0096B50C /* Slapperometer.m in Sources */,

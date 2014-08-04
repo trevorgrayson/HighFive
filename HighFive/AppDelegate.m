@@ -10,6 +10,8 @@
 
 @implementation AppDelegate
 
+@synthesize notificationCount;
+
 //- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
@@ -21,37 +23,40 @@
     double fierocity = [urlArray[0] doubleValue];
     NSString *senderId = urlArray[1];
     NSString *name = senderId;
+    User *slapper = [[User alloc] init:name with:senderId];
 
     if([urlArray count] > 2) {
         name = urlArray[2];
     }
-    
-    [root receiveHighFive:fierocity from:senderId as: name];
 
+    [root receiveHighFive:fierocity from: slapper];
     return YES;
-}
-
-- (void) respondToSlap:(double)ferocity from:(NSString*) phone as:(NSString*) name
-{
-    ViewController *root = (ViewController*) self.window.rootViewController;
-    [root receiveHighFive: ferocity from: phone as: name];
 }
 
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
+    notificationCount++;
     
     NSDictionary *slap = [userInfo valueForKeyPath:@"slap"];
     
     NSString *phone = [slap valueForKeyPath:@"id"];
     NSString *name = [slap valueForKeyPath:@"name"];
     double jerk = [[slap valueForKeyPath:@"jerk"] doubleValue];
+    
+    User *slapper = [[User alloc] init: name with: phone];
 
     //if(UIApplication.application.state){ // 
-    [self respondToSlap: jerk from: phone as: name];
+    [self respondToSlap: jerk from: slapper];
     NSString *msg = [NSString stringWithFormat:@"%@ high fived you!", name];
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Slap!!" message: msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
     
+}
+
+
+- (void) respondToSlap:(double)ferocity from:(User*) user {
+    ViewController *root = (ViewController*) self.window.rootViewController;
+    [root receiveHighFive:ferocity from:user];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -78,10 +83,10 @@
 	NSLog(@"Failed to get token, error: %@", error);
 }
 
-
-
-
-
+-(void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Memory warning, bro." message:@"Close some apps guy, your device is out of control." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+}
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {

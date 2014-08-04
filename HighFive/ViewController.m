@@ -13,9 +13,9 @@
 @end
 
 @implementation ViewController
-@synthesize targetAddress;
+@synthesize messages;
+@synthesize targetRecipient;
 @synthesize imagePicker;
-@synthesize textArea;
 
 //TODO ENUMs
 int kWAITING_MODE =0;
@@ -27,9 +27,10 @@ NSString *userName = nil;
 {
     [super viewDidLoad];
     
+    messages = [[NSMutableDictionary alloc] init];
     [self reset:nil];
     [self waitingMode];
-    targetAddress = @"";
+    targetRecipient = nil;
     
     self.motionManager = [[CMMotionManager alloc] init];
     self.motionManager.accelerometerUpdateInterval = .2;
@@ -42,12 +43,6 @@ NSString *userName = nil;
     //[self configureCamera];
     [self checkUserName];
     
-    HandWidget *hw = [[HandWidget alloc] initWithCount: 5
-                                              andFrame: CGRectMake(self.view.frame.origin.x + 2,
-                                                                   self.view.frame.origin.y +
-                                                                   self.view.frame.size.height - 50 - 2,
-                                                                   50, 50)];
-    [self.view addSubview: hw];
     //GYRO DATA
     //[self.motionManager startGyroUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
     //[self outputRotationData:gyroData.rotationRate]; }];
@@ -56,29 +51,67 @@ NSString *userName = nil;
     [self.hand addGestureRecognizer: tap];
 }
 
-- (void) receiveHighFive:(double) ferocity from:(NSString*) contact as:(NSString *)name
+- (void) receiveHighFive:(double) ferocity from:(User*) user
 {
-    [self slapModeFor: name at: contact with:ferocity];
+    //[self slapModeFor: name at: contact with:ferocity];
+    NSNumber *newValue;
+    
+    if( [messages objectForKey: user.name] == nil ) {
+        newValue = [NSNumber numberWithInt:1];
+    } else {
+        NSNumber *currentCount = [messages valueForKey: user.name];
+        newValue = [NSNumber numberWithInt: [currentCount intValue] + 1];
+    }
+    
+    [messages setValue: newValue forKey: user.name];
+    
+    HandWidget *hw = [[HandWidget alloc] initWithCount: [newValue intValue]
+                                              andFrame: CGRectMake(self.view.frame.origin.x + 2,
+                                                                   self.view.frame.origin.y +
+                                                                   self.view.frame.size.height - 50 - 2,
+                                                                   50, 50)];
+    [self.view addSubview: hw];
+    
+    hw.userInteractionEnabled = YES;
+    hw.user = user;
+    hw.count = [newValue intValue];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    [hw addGestureRecognizer: tap];
 }
 
 //f(x)
+
+-(void) tap:(id) sender {
+    HandWidget *hw = (HandWidget*) sender;
+    [self slapModeFor: hw.user with: 1.2];
+}
+
 -(void) checkUserName
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     userName = [prefs valueForKey: @"username"];
     NSLog(@"Hello, %@", userName);
-    
-    if( [userName length] == 0 ) {
-        [self whoAreYou];
-    } else {
-        textArea.text = userName;
-        [textArea setHidden: YES];
-    }
 }
 
 -(void) whoAreYou
 {
-    [textArea setHidden: NO];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Five!" message:@"Nice slap, guy. What's your name bro?" delegate:self cancelButtonTitle:@"Nevermind" otherButtonTitles:@"Done", nil];
+    [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
+    [alert show];
+}
+-(void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    UITextField *textField = [alertView textFieldAtIndex:0];
+
+    switch (buttonIndex) {
+        case 1:
+            [self setUserName: textField.text];
+            [self sendSlap];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void) setUserName:(NSString*) name {
@@ -87,10 +120,9 @@ NSString *userName = nil;
     [prefs setObject: userName forKey:@"username"];
 }
 
-- (void) slapModeFor:(NSString*) name at:(NSString*) phone with:(double) ferocity
-{
-    self.fiveCompanion.text = name;
-    targetAddress = phone;
+- (void) slapModeFor:(User*) user with:(double) ferocity {
+    self.fiveCompanion.text = user.name;
+    targetRecipient = user;
     uiMode = kSLAP_MODE;
 }
 
@@ -124,18 +156,25 @@ NSString *userName = nil;
     if ( uiMode == kSLAP_MODE && [Slapperometer slapCheck:acceleration] ) {
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         //[imagePicker takePicture];
-        [SlapNet sendSlap: currentMaxAccelZ to: targetAddress as: userName];
+        [self sendSlap];
         [self waitingMode];
     }
 }
 
+-(void) sendSlap {
+    NSLog(@"username: %@", userName);
+    if( [userName length] == 0 ) {
+        [self whoAreYou];
+    } else {
+        [SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
+    }
+}
 //PEOPLE PICKER
 -(void) peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (BOOL)peoplePickerNavigationController:
-(ABPeoplePickerNavigationController *)peoplePicker
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
       shouldContinueAfterSelectingPerson:(ABRecordRef)person {
     
     NSString* name = (__bridge_transfer NSString*)ABRecordCopyValue(person,kABPersonFirstNameProperty);
@@ -145,13 +184,21 @@ NSString *userName = nil;
     NSMutableDictionary *contactInfoDict = [[NSMutableDictionary alloc] initWithObjects:@[@"", @""] forKeys:@[@"mobileNumber", @"homeNumber",]];
     
     ABMultiValueRef *phones = ABRecordCopyValue(person, kABPersonPhoneProperty);
+    NSLog(@"Phone Count: %ld",  ABMultiValueGetCount(phones));
     for(CFIndex j = 0; j < ABMultiValueGetCount(phones); j++)
     {
         CFStringRef currentPhoneLabel = ABMultiValueCopyLabelAtIndex(phones, j);
         CFStringRef currentPhoneValue = ABMultiValueCopyValueAtIndex(phones, j);
         
+        NSLog(@"Phone maybe (%@)", (__bridge NSString *)currentPhoneValue);
+        if (j == 0) {
+            [contactInfoDict setObject:(__bridge NSString *)currentPhoneValue forKey:@"mobileNumber"];
+            phone = (__bridge NSString *)currentPhoneValue;
+        }
         if (CFStringCompare(currentPhoneLabel, kABPersonPhoneMobileLabel, 0) == kCFCompareEqualTo) {
             [contactInfoDict setObject:(__bridge NSString *)currentPhoneValue forKey:@"mobileNumber"];
+            phone = (__bridge NSString *)currentPhoneValue;
+            continue;
         }
         
         if (CFStringCompare(currentPhoneLabel, kABHomeLabel, 0) == kCFCompareEqualTo) {
@@ -163,10 +210,6 @@ NSString *userName = nil;
     }
     
     if ([phone isEqual:@""]) {
-        phone = [contactInfoDict valueForKeyPath:@"mobileNumber"];
-    }
-    
-    if ([phone isEqual:@""]) {
         phone = [contactInfoDict valueForKeyPath:@"homeNumber"];
     }
     
@@ -174,7 +217,8 @@ NSString *userName = nil;
     NSLog(@"(%@)", phone);
     
     if ( [phone length] > 0) {
-        [self slapModeFor:name at:phone with: 0];
+        User  *target = [[User alloc] init: name with: phone];
+        [self slapModeFor:target with: 0];
     } else {
         NSString *msg = [NSString stringWithFormat:@"It looks like %@ doesn't have a phone number", name];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Woah Dawg" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -23,9 +24,12 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="internet-high-five.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="XJp-mT-oJ6">
-                                <rect key="frame" x="-8" y="83" width="320" height="401"/>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="internet-high-five.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="XJp-mT-oJ6">
+                                <rect key="frame" x="10" y="74" width="300" height="379"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="XJp-mT-oJ6" secondAttribute="height" multiplier="300:379" id="P4R-G6-Q9H"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap to Slap" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSt-am-sJL">
                                 <rect key="frame" x="75" y="336" width="170" height="27"/>
@@ -33,32 +37,46 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="WHO ARE YOU?" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QFr-cb-efL">
-                                <rect key="frame" x="61" y="39" width="198" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <attributedString key="attributedText"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" enablesReturnKeyAutomatically="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="Bo4-pM-WVv"/>
-                                </connections>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="XJp-mT-oJ6" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="Cmr-Zn-rNv"/>
+                            <constraint firstAttribute="centerY" secondItem="XJp-mT-oJ6" secondAttribute="centerY" id="JFN-95-Jys"/>
+                            <constraint firstAttribute="centerX" secondItem="XJp-mT-oJ6" secondAttribute="centerX" id="Ss3-Sy-ROU"/>
+                            <constraint firstAttribute="trailing" secondItem="XJp-mT-oJ6" secondAttribute="trailing" constant="10" id="f5E-bE-lQa"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="fiveCompanion" destination="rSt-am-sJL" id="Cfk-vh-tGQ"/>
                         <outlet property="hand" destination="XJp-mT-oJ6" id="bbF-6M-hhc"/>
                         <outlet property="slapDebug" destination="1TU-lU-aoL" id="n71-JV-OMc"/>
-                        <outlet property="textArea" destination="QFr-cb-efL" id="KsV-8X-fno"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="efW-xy-sj3">
+            <objects>
+                <viewController id="XWe-rs-TGd" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KYH-qA-qdf"/>
+                        <viewControllerLayoutGuide type="bottom" id="8hd-HO-RPe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uhL-Qa-Ba2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ao6-0Q-EZn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="825" y="17"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="internet-high-five.jpeg" width="600" height="556"/>
+        <image name="internet-high-five.jpeg" width="575" height="556"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

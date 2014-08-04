@@ -10,6 +10,9 @@
 
 @implementation HandWidget
 
+@synthesize count;
+@synthesize user;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -17,13 +20,17 @@
         self.image = [UIImage imageNamed:@"internet-high-five.jpeg"];
         self.backgroundColor = [UIColor greenColor];
         //self.frame = CGRectMake(0, 0, 50, 50);
+        
     }
     return self;
 }
 
-- (id) initWithCount:(NSInteger) count andFrame:(CGRect)frame
+- (id) initWithCount:(int) c andFrame:(CGRect)frame
 {
+    count = c;
+    
     self = [self initWithFrame:frame];
+
     if (self) {
         UILabel *cLbl = [[UILabel alloc] init];
         cLbl.text = [NSString stringWithFormat:@"%d", count];
@@ -34,7 +41,9 @@
                                 self.frame.size.height);
         cLbl.textAlignment = NSTextAlignmentCenter;
         [self addSubview: cLbl];
+        
     }
     return self;
 }
+
 @end
