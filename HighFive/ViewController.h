@@ -25,6 +25,8 @@ int uiMode;
 @interface ViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
     UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *nameTag;
+
 @property (strong, nonatomic) NSMutableDictionary *messages;
 @property (strong, nonatomic) CMMotionManager *motionManager;
 

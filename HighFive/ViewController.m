@@ -7,19 +7,21 @@
 //
 
 #import "ViewController.h"
+#import "ContactInfoDelegate.h"
 
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
+@synthesize nameTag;
 @synthesize messages;
 @synthesize targetRecipient;
 @synthesize imagePicker;
 
 //TODO ENUMs
-int kWAITING_MODE =0;
-int kSLAP_MODE = 1;
+int kWAITING_MODE = 0;
+int kSLAP_MODE    = 1;
 
 NSString *userName = nil;
 
@@ -49,6 +51,20 @@ NSString *userName = nil;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(screenTap:)];
     [self.hand addGestureRecognizer: tap];
+    
+    UIAlertView* contactInfoDel = [ContactInfoDelegate checkForContactInfo];
+    if( contactInfoDel ) {
+        [contactInfoDel show];
+    }
+}
+
+- (void) setName:(NSString*) name
+{
+    [nameTag setTitle: name forState:UIControlStateNormal];
+}
+
+- (IBAction)changeName:(id)sender {
+    [self whoAreYou];
 }
 
 - (void) receiveHighFive:(double) ferocity from:(User*) user
@@ -90,15 +106,21 @@ NSString *userName = nil;
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     userName = [prefs valueForKey: @"username"];
+    
+    if( [userName length] == 0 ) {
+        [self whoAreYou];
+    }
+    [self setName:userName];
     NSLog(@"Hello, %@", userName);
 }
 
 -(void) whoAreYou
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Five!" message:@"Nice slap, guy. What's your name bro?" delegate:self cancelButtonTitle:@"Nevermind" otherButtonTitles:@"Done", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Five!" message:@"What's your name bro?" delegate:self cancelButtonTitle:@"Nevermind" otherButtonTitles:@"Done", nil];
     [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
     [alert show];
 }
+
 -(void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     
     UITextField *textField = [alertView textFieldAtIndex:0];
@@ -106,7 +128,7 @@ NSString *userName = nil;
     switch (buttonIndex) {
         case 1:
             [self setUserName: textField.text];
-            [self sendSlap];
+            //[self sendSlap];
             break;
             
         default:
@@ -116,8 +138,14 @@ NSString *userName = nil;
 
 - (void) setUserName:(NSString*) name {
     userName = name;
+    [self setName:name];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject: userName forKey:@"username"];
+    [prefs synchronize];
+    NSString *deviceToken = [prefs objectForKey:@"deviceToken"];
+    
+    //TODO
+    [SlapNet registerUser: deviceToken identifiedBy: @"8603849759" as: name];
 }
 
 - (void) slapModeFor:(User*) user with:(double) ferocity {
@@ -182,7 +210,7 @@ NSString *userName = nil;
     //TODO Mobile phone?
     NSString* phone = @"";
     NSMutableDictionary *contactInfoDict = [[NSMutableDictionary alloc] initWithObjects:@[@"", @""] forKeys:@[@"mobileNumber", @"homeNumber",]];
-    
+
     ABMultiValueRef *phones = ABRecordCopyValue(person, kABPersonPhoneProperty);
     NSLog(@"Phone Count: %ld",  ABMultiValueGetCount(phones));
     for(CFIndex j = 0; j < ABMultiValueGetCount(phones); j++)

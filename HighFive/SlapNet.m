@@ -10,26 +10,28 @@
 
 @implementation SlapNet
 
-+(MFMessageComposeViewController*) sendInvite:(double) ferocity to:(User*) user
+NSString *domain = @"http://192.168.0.4:8080";
+
++(InviteController*) sendInvite:(double) ferocity to:(User*) user
 {
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
     
-    MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
-    if([MFMessageComposeViewController canSendText])
+    InviteController *controller = [[InviteController alloc] init];
+    if([InviteController canSendText])
     {
-        controller.body = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Slap me back: hi5://?%4.2f&%@&%@", [self highFiveDescription:ferocity], ferocity, ferocity, user.contact, user.name];
+        controller.body = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Slap me back: %@/invite", [self highFiveDescription:ferocity], ferocity, domain]; //ferocity, user.contact, user.name];
         controller.recipients = [NSArray arrayWithObjects: user.contact, nil];
-        //controller.messageComposeDelegate = self;
-        //[self presentViewController:controller animated:YES completion:nil];
+        controller.messageComposeDelegate = controller;
+        [topController presentViewController: controller animated:YES completion:nil];
 
         return controller;
     }
     return nil;
 }
 
-+(MFMessageComposeViewController*) sendSlap:(double) ferocity to:(User*) user {
++(void) sendSlap:(double) ferocity to:(User*) user {
 
     [self sendNotification: ferocity to: user];
-    return [self sendInvite: ferocity to: user];
 }
 
 + (void) receiveHighFive:(double) ferocity from:(User*) user
@@ -45,14 +47,23 @@
     switch (buttonIndex) {
         case 1:
             break;
-            
         default:
             break;
     }
 }
 
+double pendingFerocity = 0.0;
+User *pendingUser;
+
 +(void) sendNotification:(double) ferocity to:(User*) user {
-    NSString *uri = [NSString stringWithFormat: @"http://ipsumllc.com/hi5/?jerk=%4.2f&to=%@&from=%@&name=%@", ferocity, user.contact, @"+18603849759", user.name];
+    pendingFerocity = ferocity;
+    pendingUser = user;
+
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *fromContact = [prefs objectForKey:@"contact"];
+    [prefs synchronize];
+
+    NSString *uri = [NSString stringWithFormat: @"%@/slap/%@/%@/%4.2f", domain, fromContact, user.contact, ferocity];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: uri]
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -63,9 +74,17 @@
         if (connectionError) {
             UIAlertView *alarm = [[UIAlertView alloc] initWithTitle:@"We left you hanging" message:@"Something prevented us from sending your request, please try again later." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alarm show];
+            NSLog(@"%@", connectionError);
         } else { //TODO confirm 200 response.
-            UIAlertView *confirm = [[UIAlertView alloc] initWithTitle:@"High Five!" message:@"Slap! Nice Five-skis bro." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [confirm show];
+            NSString *body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            if([body isEqual: @"NOT_REGISTERED"]) {
+                [SlapNet sendInvite: pendingFerocity to: pendingUser];
+                //UIAlertView *confirm = [[UIAlertView alloc] initWithTitle:@"High Five!" message:@"Don't know who that is bro." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                //[confirm show];
+            } else {
+                UIAlertView *confirm = [[UIAlertView alloc] initWithTitle:@"Slap!" message:@"Nice Five-skis bro." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [confirm show];
+            }
         }
     }];
 }
@@ -83,6 +102,26 @@
     else if(m > 2) { judgement = @"solid";      }
     
     return judgement;
+}
+
++(void) registerUser:(NSString *) deviceToken identifiedBy:(NSString*) contact as:(NSString*) name {
+    NSString *uri = [NSString stringWithFormat: @"%@/users/%@/%@/%@", domain, contact, name, deviceToken];
+    NSLog(@"%@", uri);
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: uri]
+                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                       timeoutInterval:10];
+    [request setHTTPMethod: @"POST"];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler: ^(NSURLResponse* response, NSData* data, NSError* connectionError) {
+        if (connectionError) {
+            UIAlertView *alarm = [[UIAlertView alloc] initWithTitle:@"We left you hanging" message:@"Something prevented us from registering you, please try again later." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alarm show];
+            NSLog(@"%@", connectionError);
+        } else { //TODO confirm 200 response.
+            NSLog(@"Registered user %@, %@, %@", deviceToken, contact, name);
+        }
+    }];
 }
 
 @end

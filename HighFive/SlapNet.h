@@ -12,12 +12,15 @@
 #import "AppDelegate.h"
 #import "Slap.h"
 #import "User.h"
+#import "InviteController.h"
 
-@interface SlapNet : NSObject <UIAlertViewDelegate>//<MFMessageComposeViewControllerDelegate>
+@interface SlapNet : NSObject <UIAlertViewDelegate>
 
-+(MFMessageComposeViewController*) sendInvite:(double) ferocity to:(User*) user;
++(InviteController*) sendInvite:(double) ferocity to:(User*) user;
 
-+(MFMessageComposeViewController*) sendSlap:(double) ferocity to:(User*) user;
++(void) sendSlap:(double) ferocity to:(User*) user;
 
-+ (void) receiveHighFive:(double) ferocity from:(User*) user;
++(void) receiveHighFive:(double) ferocity from:(User*) user;
+
++(void) registerUser:(NSString *) deviceToken identifiedBy:(NSString*) contact as:(NSString*) name;
 @end

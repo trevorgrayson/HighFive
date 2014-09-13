@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D901C3D519BBE36C004891D6 /* InviteController.m in Sources */ = {isa = PBXBuildFile; fileRef = D901C3D419BBE36C004891D6 /* InviteController.m */; };
 		D926677A197A42110096B50C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9266779197A42110096B50C /* Foundation.framework */; };
 		D926677C197A42110096B50C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D926677B197A42110096B50C /* CoreGraphics.framework */; };
 		D926677E197A42110096B50C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D926677D197A42110096B50C /* UIKit.framework */; };
@@ -30,6 +31,7 @@
 		D92667BF197B36E20096B50C /* SlapNet.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667BE197B36E20096B50C /* SlapNet.m */; };
 		D92667C3197C6E550096B50C /* Slap.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667C2197C6E550096B50C /* Slap.m */; };
 		D92667C5197CBE4F0096B50C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667C4197CBE4F0096B50C /* GameKit.framework */; };
+		D929A9DE19C1482400F7F6C8 /* ContactInfoDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D929A9DD19C1482400F7F6C8 /* ContactInfoDelegate.m */; };
 		D96F2F2E198681EA00A41A6E /* HandWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = D96F2F2D198681EA00A41A6E /* HandWidget.m */; };
 		D96F2F31198B7FED00A41A6E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D96F2F30198B7FED00A41A6E /* User.m */; };
 		D96F2F33198BC07900A41A6E /* internet-high-five.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D96F2F32198BC07900A41A6E /* internet-high-five.jpeg */; };
@@ -46,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D901C3D319BBE36C004891D6 /* InviteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteController.h; sourceTree = "<group>"; };
+		D901C3D419BBE36C004891D6 /* InviteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteController.m; sourceTree = "<group>"; };
 		D9266776197A42110096B50C /* HighFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HighFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9266779197A42110096B50C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D926677B197A42110096B50C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -77,6 +81,8 @@
 		D92667C1197C6E550096B50C /* Slap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slap.h; sourceTree = "<group>"; };
 		D92667C2197C6E550096B50C /* Slap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slap.m; sourceTree = "<group>"; };
 		D92667C4197CBE4F0096B50C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		D929A9DC19C1482400F7F6C8 /* ContactInfoDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactInfoDelegate.h; sourceTree = "<group>"; };
+		D929A9DD19C1482400F7F6C8 /* ContactInfoDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactInfoDelegate.m; sourceTree = "<group>"; };
 		D96F2F2C198681EA00A41A6E /* HandWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandWidget.h; sourceTree = "<group>"; };
 		D96F2F2D198681EA00A41A6E /* HandWidget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandWidget.m; sourceTree = "<group>"; };
 		D96F2F2F198B7FED00A41A6E /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -153,23 +159,22 @@
 		D926677F197A42110096B50C /* HighFive */ = {
 			isa = PBXGroup;
 			children = (
+				D929A9DB19C147F400F7F6C8 /* Delegates */,
 				D9266788197A42110096B50C /* AppDelegate.h */,
 				D9266789197A42110096B50C /* AppDelegate.m */,
 				D926678B197A42110096B50C /* Main.storyboard */,
 				D926678E197A42120096B50C /* ViewController.h */,
 				D926678F197A42120096B50C /* ViewController.m */,
 				D9266791197A42120096B50C /* Images.xcassets */,
-				D9266780197A42110096B50C /* Supporting Files */,
 				D92667B0197AC6DB0096B50C /* Slapperometer.h */,
 				D92667B1197AC6DB0096B50C /* Slapperometer.m */,
 				D92667BD197B36E20096B50C /* SlapNet.h */,
 				D92667BE197B36E20096B50C /* SlapNet.m */,
-				D92667C1197C6E550096B50C /* Slap.h */,
-				D92667C2197C6E550096B50C /* Slap.m */,
-				D96F2F2C198681EA00A41A6E /* HandWidget.h */,
-				D96F2F2D198681EA00A41A6E /* HandWidget.m */,
-				D96F2F2F198B7FED00A41A6E /* User.h */,
-				D96F2F30198B7FED00A41A6E /* User.m */,
+				D96F2F35198F552D00A41A6E /* Views */,
+				D96F2F34198F552000A41A6E /* Models */,
+				D9266780197A42110096B50C /* Supporting Files */,
+				D901C3D319BBE36C004891D6 /* InviteController.h */,
+				D901C3D419BBE36C004891D6 /* InviteController.m */,
 			);
 			path = HighFive;
 			sourceTree = "<group>";
@@ -202,6 +207,35 @@
 				D92667A1197A42120096B50C /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D929A9DB19C147F400F7F6C8 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				D929A9DC19C1482400F7F6C8 /* ContactInfoDelegate.h */,
+				D929A9DD19C1482400F7F6C8 /* ContactInfoDelegate.m */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
+		D96F2F34198F552000A41A6E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D92667C1197C6E550096B50C /* Slap.h */,
+				D92667C2197C6E550096B50C /* Slap.m */,
+				D96F2F2F198B7FED00A41A6E /* User.h */,
+				D96F2F30198B7FED00A41A6E /* User.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		D96F2F35198F552D00A41A6E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D96F2F2C198681EA00A41A6E /* HandWidget.h */,
+				D96F2F2D198681EA00A41A6E /* HandWidget.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,7 +351,9 @@
 				D92667BF197B36E20096B50C /* SlapNet.m in Sources */,
 				D926678A197A42110096B50C /* AppDelegate.m in Sources */,
 				D9266786197A42110096B50C /* main.m in Sources */,
+				D929A9DE19C1482400F7F6C8 /* ContactInfoDelegate.m in Sources */,
 				D92667C3197C6E550096B50C /* Slap.m in Sources */,
+				D901C3D519BBE36C004891D6 /* InviteController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

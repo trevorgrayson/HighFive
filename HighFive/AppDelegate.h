@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SlapNet.h"
 #import "ViewController.h"
-#import "Slap.h"
 #import "User.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>

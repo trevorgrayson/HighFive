@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "User.h"
 
 @interface Slap : NSObject
 
-@property (weak, nonatomic) NSString *name;
+@property (weak, nonatomic) User *slapper;
 @property double ferocity;
 @end
