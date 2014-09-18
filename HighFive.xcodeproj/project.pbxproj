@@ -35,6 +35,8 @@
 		D96F2F2E198681EA00A41A6E /* HandWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = D96F2F2D198681EA00A41A6E /* HandWidget.m */; };
 		D96F2F31198B7FED00A41A6E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D96F2F30198B7FED00A41A6E /* User.m */; };
 		D96F2F33198BC07900A41A6E /* internet-high-five.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D96F2F32198BC07900A41A6E /* internet-high-five.jpeg */; };
+		D981A70A19C7EF400056EC71 /* Invitron.m in Sources */ = {isa = PBXBuildFile; fileRef = D981A70919C7EF400056EC71 /* Invitron.m */; };
+		D9CC14B719C6668E00D6761B /* AddressLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CC14B619C6668E00D6761B /* AddressLookup.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +90,10 @@
 		D96F2F2F198B7FED00A41A6E /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		D96F2F30198B7FED00A41A6E /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		D96F2F32198BC07900A41A6E /* internet-high-five.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "internet-high-five.jpeg"; sourceTree = "<group>"; };
+		D981A70819C7EF400056EC71 /* Invitron.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Invitron.h; sourceTree = "<group>"; };
+		D981A70919C7EF400056EC71 /* Invitron.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invitron.m; sourceTree = "<group>"; };
+		D9CC14B519C6668E00D6761B /* AddressLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressLookup.h; sourceTree = "<group>"; };
+		D9CC14B619C6668E00D6761B /* AddressLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressLookup.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,22 +165,18 @@
 		D926677F197A42110096B50C /* HighFive */ = {
 			isa = PBXGroup;
 			children = (
-				D929A9DB19C147F400F7F6C8 /* Delegates */,
 				D9266788197A42110096B50C /* AppDelegate.h */,
 				D9266789197A42110096B50C /* AppDelegate.m */,
+				D9CC14B919C6AEFC00D6761B /* Com */,
+				D9CC14B819C6AEE700D6761B /* Utilities */,
+				D929A9DB19C147F400F7F6C8 /* Delegates */,
 				D926678B197A42110096B50C /* Main.storyboard */,
 				D926678E197A42120096B50C /* ViewController.h */,
 				D926678F197A42120096B50C /* ViewController.m */,
 				D9266791197A42120096B50C /* Images.xcassets */,
-				D92667B0197AC6DB0096B50C /* Slapperometer.h */,
-				D92667B1197AC6DB0096B50C /* Slapperometer.m */,
-				D92667BD197B36E20096B50C /* SlapNet.h */,
-				D92667BE197B36E20096B50C /* SlapNet.m */,
 				D96F2F35198F552D00A41A6E /* Views */,
 				D96F2F34198F552000A41A6E /* Models */,
 				D9266780197A42110096B50C /* Supporting Files */,
-				D901C3D319BBE36C004891D6 /* InviteController.h */,
-				D901C3D419BBE36C004891D6 /* InviteController.m */,
 			);
 			path = HighFive;
 			sourceTree = "<group>";
@@ -236,6 +238,30 @@
 				D96F2F2D198681EA00A41A6E /* HandWidget.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		D9CC14B819C6AEE700D6761B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D9CC14B519C6668E00D6761B /* AddressLookup.h */,
+				D9CC14B619C6668E00D6761B /* AddressLookup.m */,
+				D92667B0197AC6DB0096B50C /* Slapperometer.h */,
+				D92667B1197AC6DB0096B50C /* Slapperometer.m */,
+				D981A70819C7EF400056EC71 /* Invitron.h */,
+				D981A70919C7EF400056EC71 /* Invitron.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		D9CC14B919C6AEFC00D6761B /* Com */ = {
+			isa = PBXGroup;
+			children = (
+				D92667BD197B36E20096B50C /* SlapNet.h */,
+				D92667BE197B36E20096B50C /* SlapNet.m */,
+				D901C3D319BBE36C004891D6 /* InviteController.h */,
+				D901C3D419BBE36C004891D6 /* InviteController.m */,
+			);
+			name = Com;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,6 +372,8 @@
 			files = (
 				D96F2F31198B7FED00A41A6E /* User.m in Sources */,
 				D96F2F2E198681EA00A41A6E /* HandWidget.m in Sources */,
+				D981A70A19C7EF400056EC71 /* Invitron.m in Sources */,
+				D9CC14B719C6668E00D6761B /* AddressLookup.m in Sources */,
 				D9266790197A42120096B50C /* ViewController.m in Sources */,
 				D92667B2197AC6DB0096B50C /* Slapperometer.m in Sources */,
 				D92667BF197B36E20096B50C /* SlapNet.m in Sources */,

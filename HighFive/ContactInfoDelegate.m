@@ -17,7 +17,7 @@ NSString *key = @"contact";
     NSString *contact = [prefs objectForKey: key];
     
     if (contact == nil) {
-        ContactInfoDelegate *alert = [[ContactInfoDelegate alloc] initWithTitle:@"Hello" message:@"To get started, please enter the phone number on this device" delegate: nil cancelButtonTitle:@"I'm out" otherButtonTitles:@"Done", nil];
+        ContactInfoDelegate *alert = [[ContactInfoDelegate alloc] initWithTitle:@"Hello" message:@"To get started, please enter the phone number for this device" delegate: nil cancelButtonTitle:@"I'm out" otherButtonTitles:@"Done", nil];
         [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
         [alert setDelegate: alert];
         UITextField * textField = [alert textFieldAtIndex:0];

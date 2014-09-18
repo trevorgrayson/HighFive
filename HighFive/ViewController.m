@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "ContactInfoDelegate.h"
+#import "AddressLookup.h"
 
 @interface ViewController ()
 
@@ -43,7 +44,7 @@ NSString *userName = nil;
         if(error){ NSLog(@"%@", error); }
     }];
     //[self configureCamera];
-    [self checkUserName];
+    //[self checkUserName];
     
     //GYRO DATA
     //[self.motionManager startGyroUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
@@ -116,7 +117,7 @@ NSString *userName = nil;
 
 -(void) whoAreYou
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Five!" message:@"What's your name bro?" delegate:self cancelButtonTitle:@"Nevermind" otherButtonTitles:@"Done", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Five!" message:@"What's your name bro?" delegate:self cancelButtonTitle:@"Burn" otherButtonTitles:@"Hello", nil];
     [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
     [alert show];
 }
@@ -191,11 +192,11 @@ NSString *userName = nil;
 
 -(void) sendSlap {
     NSLog(@"username: %@", userName);
-    if( [userName length] == 0 ) {
-        [self whoAreYou];
-    } else {
+//    if( [userName length] == 0 ) {
+//        [self whoAreYou];
+//    } else {
         [SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
-    }
+//    }
 }
 //PEOPLE PICKER
 -(void) peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker {

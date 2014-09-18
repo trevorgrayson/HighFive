@@ -10,7 +10,7 @@
 
 @implementation SlapNet
 
-NSString *domain = @"http://192.168.0.4:8080";
+NSString *domain = @"http://ipsumllc.com:8080";
 
 +(InviteController*) sendInvite:(double) ferocity to:(User*) user
 {
@@ -104,8 +104,17 @@ User *pendingUser;
     return judgement;
 }
 
++(void) registerUser:(NSString *) deviceToken identifiedBy:(NSString *)contact {
+    [self registerUser:deviceToken identifiedBy: contact as:nil];
+}
+
 +(void) registerUser:(NSString *) deviceToken identifiedBy:(NSString*) contact as:(NSString*) name {
-    NSString *uri = [NSString stringWithFormat: @"%@/users/%@/%@/%@", domain, contact, name, deviceToken];
+    NSString *uri =[NSString stringWithFormat: @"%@/users/%@/%@", domain, contact, deviceToken];
+
+    if( contact != nil) {
+        uri = [NSString stringWithFormat: @"%@/users/%@/%@/%@", domain, contact, name, deviceToken];
+    }
+
     NSLog(@"%@", uri);
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: uri]

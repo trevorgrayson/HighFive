@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "AddressLookup.h"
 
 @implementation AppDelegate
 
@@ -15,6 +16,9 @@
 //- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    //ensure/request deviceToken
+    //if invite link = get link from invite code
+    //[SlapNet registerUser: @"" identifiedBy:@""];
     ViewController *root = (ViewController*) self.window.rootViewController;
     
     //if [url path] == ridiculous
@@ -40,7 +44,8 @@
     NSDictionary *slap = [userInfo valueForKeyPath:@"slap"];
     
     NSString *phone = [slap valueForKeyPath:@"id"];
-    NSString *name = [slap valueForKeyPath:@"name"];
+    //NSString *name = [slap valueForKeyPath:@"name"];
+    NSString *name = [AddressLookup contactContainingPhoneNumber: phone];
     double jerk = [[slap valueForKeyPath:@"jerk"] doubleValue];
     
     User *slapper = [[User alloc] init: name with: phone];

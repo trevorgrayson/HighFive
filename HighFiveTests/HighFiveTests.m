@@ -8,6 +8,8 @@
 
 #import <XCTest/XCTest.h>
 
+#import "AddressLookup.h"
+
 @interface HighFiveTests : XCTestCase
 
 @end
@@ -28,7 +30,48 @@
 
 - (void)testExample
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    [self addContact:@"Trevor" withNumber:@"8603849759"];
+    [self addContact:@"Paul" withNumber:@"8605559759"];
+    NSLog(@"%@", [AddressLookup contactContainingPhoneNumber:@"8603849759"]);
 }
 
+- (void) testAddressLookup {
+    [self addContact:@"Trevor" withNumber:@"8603849759"];
+    [self addContact:@"Paul" withNumber:@"8605559759"];
+    NSLog(@"%@", [AddressLookup contactContainingPhoneNumber:@"8603849759"]);
+
+}
+
+- (void) addContact:(NSString*) name withNumber:(NSString*) contact {
+    CFErrorRef error = NULL;
+    NSLog(@"%@", [self description]);
+    ABAddressBookRef iPhoneAddressBook = ABAddressBookCreate();
+    
+    ABRecordRef newPerson = ABPersonCreate();
+    
+    ABRecordSetValue(newPerson, kABPersonFirstNameProperty, (__bridge CFTypeRef)(name), &error);
+    ABRecordSetValue(newPerson, kABPersonLastNameProperty, @"Smith", &error);
+    
+    ABMutableMultiValueRef multiPhone =     ABMultiValueCreateMutable(kABMultiStringPropertyType);
+
+    ABMultiValueAddValueAndLabel(multiPhone, (__bridge CFTypeRef)(contact), kABPersonPhoneMainLabel, NULL);
+    //ABMultiValueAddValueAndLabel(multiPhone, people.other, kABOtherLabel, NULL);
+    ABRecordSetValue(newPerson, kABPersonPhoneProperty, multiPhone,nil);
+    CFRelease(multiPhone);
+    // ...
+    // Set other properties
+    // ...
+    ABAddressBookAddRecord(iPhoneAddressBook, newPerson, &error);
+    
+    ABAddressBookSave(iPhoneAddressBook, &error);
+    CFRelease(newPerson);
+    CFRelease(iPhoneAddressBook);
+    if (error != NULL)
+    {
+        CFStringRef errorDesc = CFErrorCopyDescription(error);
+        NSLog(@"Contact not saved: %@", errorDesc);
+        CFRelease(errorDesc);        
+    }
+}
 @end
