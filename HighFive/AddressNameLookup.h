@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AddressBook/AddressBook.h>
 
-@interface AddressLookup : NSObject
+@interface AddressNameLookup : NSObject
 
 +(NSString *)contactContainingPhoneNumber:(NSString *)phoneNumber;
 +(NSArray *)contactsContainingPhoneNumber:(NSString *)phoneNumber;

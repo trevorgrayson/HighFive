@@ -9,6 +9,7 @@
 #import "User.h"
 
 @implementation User
+@synthesize name;
 
 - (id) init
 {
@@ -18,13 +19,17 @@
     return self;
 }
 
--(id) init:(NSString*) name with:(NSString*) contact {
+-(id) init:(NSString*) n with:(NSString*) contact {
     self = [super init];
     if (self) {
-        self.name = name;
+        name = n;
         self.contact = contact;
     }
     return self;
+}
+
+-(NSString*) initials {
+    return [name substringToIndex:1];
 }
 
 @end

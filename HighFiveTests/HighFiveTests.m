@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 
-#import "AddressLookup.h"
+#import "AddressNameLookup.h"
 
 @interface HighFiveTests : XCTestCase
 
@@ -33,13 +33,13 @@
     //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
     [self addContact:@"Trevor" withNumber:@"8603849759"];
     [self addContact:@"Paul" withNumber:@"8605559759"];
-    NSLog(@"%@", [AddressLookup contactContainingPhoneNumber:@"8603849759"]);
+    NSLog(@"%@", [AddressNameLookup contactContainingPhoneNumber:@"8603849759"]);
 }
 
 - (void) testAddressLookup {
     [self addContact:@"Trevor" withNumber:@"8603849759"];
     [self addContact:@"Paul" withNumber:@"8605559759"];
-    NSLog(@"%@", [AddressLookup contactContainingPhoneNumber:@"8603849759"]);
+    NSLog(@"%@", [AddressNameLookup contactContainingPhoneNumber:@"8603849759"]);
 
 }
 

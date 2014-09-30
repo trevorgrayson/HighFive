@@ -6,22 +6,22 @@
 //  Copyright (c) 2014 Ipsum LLC. All rights reserved.
 //
 
-#import "AddressLookup.h"
+#import "AddressNameLookup.h"
 
-@implementation AddressLookup
+@implementation AddressNameLookup
 
 
 +(NSString *)contactContainingPhoneNumber:(NSString *)phoneNumber {
-    return (__bridge NSString*)ABRecordCopyCompositeName( (__bridge ABRecordRef)[[self contactsContainingPhoneNumber:phoneNumber] objectAtIndex:0] );
+    @try {
+        return (__bridge NSString*)ABRecordCopyCompositeName( (__bridge ABRecordRef)[[self contactsContainingPhoneNumber:phoneNumber] objectAtIndex:0] );
+    }
+    @catch( NSException *e) {
+        return phoneNumber;
+    }
+
 }
 
 +(NSArray *)contactsContainingPhoneNumber:(NSString *)phoneNumber {
-    /*
-     
-     Returns an array of contacts that contain the phone number
-     
-     */
-    
     // Remove non numeric characters from the phone number
     phoneNumber = [[phoneNumber componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]] componentsJoinedByString:@""];
     

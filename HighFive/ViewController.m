@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "ContactInfoDelegate.h"
-#import "AddressLookup.h"
+#import "AddressNameLookup.h"
 
 @interface ViewController ()
 
@@ -23,16 +23,21 @@
 //TODO ENUMs
 int kWAITING_MODE = 0;
 int kSLAP_MODE    = 1;
+int kINVITE_ONLY  = 2;
 
 NSString *userName = nil;
+
+NSMutableDictionary *handWidgets = nil;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    uiMode = kINVITE_ONLY;
+    
+    handWidgets = [[NSMutableDictionary alloc] init];
     
     messages = [[NSMutableDictionary alloc] init];
     [self reset:nil];
-    [self waitingMode];
     targetRecipient = nil;
     
     self.motionManager = [[CMMotionManager alloc] init];
@@ -53,9 +58,15 @@ NSString *userName = nil;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(screenTap:)];
     [self.hand addGestureRecognizer: tap];
     
-    UIAlertView* contactInfoDel = [ContactInfoDelegate checkForContactInfo];
-    if( contactInfoDel ) {
-        [contactInfoDel show];
+//    UIAlertView* contactInfoDel = [ContactInfoDelegate checkForContactInfo];
+//    if( contactInfoDel ) {
+//        [contactInfoDel show];
+//    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    if([self checkContact] && uiMode == kINVITE_ONLY) {
+        [self waitingMode];
     }
 }
 
@@ -70,37 +81,59 @@ NSString *userName = nil;
 
 - (void) receiveHighFive:(double) ferocity from:(User*) user
 {
+    NSString *key = user.contact;
     //[self slapModeFor: name at: contact with:ferocity];
     NSNumber *newValue;
     
-    if( [messages objectForKey: user.name] == nil ) {
+    if( [messages objectForKey: key] == nil ) {
         newValue = [NSNumber numberWithInt:1];
     } else {
-        NSNumber *currentCount = [messages valueForKey: user.name];
+        NSNumber *currentCount = [messages valueForKey: key];
         newValue = [NSNumber numberWithInt: [currentCount intValue] + 1];
     }
     
-    [messages setValue: newValue forKey: user.name];
+    [messages setValue: newValue forKey: key];
     
-    HandWidget *hw = [[HandWidget alloc] initWithCount: [newValue intValue]
-                                              andFrame: CGRectMake(self.view.frame.origin.x + 2,
-                                                                   self.view.frame.origin.y +
-                                                                   self.view.frame.size.height - 50 - 2,
-                                                                   50, 50)];
-    [self.view addSubview: hw];
+    HandWidget *hw;
     
-    hw.userInteractionEnabled = YES;
-    hw.user = user;
-    hw.count = [newValue intValue];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    [hw addGestureRecognizer: tap];
+    //TODO what about multiple users sending messages? Move along the bottom
+    if( [handWidgets objectForKey: key] == nil ) {
+        float width = 50;
+        float iconCount = (float)[[handWidgets allKeys] count];
+        float delta = (width + 10.0f) * iconCount;
+        NSLog   (@", %f, %f",  iconCount, delta );
+        hw = [[HandWidget alloc] initWithCount: [newValue intValue]];
+        [hw setFrame: CGRectMake(self.view.frame.origin.x + 2.0f + delta,
+                                                                       self.view.frame.origin.y +
+                                                                       self.view.frame.size.height - width - 2.0f,
+                                                                       width, width)];
+        hw.userInteractionEnabled = YES;
+        hw.user = user;
+        [hw addFerocity: ferocity];
+        
+        [handWidgets setValue: hw forKeyPath: key];
+        [self.view addSubview: hw];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        [hw addGestureRecognizer: tap];
+    } else {
+        hw = (HandWidget*) [handWidgets objectForKey: user.contact];
+    }
+    
+    [hw setNum: [newValue intValue]];
 }
 
 //f(x)
 
--(void) tap:(id) sender {
-    HandWidget *hw = (HandWidget*) sender;
-    [self slapModeFor: hw.user with: 1.2];
+-(void) tap:(UITapGestureRecognizer*) sender {
+    HandWidget *hw = (HandWidget*) sender.view;
+//    [self slapModeFor: hw.user with: 1.2];
+    [self slapModeFor: hw.user with: 1.0];
+    NSLog(@"Tap tap tap from: %@", hw.user.contact);
+}
+
+-(BOOL) checkContact {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    return [prefs valueForKey: @"contact"] != nil;
 }
 
 -(void) checkUserName
@@ -144,9 +177,10 @@ NSString *userName = nil;
     [prefs setObject: userName forKey:@"username"];
     [prefs synchronize];
     NSString *deviceToken = [prefs objectForKey:@"deviceToken"];
+    NSString *contact = [prefs objectForKey:@"contact"];
     
     //TODO
-    [SlapNet registerUser: deviceToken identifiedBy: @"8603849759" as: name];
+    [SlapNet registerUser: deviceToken identifiedBy: contact as: name];
 }
 
 - (void) slapModeFor:(User*) user with:(double) ferocity {
@@ -158,6 +192,7 @@ NSString *userName = nil;
 - (void) waitingMode {
     uiMode = kWAITING_MODE;
     self.fiveCompanion.text = @"Tap to Slap";
+    [self.inviteOnly setHidden: YES];
 }
 
 //screen touch
@@ -198,6 +233,7 @@ NSString *userName = nil;
         [SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
 //    }
 }
+
 //PEOPLE PICKER
 -(void) peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -260,12 +296,10 @@ NSString *userName = nil;
     return NO;
 }
 
-- (BOOL)peoplePickerNavigationController:
-(ABPeoplePickerNavigationController *)peoplePicker
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
       shouldContinueAfterSelectingPerson:(ABRecordRef)person
                                 property:(ABPropertyID)property
-                              identifier:(ABMultiValueIdentifier)identifier
-{
+                              identifier:(ABMultiValueIdentifier)identifier {
     return NO;
 }
 
@@ -313,4 +347,15 @@ NSString *userName = nil;
     [textField resignFirstResponder];
     return NO;
 }
+
+- (IBAction)pinchhack:(id)sender {
+    if ( uiMode == kSLAP_MODE ) {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        //[imagePicker takePicture];
+        [self sendSlap];
+        [self waitingMode];
+    }
+}
+
+
 @end

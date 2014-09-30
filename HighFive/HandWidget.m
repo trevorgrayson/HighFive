@@ -12,6 +12,7 @@
 
 @synthesize count;
 @synthesize user;
+@synthesize maxSlapFerocity;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -25,15 +26,15 @@
     return self;
 }
 
-- (id) initWithCount:(int) c andFrame:(CGRect)frame
+- (id) initWithCount:(int) c
 {
     count = c;
     
-    self = [self initWithFrame:frame];
+    self = [self initWithFrame: CGRectMake(0, 0, 50, 50)];
 
     if (self) {
         UILabel *cLbl = [[UILabel alloc] init];
-        cLbl.text = [NSString stringWithFormat:@"%d", count];
+
         cLbl.backgroundColor = [UIColor clearColor];
         cLbl.frame = CGRectMake(3,
                                 10,
@@ -44,6 +45,22 @@
         
     }
     return self;
+}
+
+- (void) setNum:(int) c {
+    count = c;
+    UILabel *label = [self.subviews objectAtIndex: 0];
+    label.text = [user initials];
+    [label setNeedsDisplay];
+}
+
+- (void) addFerocity: (double) ferocity {
+    maxSlapFerocity = fmax(maxSlapFerocity, ferocity);
+}
+
+- (void) addSlap: (Slap*) slap {
+    user = slap.slapper;
+    maxSlapFerocity = fmax(maxSlapFerocity, slap.ferocity);
 }
 
 @end

@@ -26,6 +26,7 @@ int uiMode;
     UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *nameTag;
+@property (weak, nonatomic) IBOutlet UIScrollView *inviteOnly;
 
 @property (strong, nonatomic) NSMutableDictionary *messages;
 @property (strong, nonatomic) CMMotionManager *motionManager;

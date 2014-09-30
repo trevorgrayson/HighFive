@@ -15,4 +15,5 @@
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSString* contact;
 
+-(NSString*) initials;
 @end

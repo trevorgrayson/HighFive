@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "AddressLookup.h"
+#import "AddressNameLookup.h"
 
 @implementation AppDelegate
 
@@ -16,26 +16,52 @@
 //- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    //ensure/request deviceToken
-    //if invite link = get link from invite code
-    //[SlapNet registerUser: @"" identifiedBy:@""];
-    ViewController *root = (ViewController*) self.window.rootViewController;
+    NSArray *urlArray = [[url path] componentsSeparatedByString:@"/"];
     
-    //if [url path] == ridiculous
-        NSArray *urlArray = [[url query] componentsSeparatedByString:@"&"];
-    
-    double fierocity = [urlArray[0] doubleValue];
-    NSString *senderId = urlArray[1];
-    NSString *name = senderId;
-    User *slapper = [[User alloc] init:name with:senderId];
-
-    if([urlArray count] > 2) {
-        name = urlArray[2];
+    if([url.host isEqual: @"invite"]) {
+        NSString *contact = urlArray[1];
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSLog(@"setting contact: %@", contact);
+        [prefs setObject: contact forKey:@"contact"];
+        [prefs synchronize];
+        
+        [self attemptRegistration];
+        ViewController *root = (ViewController*) self.window.rootViewController;
+        [root waitingMode];
     }
-
-    [root receiveHighFive:fierocity from: slapper];
+    
     return YES;
 }
+
+- (void) attemptRegistration {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
+    NSString *contact = [prefs objectForKey: @"contact"];
+
+    if( deviceToken != nil && contact != nil ) {
+        [SlapNet registerUser:deviceToken identifiedBy:contact];
+    }
+}
+
+//- (void) receiveHighFiveFromOpenUrl {
+//ensure/request deviceToken
+//if invite link = get link from invite code
+//[SlapNet registerUser: @"" identifiedBy:@""];
+//ViewController *root = (ViewController*) self.window.rootViewController;
+//    //if [url path] == ridiculous
+//    NSArray *urlArray = [[url query] componentsSeparatedByString:@"&"];
+//    
+//    double fierocity = [urlArray[0] doubleValue];
+//    NSString *senderId = urlArray[1];
+//    NSString *name = senderId;
+//    User *slapper = [[User alloc] init:name with:senderId];
+//    
+//    if([urlArray count] > 2) {
+//        name = urlArray[2];
+//    }
+//    
+//    [root receiveHighFive:fierocity from: slapper];
+//}
 
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
@@ -45,12 +71,12 @@
     
     NSString *phone = [slap valueForKeyPath:@"id"];
     //NSString *name = [slap valueForKeyPath:@"name"];
-    NSString *name = [AddressLookup contactContainingPhoneNumber: phone];
+    NSString *name = [AddressNameLookup contactContainingPhoneNumber: phone];
     double jerk = [[slap valueForKeyPath:@"jerk"] doubleValue];
     
     User *slapper = [[User alloc] init: name with: phone];
 
-    //if(UIApplication.application.state){ // 
+    //if(UIApplication.application.state){
     [self respondToSlap: jerk from: slapper];
     NSString *msg = [NSString stringWithFormat:@"%@ high fived you!", name];
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Slap!!" message: msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -82,13 +108,14 @@
 {
     NSString *devTokenStr = [[[[newDeviceToken description]
                                stringByReplacingOccurrencesOfString: @"<" withString: @""]
-                              stringByReplacingOccurrencesOfString: @">" withString: @""]
-                             stringByReplacingOccurrencesOfString: @" " withString: @""];
+                               stringByReplacingOccurrencesOfString: @">" withString: @""]
+                               stringByReplacingOccurrencesOfString: @" " withString: @""];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSLog(@"setting %@", devTokenStr);
     [prefs setObject: devTokenStr forKey:@"deviceToken"];
     [prefs synchronize];
+    [self attemptRegistration];
 
 	NSLog(@"My token is: %@", devTokenStr);
 }

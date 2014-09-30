@@ -19,7 +19,7 @@ NSString *domain = @"http://ipsumllc.com:8080";
     InviteController *controller = [[InviteController alloc] init];
     if([InviteController canSendText])
     {
-        controller.body = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Slap me back: %@/invite", [self highFiveDescription:ferocity], ferocity, domain]; //ferocity, user.contact, user.name];
+        controller.body = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Slap me back: %@/invite/%@", [self highFiveDescription:ferocity], ferocity, domain, user.contact]; //ferocity, user.contact, user.name];
         controller.recipients = [NSArray arrayWithObjects: user.contact, nil];
         controller.messageComposeDelegate = controller;
         [topController presentViewController: controller animated:YES completion:nil];
@@ -98,8 +98,8 @@ User *pendingUser;
     else if(m > 6) { judgement = @"braggable";  }
     else if(m > 5) { judgement = @"strong";     }
     else if(m > 4) { judgement = @"aggressive"; }
-    else if(m > 3) { judgement = @"strong";     }
-    else if(m > 2) { judgement = @"solid";      }
+    else if(m > 3) { judgement = @"solid";     }
+    else if(m > 2) { judgement = @"strong";      }
     
     return judgement;
 }
@@ -112,7 +112,11 @@ User *pendingUser;
     NSString *uri =[NSString stringWithFormat: @"%@/users/%@/%@", domain, contact, deviceToken];
 
     if( contact != nil) {
-        uri = [NSString stringWithFormat: @"%@/users/%@/%@/%@", domain, contact, name, deviceToken];
+        uri = [NSString stringWithFormat: @"%@/users/%@/%@", domain, deviceToken, contact];
+    }
+    
+    if( name != nil) {
+        uri = [NSString stringWithFormat: @"%@/%@", uri, name];
     }
 
     NSLog(@"%@", uri);
@@ -128,6 +132,20 @@ User *pendingUser;
             [alarm show];
             NSLog(@"%@", connectionError);
         } else { //TODO confirm 200 response.
+            NSString *key = @"registered";
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            NSString *registered = [prefs objectForKey: key];
+
+            if( registered == nil ) {
+                UIAlertView *alarm = [[UIAlertView alloc] initWithTitle:@"You're in!" message:@"Welcome to the club, boss. Go get some." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [alarm show];
+
+                [prefs setObject: @"true" forKey:key];
+                [prefs synchronize];
+                
+//                ViewController *topController = (ViewController*)[UIApplication sharedApplication].keyWindow.rootViewController;
+//                [topController waitingMode];
+            }
             NSLog(@"Registered user %@, %@, %@", deviceToken, contact, name);
         }
     }];

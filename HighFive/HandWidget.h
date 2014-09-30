@@ -8,13 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
+#import "Slap.h"
 
 @interface HandWidget : UIImageView
 
-- (id) initWithCount:(int) count andFrame:(CGRect)frame;
+- (id) initWithCount:(int) count;
 
 @property int count;
 @property double maxSlapFerocity;
 
-@property (nonatomic, weak) User *user;
+@property (nonatomic, strong) User *user;
+
+- (void) setNum:(int) c;
+- (void) addSlap: (Slap*) slap;
+- (void) addFerocity: (double) ferocity;
 @end
