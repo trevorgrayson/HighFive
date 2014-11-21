@@ -16,4 +16,7 @@
 @property (strong, nonatomic) NSString* contact;
 
 -(NSString*) initials;
+
++(User*) identifiedBy:(NSString*) contact;
++(User*) named: (NSString*) name identifiedBy:(NSString*) contact;
 @end

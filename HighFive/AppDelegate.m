@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AddressNameLookup.h"
+#import "SlapAlert.h"
 
 @implementation AppDelegate
 
@@ -43,6 +44,7 @@
     }
 }
 
+
 //- (void) receiveHighFiveFromOpenUrl {
 //ensure/request deviceToken
 //if invite link = get link from invite code
@@ -75,15 +77,13 @@
     double jerk = [[slap valueForKeyPath:@"jerk"] doubleValue];
     
     User *slapper = [[User alloc] init: name with: phone];
-
+    Slap *incoming = [[Slap alloc] init:slapper with: jerk];
     //if(UIApplication.application.state){
     [self respondToSlap: jerk from: slapper];
-    NSString *msg = [NSString stringWithFormat:@"%@ high fived you!", name];
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Slap!!" message: msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [alert show];
-    
-}
 
+    SlapAlert *alert = [SlapAlert newAlert: incoming];
+    [alert show];
+}
 
 - (void) respondToSlap:(double)ferocity from:(User*) user {
     ViewController *root = (ViewController*) self.window.rootViewController;
@@ -101,6 +101,9 @@
      //addObserver: self selector: @selector(respondToSlap:from:) name:@"SLAP" object:nil];
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    NSLog(@"%@", launchOptions);
+    [self attemptRegistration];
+    
     return YES;
 }
 

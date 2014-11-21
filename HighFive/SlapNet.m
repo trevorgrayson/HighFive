@@ -7,6 +7,7 @@
 //
 
 #import "SlapNet.h"
+#import "SlapAlert.h"
 
 @implementation SlapNet
 
@@ -34,11 +35,10 @@ NSString *domain = @"http://ipsumllc.com:8080";
     [self sendNotification: ferocity to: user];
 }
 
-+ (void) receiveHighFive:(double) ferocity from:(User*) user
++ (void) receiveHighFive:(double) ferocity from:(User*) slapper
 {
-    NSString *msg = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Would you like to slap them back?", [self highFiveDescription:ferocity], ferocity];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SLAP!" message: msg delegate:nil cancelButtonTitle:@"Nope!" otherButtonTitles: @"Slap Back", nil];
+    Slap *slap = [Slap from: slapper with: ferocity];
+    SlapAlert * alert = [SlapAlert newAlert: slap];
     [alert show];
 }
 
@@ -151,4 +151,7 @@ User *pendingUser;
     }];
 }
 
++(UIViewController*) topController {
+    return [UIApplication sharedApplication].keyWindow.rootViewController;
+}
 @end

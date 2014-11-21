@@ -13,4 +13,9 @@
 
 @property (weak, nonatomic) User *slapper;
 @property double ferocity;
+
+-(id) init:(User*) user with:(float) f;
+
++(Slap*) from:(User*) from with:(float) f;
+
 @end

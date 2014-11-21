@@ -24,4 +24,6 @@
 
 +(void) registerUser:(NSString *) deviceToken identifiedBy:(NSString *)contact;
 +(void) registerUser:(NSString *) deviceToken identifiedBy:(NSString*) contact as:(NSString*) name;
+
++(NSString*) highFiveDescription:(double) m/*agnetude*/;
 @end

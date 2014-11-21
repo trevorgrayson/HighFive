@@ -55,7 +55,7 @@
 }
 
 - (void) addFerocity: (double) ferocity {
-    maxSlapFerocity = fmax(maxSlapFerocity, ferocity);
+    self.maxSlapFerocity = fmax(maxSlapFerocity, ferocity);
 }
 
 - (void) addSlap: (Slap*) slap {

@@ -27,6 +27,7 @@ int uiMode;
 
 @property (weak, nonatomic) IBOutlet UIButton *nameTag;
 @property (weak, nonatomic) IBOutlet UIScrollView *inviteOnly;
+@property (weak, nonatomic) IBOutlet UIImageView *redHand;
 
 @property (strong, nonatomic) NSMutableDictionary *messages;
 @property (strong, nonatomic) CMMotionManager *motionManager;

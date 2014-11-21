@@ -25,12 +25,15 @@ int kWAITING_MODE = 0;
 int kSLAP_MODE    = 1;
 int kINVITE_ONLY  = 2;
 
-NSString *userName = nil;
+SystemSoundID slapSound;
 
 NSMutableDictionary *handWidgets = nil;
 
 - (void)viewDidLoad
 {
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+
     [super viewDidLoad];
     uiMode = kINVITE_ONLY;
     
@@ -49,7 +52,6 @@ NSMutableDictionary *handWidgets = nil;
         if(error){ NSLog(@"%@", error); }
     }];
     //[self configureCamera];
-    //[self checkUserName];
     
     //GYRO DATA
     //[self.motionManager startGyroUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
@@ -62,6 +64,9 @@ NSMutableDictionary *handWidgets = nil;
 //    if( contactInfoDel ) {
 //        [contactInfoDel show];
 //    }
+    
+    NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"highfive-0" withExtension:@"m4a"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &slapSound);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -101,7 +106,6 @@ NSMutableDictionary *handWidgets = nil;
         float width = 50;
         float iconCount = (float)[[handWidgets allKeys] count];
         float delta = (width + 10.0f) * iconCount;
-        NSLog   (@", %f, %f",  iconCount, delta );
         hw = [[HandWidget alloc] initWithCount: [newValue intValue]];
         [hw setFrame: CGRectMake(self.view.frame.origin.x + 2.0f + delta,
                                                                        self.view.frame.origin.y +
@@ -109,7 +113,6 @@ NSMutableDictionary *handWidgets = nil;
                                                                        width, width)];
         hw.userInteractionEnabled = YES;
         hw.user = user;
-        [hw addFerocity: ferocity];
         
         [handWidgets setValue: hw forKeyPath: key];
         [self.view addSubview: hw];
@@ -119,6 +122,7 @@ NSMutableDictionary *handWidgets = nil;
         hw = (HandWidget*) [handWidgets objectForKey: user.contact];
     }
     
+    [hw addFerocity: ferocity];
     [hw setNum: [newValue intValue]];
 }
 
@@ -126,26 +130,12 @@ NSMutableDictionary *handWidgets = nil;
 
 -(void) tap:(UITapGestureRecognizer*) sender {
     HandWidget *hw = (HandWidget*) sender.view;
-//    [self slapModeFor: hw.user with: 1.2];
-    [self slapModeFor: hw.user with: 1.0];
-    NSLog(@"Tap tap tap from: %@", hw.user.contact);
+    [self slapModeFor: hw.user with: hw.maxSlapFerocity];
 }
 
 -(BOOL) checkContact {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     return [prefs valueForKey: @"contact"] != nil;
-}
-
--(void) checkUserName
-{
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    userName = [prefs valueForKey: @"username"];
-    
-    if( [userName length] == 0 ) {
-        [self whoAreYou];
-    }
-    [self setName:userName];
-    NSLog(@"Hello, %@", userName);
 }
 
 -(void) whoAreYou
@@ -155,43 +145,17 @@ NSMutableDictionary *handWidgets = nil;
     [alert show];
 }
 
--(void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    
-    UITextField *textField = [alertView textFieldAtIndex:0];
-
-    switch (buttonIndex) {
-        case 1:
-            [self setUserName: textField.text];
-            //[self sendSlap];
-            break;
-            
-        default:
-            break;
-    }
-}
-
-- (void) setUserName:(NSString*) name {
-    userName = name;
-    [self setName:name];
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject: userName forKey:@"username"];
-    [prefs synchronize];
-    NSString *deviceToken = [prefs objectForKey:@"deviceToken"];
-    NSString *contact = [prefs objectForKey:@"contact"];
-    
-    //TODO
-    [SlapNet registerUser: deviceToken identifiedBy: contact as: name];
-}
-
 - (void) slapModeFor:(User*) user with:(double) ferocity {
     self.fiveCompanion.text = user.name;
     targetRecipient = user;
+    [self.redHand setAlpha: ferocity/10];
     uiMode = kSLAP_MODE;
 }
 
 - (void) waitingMode {
     uiMode = kWAITING_MODE;
     self.fiveCompanion.text = @"Tap to Slap";
+    [self.redHand setAlpha: 0];
     [self.inviteOnly setHidden: YES];
 }
 
@@ -218,20 +182,14 @@ NSMutableDictionary *handWidgets = nil;
     currentMaxAccelZ = MAX(fabs(acceleration.z), currentMaxAccelZ);
     
     if ( uiMode == kSLAP_MODE && [Slapperometer slapCheck:acceleration] ) {
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-        //[imagePicker takePicture];
         [self sendSlap];
         [self waitingMode];
     }
 }
 
 -(void) sendSlap {
-    NSLog(@"username: %@", userName);
-//    if( [userName length] == 0 ) {
-//        [self whoAreYou];
-//    } else {
-        [SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
-//    }
+    [SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
+    AudioServicesPlaySystemSound(slapSound);
 }
 
 //PEOPLE PICKER
@@ -343,7 +301,6 @@ NSMutableDictionary *handWidgets = nil;
 //textfield
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self setUserName: textField.text];
     [textField resignFirstResponder];
     return NO;
 }
@@ -357,5 +314,15 @@ NSMutableDictionary *handWidgets = nil;
     }
 }
 
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if( motion == UIEventSubtypeMotionShake) {
+        //1User *slapper = [[User alloc] init: @"T-Dizzle" with: @"8603849759"];
+        //[SlapNet receiveHighFive: 1.0 from:slapper];
+    }
+}
 
 @end

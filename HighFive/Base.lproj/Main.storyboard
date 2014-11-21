@@ -27,6 +27,10 @@
                                 <rect key="frame" x="10" y="74" width="301" height="380"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <imageView alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="internet-high-five09.png" translatesAutoresizingMaskIntoConstraints="NO" id="mpb-lY-mBY">
+                                <rect key="frame" x="10" y="74" width="301" height="380"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSt-am-sJL">
                                 <rect key="frame" x="75" y="318" width="170" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -51,7 +55,7 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cfr-lH-kAa">
-                                <rect key="frame" x="0.0" y="0.0" width="328" height="568"/>
+                                <rect key="frame" x="-4" y="0.0" width="328" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="STOP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlG-kJ-jst">
@@ -83,6 +87,7 @@
                         <outlet property="hand" destination="XJp-mT-oJ6" id="bbF-6M-hhc"/>
                         <outlet property="inviteOnly" destination="Cfr-lH-kAa" id="GAW-M2-jUU"/>
                         <outlet property="nameTag" destination="eUO-nL-8ZE" id="NCo-Ea-Ndg"/>
+                        <outlet property="redHand" destination="mpb-lY-mBY" id="GH5-1g-Tcj"/>
                         <outlet property="slapDebug" destination="1TU-lU-aoL" id="n71-JV-OMc"/>
                     </connections>
                 </viewController>
@@ -97,6 +102,7 @@
     </scenes>
     <resources>
         <image name="internet-high-five.jpeg" width="575" height="556"/>
+        <image name="internet-high-five09.png" width="575" height="556"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

@@ -9,6 +9,8 @@
 #import "Slap.h"
 
 @implementation Slap
+@synthesize slapper;
+@synthesize ferocity;
 
 - (id) init
 {
@@ -16,6 +18,19 @@
     {
     }
     return self;
+}
+
+-(id) init:(User*) user with:(float) f {
+    self = [super init];
+    if (self) {
+        slapper = user;
+        ferocity = f;
+    }
+    return self;
+}
+
++(Slap*) from:(User*) from with:(float) f {
+    return [[Slap alloc] init:from with:f];
 }
 
 @end

@@ -32,4 +32,11 @@
     return [name substringToIndex:1];
 }
 
++(User*) identifiedBy:(NSString*) contact {
+    return [[User alloc] init: contact with:contact];
+}
+
++(User*) named: (NSString*) name identifiedBy:(NSString*) contact {
+    return [[User alloc] init: name with:contact];
+}
 @end

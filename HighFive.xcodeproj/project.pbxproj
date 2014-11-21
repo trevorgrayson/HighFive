@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D901C3D519BBE36C004891D6 /* InviteController.m in Sources */ = {isa = PBXBuildFile; fileRef = D901C3D419BBE36C004891D6 /* InviteController.m */; };
+		D9206F981A1B1BEE00535B7C /* slap.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D9206F971A1B1BEE00535B7C /* slap.jpg */; };
+		D9206F9A1A1DB05D00535B7C /* highfive-0.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D9206F991A1D00A300535B7C /* highfive-0.m4a */; };
 		D926677A197A42110096B50C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9266779197A42110096B50C /* Foundation.framework */; };
 		D926677C197A42110096B50C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D926677B197A42110096B50C /* CoreGraphics.framework */; };
 		D926677E197A42110096B50C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D926677D197A42110096B50C /* UIKit.framework */; };
@@ -30,13 +32,14 @@
 		D92667BC197AE2F50096B50C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667BB197AE2F50096B50C /* MessageUI.framework */; };
 		D92667BF197B36E20096B50C /* SlapNet.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667BE197B36E20096B50C /* SlapNet.m */; };
 		D92667C3197C6E550096B50C /* Slap.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667C2197C6E550096B50C /* Slap.m */; };
-		D92667C5197CBE4F0096B50C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D92667C4197CBE4F0096B50C /* GameKit.framework */; };
 		D929A9DE19C1482400F7F6C8 /* ContactInfoDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D929A9DD19C1482400F7F6C8 /* ContactInfoDelegate.m */; };
 		D96F2F2E198681EA00A41A6E /* HandWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = D96F2F2D198681EA00A41A6E /* HandWidget.m */; };
 		D96F2F31198B7FED00A41A6E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D96F2F30198B7FED00A41A6E /* User.m */; };
 		D96F2F33198BC07900A41A6E /* internet-high-five.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D96F2F32198BC07900A41A6E /* internet-high-five.jpeg */; };
 		D981A70A19C7EF400056EC71 /* Invitron.m in Sources */ = {isa = PBXBuildFile; fileRef = D981A70919C7EF400056EC71 /* Invitron.m */; };
 		D9CC14B719C6668E00D6761B /* AddressNameLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CC14B619C6668E00D6761B /* AddressNameLookup.m */; };
+		D9D8C39219DA6AAB00AE0DB3 /* SlapAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D8C39119DA6AAB00AE0DB3 /* SlapAlert.m */; };
+		D9D8C39519DA926800AE0DB3 /* internet-high-five09.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D8C39419DA926800AE0DB3 /* internet-high-five09.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,8 @@
 /* Begin PBXFileReference section */
 		D901C3D319BBE36C004891D6 /* InviteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteController.h; sourceTree = "<group>"; };
 		D901C3D419BBE36C004891D6 /* InviteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteController.m; sourceTree = "<group>"; };
+		D9206F971A1B1BEE00535B7C /* slap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = slap.jpg; sourceTree = "<group>"; };
+		D9206F991A1D00A300535B7C /* highfive-0.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "highfive-0.m4a"; sourceTree = "<group>"; };
 		D9266776197A42110096B50C /* HighFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HighFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9266779197A42110096B50C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D926677B197A42110096B50C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -82,7 +87,6 @@
 		D92667BE197B36E20096B50C /* SlapNet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlapNet.m; sourceTree = "<group>"; };
 		D92667C1197C6E550096B50C /* Slap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slap.h; sourceTree = "<group>"; };
 		D92667C2197C6E550096B50C /* Slap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slap.m; sourceTree = "<group>"; };
-		D92667C4197CBE4F0096B50C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		D929A9DC19C1482400F7F6C8 /* ContactInfoDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactInfoDelegate.h; sourceTree = "<group>"; };
 		D929A9DD19C1482400F7F6C8 /* ContactInfoDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactInfoDelegate.m; sourceTree = "<group>"; };
 		D96F2F2C198681EA00A41A6E /* HandWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandWidget.h; sourceTree = "<group>"; };
@@ -94,6 +98,9 @@
 		D981A70919C7EF400056EC71 /* Invitron.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invitron.m; sourceTree = "<group>"; };
 		D9CC14B519C6668E00D6761B /* AddressNameLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressNameLookup.h; sourceTree = "<group>"; };
 		D9CC14B619C6668E00D6761B /* AddressNameLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressNameLookup.m; sourceTree = "<group>"; };
+		D9D8C39019DA6AAB00AE0DB3 /* SlapAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlapAlert.h; sourceTree = "<group>"; };
+		D9D8C39119DA6AAB00AE0DB3 /* SlapAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlapAlert.m; sourceTree = "<group>"; };
+		D9D8C39419DA926800AE0DB3 /* internet-high-five09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "internet-high-five09.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +108,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D92667C5197CBE4F0096B50C /* GameKit.framework in Frameworks */,
 				D92667BC197AE2F50096B50C /* MessageUI.framework in Frameworks */,
 				D92667BA197ADB770096B50C /* AudioToolbox.framework in Frameworks */,
 				D92667B7197AD3610096B50C /* AddressBook.framework in Frameworks */,
@@ -148,7 +154,6 @@
 		D9266778197A42110096B50C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D92667C4197CBE4F0096B50C /* GameKit.framework */,
 				D92667BB197AE2F50096B50C /* MessageUI.framework */,
 				D92667B9197ADB770096B50C /* AudioToolbox.framework */,
 				D92667B5197AD3600096B50C /* AddressBook.framework */,
@@ -167,6 +172,7 @@
 			children = (
 				D9266788197A42110096B50C /* AppDelegate.h */,
 				D9266789197A42110096B50C /* AppDelegate.m */,
+				D9D8C39319DA6DE800AE0DB3 /* Alerts */,
 				D9CC14B919C6AEFC00D6761B /* Com */,
 				D9CC14B819C6AEE700D6761B /* Utilities */,
 				D929A9DB19C147F400F7F6C8 /* Delegates */,
@@ -184,7 +190,10 @@
 		D9266780197A42110096B50C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D9206F991A1D00A300535B7C /* highfive-0.m4a */,
+				D9206F971A1B1BEE00535B7C /* slap.jpg */,
 				D96F2F32198BC07900A41A6E /* internet-high-five.jpeg */,
+				D9D8C39419DA926800AE0DB3 /* internet-high-five09.png */,
 				D9266781197A42110096B50C /* HighFive-Info.plist */,
 				D9266782197A42110096B50C /* InfoPlist.strings */,
 				D9266785197A42110096B50C /* main.m */,
@@ -264,6 +273,15 @@
 			name = Com;
 			sourceTree = "<group>";
 		};
+		D9D8C39319DA6DE800AE0DB3 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				D9D8C39019DA6AAB00AE0DB3 /* SlapAlert.h */,
+				D9D8C39119DA6AAB00AE0DB3 /* SlapAlert.m */,
+			);
+			name = Alerts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -315,7 +333,7 @@
 						DevelopmentTeam = X68G8MHD24;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -349,9 +367,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D96F2F33198BC07900A41A6E /* internet-high-five.jpeg in Resources */,
+				D9206F981A1B1BEE00535B7C /* slap.jpg in Resources */,
 				D9266792197A42120096B50C /* Images.xcassets in Resources */,
 				D9266784197A42110096B50C /* InfoPlist.strings in Resources */,
 				D926678D197A42120096B50C /* Main.storyboard in Resources */,
+				D9206F9A1A1DB05D00535B7C /* highfive-0.m4a in Resources */,
+				D9D8C39519DA926800AE0DB3 /* internet-high-five09.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +400,7 @@
 				D92667BF197B36E20096B50C /* SlapNet.m in Sources */,
 				D926678A197A42110096B50C /* AppDelegate.m in Sources */,
 				D9266786197A42110096B50C /* main.m in Sources */,
+				D9D8C39219DA6AAB00AE0DB3 /* SlapAlert.m in Sources */,
 				D929A9DE19C1482400F7F6C8 /* ContactInfoDelegate.m in Sources */,
 				D92667C3197C6E550096B50C /* Slap.m in Sources */,
 				D901C3D519BBE36C004891D6 /* InviteController.m in Sources */,
@@ -506,13 +528,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Trevor Grayson (2977B3U3M5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HighFive/HighFive-Prefix.pch";
 				INFOPLIST_FILE = "HighFive/HighFive-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "b7ce2d9e-c1d5-470c-ad8f-566c8e973492";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -522,13 +545,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Trevor Grayson (2977B3U3M5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HighFive/HighFive-Prefix.pch";
 				INFOPLIST_FILE = "HighFive/HighFive-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "b7ce2d9e-c1d5-470c-ad8f-566c8e973492";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
