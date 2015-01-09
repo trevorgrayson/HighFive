@@ -7,7 +7,10 @@
 //
 
 #import "TableController.h"
+#import "ContactCell.h"
+
 #import "AllYourAddress.h"
+#import "Inbox.h"
 
 @interface TableController ()
 
@@ -15,21 +18,24 @@
 
 @implementation TableController
 
+const int kHeaderSection  = 0;
+const int kInboxSection   = 1;
+const int kContactSection = 2;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //Avoiding status bar?
+    [self.tableView setContentInset:UIEdgeInsetsMake(20,
+                                                     self.tableView.contentInset.left,
+                                                     self.tableView.contentInset.bottom,
+                                                     self.tableView.contentInset.right)];
 
-    //[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"headerCell"];
-    //[self.storyboard instantiateViewControllerWithIdentifier: @"tableController"];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -40,18 +46,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch( section ) {
-        case 2: return [AllYourAddress allContactsCount];
-        case 1: return 2;
-        case 0: return 1;
+        case kContactSection: return [AllYourAddress allContactsCount];
+        case kInboxSection:   return [Inbox count];
+        case kHeaderSection:  return 1;
         default: return 0;
     }
-
 }
 
 - (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch( section ) {
-        case 2: return @"High Five Someone";
-        case 1: return @"You've been High Fived!";
+        case kContactSection: return @"High Five Someone";
+        case kInboxSection:   return @"You've been High Fived!";
         default: return nil;
     }
 }
@@ -59,44 +64,38 @@
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch( [indexPath section] ) {
-        case 0: return [self contactForHeader:tableView cellForRowAtIndexPath: indexPath];
-        case 1: return [self contactForInbox: tableView cellForRowAtIndexPath: indexPath];
-        case 2: return [self contactForRow:   tableView cellForRowAtIndexPath: indexPath];
+        case kHeaderSection:  return [self contactForHeader:tableView cellForRowAtIndexPath: indexPath];
+        case kInboxSection:   return [self contactForInbox: tableView cellForRowAtIndexPath: indexPath];
+        case kContactSection: return [self contactForRow:   tableView cellForRowAtIndexPath: indexPath];
         default: return [self contactForRow:  tableView cellForRowAtIndexPath: indexPath];
     }
 
 }
 
 - (UITableViewCell *) contactForHeader:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headerCell"];
-    
-    if( !cell ) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headerCell"];
-        cell.textLabel.text = @"HIGH FIVE!";
-    }
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: @"headerCell"];
     return cell;
 }
 
 - (UITableViewCell *) contactForInbox:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"inboxCell"];
-    
-    if( !cell ) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"inboxCell"];
-        cell.textLabel.text = @"XXX Slapped you!";
-    }
+    ContactCell *cell = [tableView dequeueReusableCellWithIdentifier: @"inboxCell"];
+    Slap *slap = [Inbox messageAtIndex: [indexPath row]];
+    cell.name.text = slap.slapper.name;
+    cell.icon.image = [UIImage imageNamed:@"internet-high-five.jpeg"];
     return cell;
 }
 
-- (UITableViewCell *) contactForRow:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contactCell"];
-
-    if( !cell ) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"contactCell"];
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if( [indexPath section] == 0 ) {
+        return self.view.frame.size.height - 20;
+    } else {
+        return 60.0;
     }
-    // Configure the cell..
+}
+
+- (UITableViewCell *) contactForRow:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ContactCell *cell = [tableView dequeueReusableCellWithIdentifier: @"inboxCell"];
+    
     ABRecordRef contact = [AllYourAddress contactAtIndex: [indexPath row]];
     
     NSString *first = (__bridge NSString *)(ABRecordCopyValue(contact, kABPersonFirstNameProperty));
@@ -111,11 +110,23 @@
     NSData *imgData   = (__bridge NSData*)ABPersonCopyImageDataWithFormat(contact, kABPersonImageFormatThumbnail);
     UIImage  *icon    = [UIImage imageWithData: imgData];
     
-    cell.textLabel.text = name;
+    cell.name.text = name;
+    cell.icon.image = icon;
     
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if([indexPath section] == 0 ) {
+        [self checkInbox];
+    }
+}
+
+- (void)checkInbox {
+    NSIndexPath *path = [NSIndexPath indexPathForRow: 0 inSection: kInboxSection];
+    [self.tableView scrollToRowAtIndexPath: path atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
 
 /*
 // Override to support conditional editing of the table view.

@@ -33,4 +33,9 @@
     return [[Slap alloc] init:from with:f];
 }
 
+- (void)dealloc
+{
+    slapper = nil;
+}
+
 @end

@@ -1,5 +1,5 @@
 //
-//  TableController.h
+//  HeaderCell.h
 //  HighFive
 //
 //  Created by Trevor Grayson on 1/5/15.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TableController : UITableViewController<UITableViewDelegate>
+@interface HeaderCell : UITableViewCell
 
 @end

@@ -8,6 +8,7 @@
 
 #import "SlapNet.h"
 #import "SlapAlert.h"
+#import "Inbox.h"
 
 @implementation SlapNet
 
@@ -38,6 +39,7 @@ NSString *domain = @"http://ipsumllc.com:8080";
 + (void) receiveHighFive:(double) ferocity from:(User*) slapper
 {
     Slap *slap = [Slap from: slapper with: ferocity];
+    [Inbox addMessage: slap];
     SlapAlert * alert = [SlapAlert newAlert: slap];
     [alert show];
 }

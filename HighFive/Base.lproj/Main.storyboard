@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -34,21 +35,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hi, " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idh-h9-suI">
-                                <rect key="frame" x="84" y="20" width="153" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eUO-nL-8ZE">
-                                <rect key="frame" x="108" y="16" width="142" height="30"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="changeName:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="FdT-VX-2GW"/>
-                                </connections>
-                            </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cfr-lH-kAa">
                                 <rect key="frame" x="-4" y="0.0" width="328" height="568"/>
                                 <subviews>
@@ -78,7 +64,6 @@
                         <outlet property="fiveCompanion" destination="rSt-am-sJL" id="Cfk-vh-tGQ"/>
                         <outlet property="hand" destination="XJp-mT-oJ6" id="bbF-6M-hhc"/>
                         <outlet property="inviteOnly" destination="Cfr-lH-kAa" id="GAW-M2-jUU"/>
-                        <outlet property="nameTag" destination="eUO-nL-8ZE" id="NCo-Ea-Ndg"/>
                         <outlet property="redHand" destination="mpb-lY-mBY" id="GH5-1g-Tcj"/>
                         <outlet property="slapDebug" destination="1TU-lU-aoL" id="n71-JV-OMc"/>
                     </connections>
@@ -96,24 +81,68 @@
         <scene sceneID="lfT-G7-0OL">
             <objects>
                 <tableViewController restorationIdentifier="tableController" id="YVG-hJ-Gdi" customClass="TableController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="228" sectionHeaderHeight="22" sectionFooterHeight="22" id="zCd-YS-1at">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="zCd-YS-1at">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="headerCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="headerCell" rowHeight="228" id="aVi-OK-8o8">
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="headerCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="headerCell" rowHeight="422" id="aVi-OK-8o8" customClass="HeaderCell">
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aVi-OK-8o8" id="13C-Tb-bFn">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="aVi-OK-8o8" id="13C-Tb-bFn">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="High Five" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hP-NN-9EI">
-                                            <rect key="frame" x="124" y="8" width="72" height="21"/>
+                                            <rect key="frame" x="90" y="8" width="141" height="43"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="internet-high-five.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="qXI-7i-y3B">
+                                            <rect key="frame" x="8" y="-82" width="304" height="556"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="scroll-down-arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="xS1-c6-9sg">
+                                            <rect key="frame" x="140" y="374" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="NYJ-Yh-ep3"/>
+                                                <constraint firstAttribute="height" constant="40" id="vA7-At-Q4F"/>
+                                            </constraints>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjk-0w-Waq">
+                                            <rect key="frame" x="77" y="354" width="166" height="30"/>
+                                            <state key="normal" title="You've been High Fived!">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="qXI-7i-y3B" secondAttribute="trailing" id="RdY-tv-CjH"/>
+                                        <constraint firstItem="xS1-c6-9sg" firstAttribute="bottom" secondItem="13C-Tb-bFn" secondAttribute="bottomMargin" id="UH8-aP-dlg"/>
+                                        <constraint firstItem="qXI-7i-y3B" firstAttribute="leading" secondItem="13C-Tb-bFn" secondAttribute="leadingMargin" id="bcg-Mr-hdf"/>
+                                        <constraint firstAttribute="centerX" secondItem="xS1-c6-9sg" secondAttribute="centerX" id="eqW-lG-MZl"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="inboxCell" id="4oB-6d-Epi" customClass="ContactCell">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4oB-6d-Epi" id="hfK-Gv-nNu">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q62-fN-O40">
+                                            <rect key="frame" x="8" y="10" width="43" height="40"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jyh-02-ghd">
+                                            <rect key="frame" x="59" y="19" width="244" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="icon" destination="Q62-fN-O40" id="vQs-w4-Tzi"/>
+                                    <outlet property="name" destination="Jyh-02-ghd" id="Bbs-94-LAA"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -124,12 +153,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YhW-kj-BfN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="498" y="17"/>
+            <point key="canvasLocation" x="439" y="12"/>
         </scene>
     </scenes>
     <resources>
         <image name="internet-high-five.jpeg" width="575" height="556"/>
         <image name="internet-high-five09.png" width="575" height="556"/>
+        <image name="scroll-down-arrow.png" width="128" height="128"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

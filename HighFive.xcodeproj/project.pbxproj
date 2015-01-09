@@ -33,11 +33,15 @@
 		D92667BF197B36E20096B50C /* SlapNet.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667BE197B36E20096B50C /* SlapNet.m */; };
 		D92667C3197C6E550096B50C /* Slap.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667C2197C6E550096B50C /* Slap.m */; };
 		D929A9DE19C1482400F7F6C8 /* ContactInfoDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D929A9DD19C1482400F7F6C8 /* ContactInfoDelegate.m */; };
+		D95423061A5F6F2E00C1F91F /* Inbox.m in Sources */ = {isa = PBXBuildFile; fileRef = D95423051A5F6F2E00C1F91F /* Inbox.m */; };
+		D95423081A5F843D00C1F91F /* scroll-down-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D95423071A5F843D00C1F91F /* scroll-down-arrow.png */; };
 		D96F2F2E198681EA00A41A6E /* HandWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = D96F2F2D198681EA00A41A6E /* HandWidget.m */; };
 		D96F2F31198B7FED00A41A6E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D96F2F30198B7FED00A41A6E /* User.m */; };
 		D96F2F33198BC07900A41A6E /* internet-high-five.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D96F2F32198BC07900A41A6E /* internet-high-five.jpeg */; };
 		D9749F221A5B86C300D01778 /* TableController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9749F211A5B86C300D01778 /* TableController.m */; };
 		D9749F251A5B9D9E00D01778 /* AllYourAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = D9749F241A5B9D9E00D01778 /* AllYourAddress.m */; };
+		D9749F291A5BBDBC00D01778 /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9749F281A5BBDBC00D01778 /* ContactCell.m */; };
+		D9749F2C1A5BC08600D01778 /* HeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9749F2B1A5BC08600D01778 /* HeaderCell.m */; };
 		D981A70A19C7EF400056EC71 /* Invitron.m in Sources */ = {isa = PBXBuildFile; fileRef = D981A70919C7EF400056EC71 /* Invitron.m */; };
 		D9CC14B719C6668E00D6761B /* AddressNameLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CC14B619C6668E00D6761B /* AddressNameLookup.m */; };
 		D9D8C39219DA6AAB00AE0DB3 /* SlapAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D8C39119DA6AAB00AE0DB3 /* SlapAlert.m */; };
@@ -91,6 +95,9 @@
 		D92667C2197C6E550096B50C /* Slap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slap.m; sourceTree = "<group>"; };
 		D929A9DC19C1482400F7F6C8 /* ContactInfoDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactInfoDelegate.h; sourceTree = "<group>"; };
 		D929A9DD19C1482400F7F6C8 /* ContactInfoDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactInfoDelegate.m; sourceTree = "<group>"; };
+		D95423041A5F6F2E00C1F91F /* Inbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Inbox.h; sourceTree = "<group>"; };
+		D95423051A5F6F2E00C1F91F /* Inbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Inbox.m; sourceTree = "<group>"; };
+		D95423071A5F843D00C1F91F /* scroll-down-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scroll-down-arrow.png"; sourceTree = "<group>"; };
 		D96F2F2C198681EA00A41A6E /* HandWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandWidget.h; sourceTree = "<group>"; };
 		D96F2F2D198681EA00A41A6E /* HandWidget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandWidget.m; sourceTree = "<group>"; };
 		D96F2F2F198B7FED00A41A6E /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -100,6 +107,10 @@
 		D9749F211A5B86C300D01778 /* TableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableController.m; sourceTree = "<group>"; };
 		D9749F231A5B9D9E00D01778 /* AllYourAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllYourAddress.h; sourceTree = "<group>"; };
 		D9749F241A5B9D9E00D01778 /* AllYourAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllYourAddress.m; sourceTree = "<group>"; };
+		D9749F271A5BBDBC00D01778 /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
+		D9749F281A5BBDBC00D01778 /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
+		D9749F2A1A5BC08600D01778 /* HeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderCell.h; sourceTree = "<group>"; };
+		D9749F2B1A5BC08600D01778 /* HeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderCell.m; sourceTree = "<group>"; };
 		D981A70819C7EF400056EC71 /* Invitron.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Invitron.h; sourceTree = "<group>"; };
 		D981A70919C7EF400056EC71 /* Invitron.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invitron.m; sourceTree = "<group>"; };
 		D9CC14B519C6668E00D6761B /* AddressNameLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressNameLookup.h; sourceTree = "<group>"; };
@@ -176,6 +187,7 @@
 		D926677F197A42110096B50C /* HighFive */ = {
 			isa = PBXGroup;
 			children = (
+				D9749F261A5BBD8C00D01778 /* Cells */,
 				D9266788197A42110096B50C /* AppDelegate.h */,
 				D9266789197A42110096B50C /* AppDelegate.m */,
 				D9D8C39319DA6DE800AE0DB3 /* Alerts */,
@@ -185,12 +197,12 @@
 				D926678B197A42110096B50C /* Main.storyboard */,
 				D926678E197A42120096B50C /* ViewController.h */,
 				D926678F197A42120096B50C /* ViewController.m */,
+				D9749F201A5B86C300D01778 /* TableController.h */,
+				D9749F211A5B86C300D01778 /* TableController.m */,
 				D9266791197A42120096B50C /* Images.xcassets */,
 				D96F2F35198F552D00A41A6E /* Views */,
 				D96F2F34198F552000A41A6E /* Models */,
 				D9266780197A42110096B50C /* Supporting Files */,
-				D9749F201A5B86C300D01778 /* TableController.h */,
-				D9749F211A5B86C300D01778 /* TableController.m */,
 			);
 			path = HighFive;
 			sourceTree = "<group>";
@@ -198,6 +210,7 @@
 		D9266780197A42110096B50C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D95423071A5F843D00C1F91F /* scroll-down-arrow.png */,
 				D9206F991A1D00A300535B7C /* highfive-0.m4a */,
 				D9206F971A1B1BEE00535B7C /* slap.jpg */,
 				D96F2F32198BC07900A41A6E /* internet-high-five.jpeg */,
@@ -240,6 +253,8 @@
 		D96F2F34198F552000A41A6E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D95423041A5F6F2E00C1F91F /* Inbox.h */,
+				D95423051A5F6F2E00C1F91F /* Inbox.m */,
 				D92667C1197C6E550096B50C /* Slap.h */,
 				D92667C2197C6E550096B50C /* Slap.m */,
 				D96F2F2F198B7FED00A41A6E /* User.h */,
@@ -255,6 +270,17 @@
 				D96F2F2D198681EA00A41A6E /* HandWidget.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		D9749F261A5BBD8C00D01778 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D9749F271A5BBDBC00D01778 /* ContactCell.h */,
+				D9749F281A5BBDBC00D01778 /* ContactCell.m */,
+				D9749F2A1A5BC08600D01778 /* HeaderCell.h */,
+				D9749F2B1A5BC08600D01778 /* HeaderCell.m */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 		D9CC14B819C6AEE700D6761B /* Utilities */ = {
@@ -380,6 +406,7 @@
 				D9206F981A1B1BEE00535B7C /* slap.jpg in Resources */,
 				D9266792197A42120096B50C /* Images.xcassets in Resources */,
 				D9266784197A42110096B50C /* InfoPlist.strings in Resources */,
+				D95423081A5F843D00C1F91F /* scroll-down-arrow.png in Resources */,
 				D926678D197A42120096B50C /* Main.storyboard in Resources */,
 				D9206F9A1A1DB05D00535B7C /* highfive-0.m4a in Resources */,
 				D9D8C39519DA926800AE0DB3 /* internet-high-five09.png in Resources */,
@@ -405,12 +432,15 @@
 				D96F2F2E198681EA00A41A6E /* HandWidget.m in Sources */,
 				D981A70A19C7EF400056EC71 /* Invitron.m in Sources */,
 				D9CC14B719C6668E00D6761B /* AddressNameLookup.m in Sources */,
+				D9749F291A5BBDBC00D01778 /* ContactCell.m in Sources */,
 				D9266790197A42120096B50C /* ViewController.m in Sources */,
 				D92667B2197AC6DB0096B50C /* Slapperometer.m in Sources */,
 				D92667BF197B36E20096B50C /* SlapNet.m in Sources */,
+				D9749F2C1A5BC08600D01778 /* HeaderCell.m in Sources */,
 				D926678A197A42110096B50C /* AppDelegate.m in Sources */,
 				D9749F221A5B86C300D01778 /* TableController.m in Sources */,
 				D9749F251A5B9D9E00D01778 /* AllYourAddress.m in Sources */,
+				D95423061A5F6F2E00C1F91F /* Inbox.m in Sources */,
 				D9266786197A42110096B50C /* main.m in Sources */,
 				D9D8C39219DA6AAB00AE0DB3 /* SlapAlert.m in Sources */,
 				D929A9DE19C1482400F7F6C8 /* ContactInfoDelegate.m in Sources */,

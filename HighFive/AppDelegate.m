@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "AddressNameLookup.h"
 #import "SlapAlert.h"
-
+#import "Inbox.h"
 @implementation AppDelegate
 
 @synthesize notificationCount;
@@ -79,6 +79,7 @@
     User *slapper = [[User alloc] init: name with: phone];
     Slap *incoming = [[Slap alloc] init:slapper with: jerk];
     //if(UIApplication.application.state){
+    [Inbox addMessage: incoming];
     [self respondToSlap: jerk from: slapper];
 
     SlapAlert *alert = [SlapAlert newAlert: incoming];

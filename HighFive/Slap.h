@@ -11,7 +11,8 @@
 
 @interface Slap : NSObject
 
-@property (weak, nonatomic) User *slapper;
+//TODO how are you destroying?
+@property (strong, nonatomic) User *slapper;
 @property double ferocity;
 
 -(id) init:(User*) user with:(float) f;
