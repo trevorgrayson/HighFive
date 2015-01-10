@@ -41,15 +41,16 @@ const int kContactSection = 2;
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 2 + [self.arrayOfLetters count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch( section ) {
-        case kContactSection: return [AllYourAddress allContactsCount];
+        //case kContactSection: return [AllYourAddress allContactsCount];
         case kInboxSection:   return [Inbox count];
         case kHeaderSection:  return 1;
-        default: return 0;
+        default: return [AllYourAddress contactsStartingWithCount:
+                         [[self arrayOfLetters] objectAtIndex: section - 2]];
     }
 }
 
@@ -61,12 +62,12 @@ const int kContactSection = 2;
     }
 }
 
-
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     switch( [indexPath section] ) {
         case kHeaderSection:  return [self contactForHeader:tableView cellForRowAtIndexPath: indexPath];
         case kInboxSection:   return [self contactForInbox: tableView cellForRowAtIndexPath: indexPath];
-        case kContactSection: return [self contactForRow:   tableView cellForRowAtIndexPath: indexPath];
+        //case kContactSection: return [self contactForRow:   tableView cellForRowAtIndexPath: indexPath];
         default: return [self contactForRow:  tableView cellForRowAtIndexPath: indexPath];
     }
 
@@ -95,8 +96,12 @@ const int kContactSection = 2;
 
 - (UITableViewCell *) contactForRow:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ContactCell *cell = [tableView dequeueReusableCellWithIdentifier: @"inboxCell"];
-    
-    ABRecordRef contact = [AllYourAddress contactAtIndex: [indexPath row]];
+
+    //    ABRecordRef contact = [AllYourAddress contactAtIndex: [indexPath row]];
+    NSInteger offset = [indexPath section] - 2;
+    NSString *letter = [[self arrayOfLetters] objectAtIndex: offset];
+    ABRecordRef contact =
+    (__bridge ABRecordRef)([[AllYourAddress contactsStartingWith: letter] objectAtIndex: [indexPath row]]);
     
     NSString *first = (__bridge NSString *)(ABRecordCopyValue(contact, kABPersonFirstNameProperty));
     NSString *last  = (__bridge NSString *)(ABRecordCopyValue(contact, kABPersonLastNameProperty));
@@ -121,9 +126,29 @@ const int kContactSection = 2;
     if([indexPath section] == kHeaderSection ) {
         [self checkInbox];
     } else if( [indexPath section] == kContactSection ) {
-        User *target = [[User alloc] init:@"bob" with:@"8603849759"];
+        //User *target = [[User alloc] init:@"bob" with:@"8603849759"];
         [[SlapMotionDelegate alloc] init: [AllYourAddress contactAtIndex:[indexPath row]]];
     }
+}
+
+-(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+
+    NSIndexPath *topRow = [[self.tableView indexPathsForVisibleRows] objectAtIndex:0];
+    
+    if( [topRow section] > 1) {
+        return self.arrayOfLetters;
+    } else {
+        return nil;
+    }
+    
+}
+
+-(NSArray*) arrayOfLetters {
+    return [NSArray arrayWithObjects: @"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z", nil];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    return index + 2;
 }
 
 - (void)checkInbox {
@@ -131,6 +156,9 @@ const int kContactSection = 2;
     [self.tableView scrollToRowAtIndexPath: path atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.tableView reloadSectionIndexTitles];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView cafnEditRowAtIndexPath:(NSIndexPath *)indexPath {

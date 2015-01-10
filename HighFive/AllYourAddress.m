@@ -11,6 +11,22 @@
 
 NSArray *contacts;
 
++(NSArray*) contactsStartingWith:(NSString*) letter {
+
+    NSPredicate* predicate = [NSPredicate predicateWithBlock: ^(id record, NSDictionary* bindings) {
+        NSString *first = (__bridge NSString *)(ABRecordCopyValue((__bridge ABRecordRef)(record), kABPersonFirstNameProperty));
+        
+        return [first hasPrefix:letter];
+    }];
+    
+    return [[self allContacts] filteredArrayUsingPredicate:predicate];
+}
+
++(NSInteger) contactsStartingWithCount: (NSString*) letter {
+    NSArray *a = [self contactsStartingWith:letter];
+    return [a count];
+}
+
 +(NSArray*) allContacts {
     if (!contacts) {
         contacts = (__bridge NSArray *)(ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering([self addressBook], kABSourceTypeLocal, kABPersonSortByFirstName));

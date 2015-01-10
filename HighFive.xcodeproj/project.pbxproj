@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D901C3D519BBE36C004891D6 /* InviteController.m in Sources */ = {isa = PBXBuildFile; fileRef = D901C3D419BBE36C004891D6 /* InviteController.m */; };
+		D90F85031A60E6EB001D13BF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D90F85021A60E6EB001D13BF /* QuartzCore.framework */; };
 		D9206F981A1B1BEE00535B7C /* slap.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D9206F971A1B1BEE00535B7C /* slap.jpg */; };
 		D9206F9A1A1DB05D00535B7C /* highfive-0.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D9206F991A1D00A300535B7C /* highfive-0.m4a */; };
 		D926677A197A42110096B50C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9266779197A42110096B50C /* Foundation.framework */; };
@@ -62,6 +63,7 @@
 /* Begin PBXFileReference section */
 		D901C3D319BBE36C004891D6 /* InviteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteController.h; sourceTree = "<group>"; };
 		D901C3D419BBE36C004891D6 /* InviteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteController.m; sourceTree = "<group>"; };
+		D90F85021A60E6EB001D13BF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D9206F971A1B1BEE00535B7C /* slap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = slap.jpg; sourceTree = "<group>"; };
 		D9206F991A1D00A300535B7C /* highfive-0.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "highfive-0.m4a"; sourceTree = "<group>"; };
 		D9266776197A42110096B50C /* HighFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HighFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D90F85031A60E6EB001D13BF /* QuartzCore.framework in Frameworks */,
 				D92667BC197AE2F50096B50C /* MessageUI.framework in Frameworks */,
 				D92667BA197ADB770096B50C /* AudioToolbox.framework in Frameworks */,
 				D92667B7197AD3610096B50C /* AddressBook.framework in Frameworks */,
@@ -174,6 +177,7 @@
 		D9266778197A42110096B50C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D90F85021A60E6EB001D13BF /* QuartzCore.framework */,
 				D92667BB197AE2F50096B50C /* MessageUI.framework */,
 				D92667B9197ADB770096B50C /* AudioToolbox.framework */,
 				D92667B5197AD3600096B50C /* AddressBook.framework */,

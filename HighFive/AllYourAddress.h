@@ -12,8 +12,10 @@
 @interface AllYourAddress : NSObject
 
 +(NSArray*) allContacts;
-
 +(NSUInteger) allContactsCount;
+
++(NSArray*) contactsStartingWith:(NSString*) letter;
++(NSInteger) contactsStartingWithCount: (NSString*) letter;
 
 +(ABRecordRef) contactAtIndex:(NSUInteger) index;
 @end

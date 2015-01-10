@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SlapMotionDelegate.h"
 
-@interface TableController : UITableViewController<UITableViewDelegate>
+@interface TableController : UITableViewController<UITableViewDelegate, UIScrollViewDelegate>
 
 @end
