@@ -91,12 +91,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="aVi-OK-8o8" id="13C-Tb-bFn">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="High Five" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hP-NN-9EI">
-                                            <rect key="frame" x="90" y="8" width="141" height="43"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="internet-high-five.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="qXI-7i-y3B">
                                             <rect key="frame" x="8" y="-82" width="304" height="556"/>
                                         </imageView>

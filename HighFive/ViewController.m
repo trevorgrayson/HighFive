@@ -15,9 +15,8 @@
 @end
 
 @implementation ViewController
-@synthesize nameTag;
 @synthesize messages;
-@synthesize targetRecipient;
+//@synthesize targetRecipient;
 @synthesize imagePicker;
 
 //TODO ENUMs
@@ -31,17 +30,17 @@ NSMutableDictionary *handWidgets = nil;
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 
-    [super viewDidLoad];
     uiMode = kINVITE_ONLY;
     
     handWidgets = [[NSMutableDictionary alloc] init];
     
     messages = [[NSMutableDictionary alloc] init];
     [self reset:nil];
-    targetRecipient = nil;
+    //targetRecipient = nil;
     
     self.motionManager = [[CMMotionManager alloc] init];
     self.motionManager.accelerometerUpdateInterval = .2;
@@ -73,15 +72,6 @@ NSMutableDictionary *handWidgets = nil;
     if([self checkContact] && uiMode == kINVITE_ONLY) {
         [self waitingMode];
     }
-}
-
-- (void) setName:(NSString*) name
-{
-    [nameTag setTitle: name forState:UIControlStateNormal];
-}
-
-- (IBAction)changeName:(id)sender {
-    [self whoAreYou];
 }
 
 - (void) receiveHighFive:(double) ferocity from:(User*) user
@@ -138,16 +128,9 @@ NSMutableDictionary *handWidgets = nil;
     return [prefs valueForKey: @"contact"] != nil;
 }
 
--(void) whoAreYou
-{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Five!" message:@"What's your name bro?" delegate:self cancelButtonTitle:@"Burn" otherButtonTitles:@"Hello", nil];
-    [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
-    [alert show];
-}
-
 - (void) slapModeFor:(User*) user with:(double) ferocity {
     self.fiveCompanion.text = user.name;
-    targetRecipient = user;
+    //targetRecipient = user;
     [self.redHand setAlpha: ferocity/10];
     uiMode = kSLAP_MODE;
 }
@@ -188,7 +171,7 @@ NSMutableDictionary *handWidgets = nil;
 }
 
 -(void) sendSlap {
-    [SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
+    //[SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
     AudioServicesPlaySystemSound(slapSound);
 }
 
@@ -305,6 +288,18 @@ NSMutableDictionary *handWidgets = nil;
     return NO;
 }
 
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+//DEBUG CODE
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if( motion == UIEventSubtypeMotionShake ) {
+        //1User *slapper = [[User alloc] init: @"T-Dizzle" with: @"8603849759"];
+        //[SlapNet receiveHighFive: 1.0 from:slapper];
+    }
+}
+
 - (IBAction)pinchhack:(id)sender {
     if ( uiMode == kSLAP_MODE ) {
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
@@ -313,16 +308,4 @@ NSMutableDictionary *handWidgets = nil;
         [self waitingMode];
     }
 }
-
-- (BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if( motion == UIEventSubtypeMotionShake) {
-        //1User *slapper = [[User alloc] init: @"T-Dizzle" with: @"8603849759"];
-        //[SlapNet receiveHighFive: 1.0 from:slapper];
-    }
-}
-
 @end

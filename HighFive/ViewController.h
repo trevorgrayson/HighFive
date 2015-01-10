@@ -32,8 +32,6 @@ int uiMode;
 @property (strong, nonatomic) NSMutableDictionary *messages;
 @property (strong, nonatomic) CMMotionManager *motionManager;
 
-@property (strong, nonatomic) User *targetRecipient;
-
 @property (weak, nonatomic) IBOutlet UILabel *slapDebug;
 @property (weak, nonatomic) IBOutlet UILabel *fiveCompanion;
 

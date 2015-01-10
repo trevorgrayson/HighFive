@@ -118,8 +118,11 @@ const int kContactSection = 2;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([indexPath section] == 0 ) {
+    if([indexPath section] == kHeaderSection ) {
         [self checkInbox];
+    } else if( [indexPath section] == kContactSection ) {
+        User *target = [[User alloc] init:@"bob" with:@"8603849759"];
+        [[SlapMotionDelegate alloc] init: [AllYourAddress contactAtIndex:[indexPath row]]];
     }
 }
 
@@ -130,7 +133,7 @@ const int kContactSection = 2;
 
 /*
 // Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView cafnEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
