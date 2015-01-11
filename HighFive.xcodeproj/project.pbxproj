@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D901C3D519BBE36C004891D6 /* InviteController.m in Sources */ = {isa = PBXBuildFile; fileRef = D901C3D419BBE36C004891D6 /* InviteController.m */; };
 		D90F85031A60E6EB001D13BF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D90F85021A60E6EB001D13BF /* QuartzCore.framework */; };
+		D90F85061A61DD90001D13BF /* SlapLocalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D90F85051A61DD90001D13BF /* SlapLocalNotification.m */; };
 		D9206F981A1B1BEE00535B7C /* slap.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D9206F971A1B1BEE00535B7C /* slap.jpg */; };
 		D9206F9A1A1DB05D00535B7C /* highfive-0.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D9206F991A1D00A300535B7C /* highfive-0.m4a */; };
 		D926677A197A42110096B50C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9266779197A42110096B50C /* Foundation.framework */; };
@@ -64,6 +65,8 @@
 		D901C3D319BBE36C004891D6 /* InviteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteController.h; sourceTree = "<group>"; };
 		D901C3D419BBE36C004891D6 /* InviteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteController.m; sourceTree = "<group>"; };
 		D90F85021A60E6EB001D13BF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D90F85041A61DD8F001D13BF /* SlapLocalNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlapLocalNotification.h; sourceTree = "<group>"; };
+		D90F85051A61DD90001D13BF /* SlapLocalNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlapLocalNotification.m; sourceTree = "<group>"; };
 		D9206F971A1B1BEE00535B7C /* slap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = slap.jpg; sourceTree = "<group>"; };
 		D9206F991A1D00A300535B7C /* highfive-0.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "highfive-0.m4a"; sourceTree = "<group>"; };
 		D9266776197A42110096B50C /* HighFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HighFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,9 +197,9 @@
 		D926677F197A42110096B50C /* HighFive */ = {
 			isa = PBXGroup;
 			children = (
-				D9749F261A5BBD8C00D01778 /* Cells */,
 				D9266788197A42110096B50C /* AppDelegate.h */,
 				D9266789197A42110096B50C /* AppDelegate.m */,
+				D9749F261A5BBD8C00D01778 /* Cells */,
 				D9D8C39319DA6DE800AE0DB3 /* Alerts */,
 				D9CC14B919C6AEFC00D6761B /* Com */,
 				D9CC14B819C6AEE700D6761B /* Utilities */,
@@ -323,6 +326,8 @@
 			children = (
 				D9D8C39019DA6AAB00AE0DB3 /* SlapAlert.h */,
 				D9D8C39119DA6AAB00AE0DB3 /* SlapAlert.m */,
+				D90F85041A61DD8F001D13BF /* SlapLocalNotification.h */,
+				D90F85051A61DD90001D13BF /* SlapLocalNotification.m */,
 			);
 			name = Alerts;
 			sourceTree = "<group>";
@@ -437,6 +442,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D90F85061A61DD90001D13BF /* SlapLocalNotification.m in Sources */,
 				D96F2F31198B7FED00A41A6E /* User.m in Sources */,
 				D96F2F2E198681EA00A41A6E /* HandWidget.m in Sources */,
 				D954230B1A5FB93100C1F91F /* SlapMotionDelegate.m in Sources */,

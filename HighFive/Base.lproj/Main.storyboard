@@ -101,12 +101,12 @@
                                                 <constraint firstAttribute="height" constant="40" id="vA7-At-Q4F"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjk-0w-Waq">
-                                            <rect key="frame" x="77" y="354" width="166" height="30"/>
-                                            <state key="normal" title="You've been High Fived!">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S48-iV-oRE">
+                                            <rect key="frame" x="138" y="355" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="qXI-7i-y3B" secondAttribute="trailing" id="RdY-tv-CjH"/>
@@ -144,6 +144,9 @@
                             <outlet property="delegate" destination="YVG-hJ-Gdi" id="8Yz-Ug-hfo"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="fiveStatus" destination="S48-iV-oRE" id="viO-05-6m9"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YhW-kj-BfN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

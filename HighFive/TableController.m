@@ -38,6 +38,12 @@ const int kContactSection = 2;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+
+- (void) receiveHighFive:(double) ferocity from:(User*) user
+{
+    [self.tableView reloadData];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -57,7 +63,10 @@ const int kContactSection = 2;
 - (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch( section ) {
         case kContactSection: return @"High Five Someone";
-        case kInboxSection:   return @"You've been High Fived!";
+        case kInboxSection:
+            if([Inbox count] > 0 )
+                return @"You've been High Fived!";
+            else return nil;
         default: return nil;
     }
 }
@@ -123,14 +132,23 @@ const int kContactSection = 2;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([indexPath section] == kHeaderSection ) {
-        [self checkInbox];
-    } else if( [indexPath section] == kContactSection ) {
-        //User *target = [[User alloc] init:@"bob" with:@"8603849759"];
-        [[SlapMotionDelegate alloc] init: [AllYourAddress contactAtIndex:[indexPath row]]];
+    switch ([indexPath section]) {
+        case kHeaderSection:
+            [self checkInbox];
+            break;
+            
+        case kInboxSection:
+            break;
+        
+        default:
+            //NSIndexPath *path = [NSIndexPath indexPathForRow: 0 inSection: 0];
+            [tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: 0 inSection: 0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            [[SlapMotionDelegate alloc] init: [AllYourAddress contactAtIndex:[indexPath row]]];
+            break;
     }
 }
 
+//SECTION TITLES
 -(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
 
     NSIndexPath *topRow = [[self.tableView indexPathsForVisibleRows] objectAtIndex:0];
@@ -143,17 +161,26 @@ const int kContactSection = 2;
     
 }
 
--(NSArray*) arrayOfLetters {
-    return [NSArray arrayWithObjects: @"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z", nil];
-}
-
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
     return index + 2;
 }
 
+-(NSArray*) arrayOfLetters {
+    return [NSArray arrayWithObjects: @"A",@"B",@"C",@"D",@"E",@"F",@"G",
+            @"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",
+            @"T",@"U",@"V",@"W",@"X",@"Y",@"Z", nil];
+}
+
 - (void)checkInbox {
-    NSIndexPath *path = [NSIndexPath indexPathForRow: 0 inSection: kInboxSection];
+
+    NSInteger targetSection = kContactSection;
+    
+    if( [Inbox count] > 0 )
+        targetSection = kInboxSection;
+    
+    NSIndexPath *path = [NSIndexPath indexPathForRow: 0 inSection: kContactSection];
     [self.tableView scrollToRowAtIndexPath: path atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {

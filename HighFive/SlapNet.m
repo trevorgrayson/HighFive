@@ -8,6 +8,7 @@
 
 #import "SlapNet.h"
 #import "SlapAlert.h"
+#import "SlapLocalNotification.h"
 #import "Inbox.h"
 
 @implementation SlapNet
@@ -32,7 +33,6 @@ NSString *domain = @"http://ipsumllc.com:8080";
 }
 
 +(void) sendSlap:(double) ferocity to:(User*) user {
-
     [self sendNotification: ferocity to: user];
 }
 
@@ -40,8 +40,9 @@ NSString *domain = @"http://ipsumllc.com:8080";
 {
     Slap *slap = [Slap from: slapper with: ferocity];
     [Inbox addMessage: slap];
-    SlapAlert * alert = [SlapAlert newAlert: slap];
-    [alert show];
+    //SlapAlert * alert = [SlapAlert newAlert: slap];
+    //[alert show];
+    [SlapLocalNotification newNotification: slap];
 }
 
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

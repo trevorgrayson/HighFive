@@ -12,8 +12,12 @@
 @implementation SlapAlert
 
 +(SlapAlert*) newAlert:(Slap*) slap {
-    NSString *msg = [NSString stringWithFormat:@"%@ high fived you with a %@ %4.2f high five!", slap.slapper.name, [SlapNet highFiveDescription: slap.ferocity], slap.ferocity ];
-    SlapAlert *alert = [[SlapAlert alloc] initWithTitle:@"Slap!" message: msg delegate:self cancelButtonTitle:@"Leave Hanging" otherButtonTitles: @"Slap Back", nil];
+    NSString *msg = [NSString stringWithFormat:@"%@ high fived you with a %@ %4.2f high five!",
+                     slap.slapper.name,
+                     [SlapNet highFiveDescription: slap.ferocity],
+                     slap.ferocity ];
+    
+    SlapAlert *alert = [[SlapAlert alloc] initWithTitle: @"Slap!" message: msg delegate:self cancelButtonTitle:@"Leave Hanging" otherButtonTitles: @"Slap Back", nil];
     //put in init
     UIImage *img = [[UIImage alloc] initWithContentsOfFile: @"slap.jpg"];
     UIImageView * iv = [[UIImageView alloc] initWithImage: img];

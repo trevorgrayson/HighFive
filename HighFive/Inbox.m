@@ -10,16 +10,20 @@
 #import "User.h"
 
 @implementation Inbox
-NSMutableArray *slaps;
+NSMutableArray *_slaps;
+
++(NSMutableArray*) slaps {
+    if( _slaps == nil ) {
+        NSLog(@"Intializing Inbox");
+        _slaps = [[NSMutableArray alloc] init];
+    }
+    
+    return _slaps;
+}
 
 +(void) addMessage:(Slap*) slap
 {
-    if( slaps == nil ) {
-        NSLog(@"Intializing Inbox");
-        slaps = [[NSMutableArray alloc] init];
-    }
-    
-    [slaps addObject: slap];
+    [self.slaps addObject: slap];
 }
 
 +(NSInteger) count {
@@ -33,15 +37,7 @@ NSMutableArray *slaps;
 
 +(NSArray*) messages
 {
-    //Mocked
-    return [ NSArray arrayWithObjects:
-            [Slap from:
-                [User identifiedBy:@"8603849769"]
-                  with: 1.5],
-            [Slap from:
-                [User named:@"Paul" identifiedBy:@"8605559759"]
-                  with: 1.9],
-            nil];
+    return self.slaps;
 }
 
 //NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];

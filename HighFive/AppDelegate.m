@@ -9,10 +9,13 @@
 #import "AppDelegate.h"
 #import "AddressNameLookup.h"
 #import "SlapAlert.h"
+#import "SlapLocalNotification.h"
 #import "Inbox.h"
 @implementation AppDelegate
 
 @synthesize notificationCount;
+
+SystemSoundID slapSound;
 
 //- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -28,11 +31,43 @@
         
         [self attemptRegistration];
         ViewController *root = (ViewController*) self.window.rootViewController;
-        [root waitingMode];
     }
     
     return YES;
 }
+
+
+#ifdef __IPHONE_8_0
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    //register to receive notifications
+    [application registerForRemoteNotifications];
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)newDeviceToken forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
+{
+    //handle the actions
+    if ([newDeviceToken isEqualToString:@"declineAction"]){
+        NSLog(@"User Declined Notifications");
+    }
+    else if ([newDeviceToken isEqualToString:@"answerAction"]){
+        NSString *devTokenStr = [[[[newDeviceToken description]
+                                   stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                                  stringByReplacingOccurrencesOfString: @">" withString: @""]
+                                 stringByReplacingOccurrencesOfString: @" " withString: @""];
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSLog(@"setting %@", devTokenStr);
+        [prefs setObject: devTokenStr forKey:@"deviceToken"];
+        [prefs synchronize];
+        [self attemptRegistration];
+        
+        NSLog(@"My token is: %@", devTokenStr);
+    }
+}
+#endif
+
+
 
 - (void) attemptRegistration {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -82,8 +117,9 @@
     [Inbox addMessage: incoming];
     [self respondToSlap: jerk from: slapper];
 
-    SlapAlert *alert = [SlapAlert newAlert: incoming];
-    [alert show];
+//    SlapAlert *alert = [SlapAlert newAlert: incoming];
+//    [alert show];
+    AudioServicesPlaySystemSound(slapSound);
 }
 
 - (void) respondToSlap:(double)ferocity from:(User*) user {
@@ -100,9 +136,9 @@
 //        [vc slapModeFor: slap];
 //    }];
      //addObserver: self selector: @selector(respondToSlap:from:) name:@"SLAP" object:nil];
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    NSLog(@"%@", launchOptions);
+    NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"highfive-0" withExtension:@"m4a"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &slapSound);
+
     [self attemptRegistration];
     
     return YES;
@@ -110,6 +146,19 @@
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)newDeviceToken
 {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    } else {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
+#else
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+#endif
+    
     NSString *devTokenStr = [[[[newDeviceToken description]
                                stringByReplacingOccurrencesOfString: @"<" withString: @""]
                                stringByReplacingOccurrencesOfString: @">" withString: @""]
