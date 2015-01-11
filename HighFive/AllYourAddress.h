@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AddressBook/AddressBook.h>
+#import "User.h"
 
 @interface AllYourAddress : NSObject
 
@@ -17,5 +18,7 @@
 +(NSArray*) contactsStartingWith:(NSString*) letter;
 +(NSInteger) contactsStartingWithCount: (NSString*) letter;
 
-+(ABRecordRef) contactAtIndex:(NSUInteger) index;
++(User*) contactAtIndex:(NSUInteger) index;
+
++(User*) contactStartingWith:(NSString*) letter atIndex:(NSUInteger) index;
 @end

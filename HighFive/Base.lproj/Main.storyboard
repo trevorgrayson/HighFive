@@ -91,9 +91,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="aVi-OK-8o8" id="13C-Tb-bFn">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="internet-high-five.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="qXI-7i-y3B">
-                                            <rect key="frame" x="8" y="-82" width="304" height="556"/>
-                                        </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="scroll-down-arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="xS1-c6-9sg">
                                             <rect key="frame" x="140" y="374" width="40" height="40"/>
                                             <constraints>
@@ -101,20 +98,33 @@
                                                 <constraint firstAttribute="height" constant="40" id="vA7-At-Q4F"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S48-iV-oRE">
-                                            <rect key="frame" x="138" y="355" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Slap." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmP-AP-Ql3">
+                                            <rect key="frame" x="30" y="1" width="260" height="38"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="38" id="0eJ-2f-mI3"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="internet-high-five.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="qXI-7i-y3B">
+                                            <rect key="frame" x="8" y="-85" width="304" height="556"/>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="qXI-7i-y3B" secondAttribute="trailing" id="RdY-tv-CjH"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="qXI-7i-y3B" secondAttribute="trailing" id="L5s-cd-8mW"/>
+                                        <constraint firstItem="zmP-AP-Ql3" firstAttribute="top" secondItem="13C-Tb-bFn" secondAttribute="topMargin" constant="-7" id="Tlv-L1-Tc4"/>
                                         <constraint firstItem="xS1-c6-9sg" firstAttribute="bottom" secondItem="13C-Tb-bFn" secondAttribute="bottomMargin" id="UH8-aP-dlg"/>
-                                        <constraint firstItem="qXI-7i-y3B" firstAttribute="leading" secondItem="13C-Tb-bFn" secondAttribute="leadingMargin" id="bcg-Mr-hdf"/>
+                                        <constraint firstItem="zmP-AP-Ql3" firstAttribute="leading" secondItem="13C-Tb-bFn" secondAttribute="leadingMargin" constant="22" id="dHn-re-h7b"/>
                                         <constraint firstAttribute="centerX" secondItem="xS1-c6-9sg" secondAttribute="centerX" id="eqW-lG-MZl"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="zmP-AP-Ql3" secondAttribute="trailing" constant="22" id="ib5-Qg-DZK"/>
+                                        <constraint firstItem="qXI-7i-y3B" firstAttribute="top" secondItem="13C-Tb-bFn" secondAttribute="topMargin" constant="-93" id="ppF-a6-jGX"/>
+                                        <constraint firstItem="qXI-7i-y3B" firstAttribute="leading" secondItem="13C-Tb-bFn" secondAttribute="leadingMargin" id="qkM-yJ-3i9"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="headline" destination="zmP-AP-Ql3" id="8SS-5u-8as"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="inboxCell" id="4oB-6d-Epi" customClass="ContactCell">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -144,13 +154,10 @@
                             <outlet property="delegate" destination="YVG-hJ-Gdi" id="8Yz-Ug-hfo"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <outlet property="fiveStatus" destination="S48-iV-oRE" id="viO-05-6m9"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YhW-kj-BfN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="439" y="12"/>
+            <point key="canvasLocation" x="421" y="9"/>
         </scene>
     </scenes>
     <resources>

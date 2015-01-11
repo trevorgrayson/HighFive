@@ -8,22 +8,30 @@
 
 #import "TableController.h"
 #import "ContactCell.h"
+#import "HeaderCell.h"
 
 #import "AllYourAddress.h"
 #import "Inbox.h"
 
+//TODO -2 section situation
 @interface TableController ()
 
 @end
 
 @implementation TableController
 
+@synthesize headline;
+
 const int kHeaderSection  = 0;
 const int kInboxSection   = 1;
 const int kContactSection = 2;
+NSString *defaultHeadline = @"Tap to Slap";
+
+SlapMotionWorker *slapWorker;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self reset];
     
     //Avoiding status bar?
     [self.tableView setContentInset:UIEdgeInsetsMake(20,
@@ -38,6 +46,18 @@ const int kContactSection = 2;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+#pragma mark - Controller phase methods
+- (void) reset {
+    headline = defaultHeadline;
+}
+
+- (void) slapModeFor:(User*) user {
+    headline = [NSString stringWithFormat:
+                @"Slap %@ some skin", user.name];
+    //TODO Heavy handed?
+    [self.tableView reloadData];
+    slapWorker = [[SlapMotionWorker alloc] init: user];
+}
 
 - (void) receiveHighFive:(double) ferocity from:(User*) user
 {
@@ -56,7 +76,7 @@ const int kContactSection = 2;
         case kInboxSection:   return [Inbox count];
         case kHeaderSection:  return 1;
         default: return [AllYourAddress contactsStartingWithCount:
-                         [[self arrayOfLetters] objectAtIndex: section - 2]];
+                         [self letterAt: section - 2]];
     }
 }
 
@@ -83,7 +103,8 @@ const int kContactSection = 2;
 }
 
 - (UITableViewCell *) contactForHeader:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: @"headerCell"];
+    HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier: @"headerCell"];
+    cell.headline.text = headline;
     return cell;
 }
 
@@ -132,18 +153,23 @@ const int kContactSection = 2;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //Why can't I make variables in `default`??
+    NSInteger contactLetterIndex = [indexPath section] - 2;
+    NSInteger row = [indexPath row];
+    
     switch ([indexPath section]) {
         case kHeaderSection:
             [self checkInbox];
             break;
             
         case kInboxSection:
+            //TODO
             break;
         
         default:
             //NSIndexPath *path = [NSIndexPath indexPathForRow: 0 inSection: 0];
+            [self slapModeFor: [AllYourAddress contactStartingWith: [self letterAt: contactLetterIndex] atIndex: row]];
             [tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: 0 inSection: 0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-            [[SlapMotionDelegate alloc] init: [AllYourAddress contactAtIndex:[indexPath row]]];
             break;
     }
 }
@@ -171,6 +197,10 @@ const int kContactSection = 2;
             @"T",@"U",@"V",@"W",@"X",@"Y",@"Z", nil];
 }
 
+-(NSString*) letterAt:(NSInteger) i {
+    return [[self arrayOfLetters] objectAtIndex: i ];
+}
+
 - (void)checkInbox {
 
     NSInteger targetSection = kContactSection;
@@ -185,26 +215,35 @@ const int kContactSection = 2;
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.tableView reloadSectionIndexTitles];
+    /*
+    if( slapWorker != nil ) {
+     [slapWorker harakiri];
+     [self reset];
+    }
+     */
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView cafnEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    if ([indexPath section] == 1) {
+        return YES;
+    }
+    return NO;
+}
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"IOU" message:@"I owe you." delegate:nil cancelButtonTitle:@"You suck Trevor" otherButtonTitles: nil];
+        [alert show];
+//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.

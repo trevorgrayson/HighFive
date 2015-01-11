@@ -8,7 +8,6 @@
 
 #import "SlapNet.h"
 #import "SlapAlert.h"
-#import "SlapLocalNotification.h"
 #import "Inbox.h"
 
 @implementation SlapNet
@@ -42,7 +41,6 @@ NSString *domain = @"http://ipsumllc.com:8080";
     [Inbox addMessage: slap];
     //SlapAlert * alert = [SlapAlert newAlert: slap];
     //[alert show];
-    [SlapLocalNotification newNotification: slap];
 }
 
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -101,8 +99,8 @@ User *pendingUser;
     else if(m > 6) { judgement = @"braggable";  }
     else if(m > 5) { judgement = @"strong";     }
     else if(m > 4) { judgement = @"aggressive"; }
-    else if(m > 3) { judgement = @"solid";     }
-    else if(m > 2) { judgement = @"strong";      }
+    else if(m > 3) { judgement = @"solid";      }
+    else if(m > 2) { judgement = @"strong";     }
     
     return judgement;
 }

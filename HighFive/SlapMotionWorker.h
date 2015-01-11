@@ -12,12 +12,13 @@
 #import "Slapperometer.h"
 #import "SlapNet.h"
 
-@interface SlapMotionDelegate : NSObject
+@interface SlapMotionWorker : NSObject
 
 @property (strong, nonatomic) CMMotionManager *motionManager;
 
 @property (strong, nonatomic) User *targetRecipient;
 
 - (id) init: (User*) recipient;
+- (void) harakiri;
 
 @end

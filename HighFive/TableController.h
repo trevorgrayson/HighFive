@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SlapMotionDelegate.h"
+#import "SlapMotionWorker.h"
 
 @interface TableController : UITableViewController<UITableViewDelegate, UIScrollViewDelegate>
+
+@property(nonatomic, strong) NSString *headline;
 
 @end

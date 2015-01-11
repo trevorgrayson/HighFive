@@ -30,7 +30,7 @@ SystemSoundID slapSound;
         [prefs synchronize];
         
         [self attemptRegistration];
-        ViewController *root = (ViewController*) self.window.rootViewController;
+        //ViewController *root = (ViewController*) self.window.rootViewController;
     }
     
     return YES;

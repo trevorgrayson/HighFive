@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Ipsum LLC. All rights reserved.
 //
 
-#import "SlapMotionDelegate.h"
+#import "SlapMotionWorker.h"
 
-@implementation SlapMotionDelegate
+@implementation SlapMotionWorker
 
 double currentMaxAccelX;
 double currentMaxAccelY;
@@ -29,7 +29,7 @@ double currentMaxAccelZ;
             if(error){ NSLog(@"%@", error); }
         }];
         
-        //self.targetRecipient = recipient;
+        self.targetRecipient = recipient;
     }
     return self;
 }
@@ -40,17 +40,40 @@ double currentMaxAccelZ;
     currentMaxAccelY = MAX(fabs(acceleration.y), currentMaxAccelY);
     currentMaxAccelZ = MAX(fabs(acceleration.z), currentMaxAccelZ);
     
+    NSString *mode;
+    //Mode should not change if value is much > 1 (gravity)
+    if (acceleration.y < acceleration.z) {
+        mode = @"High Five";
+    } else {
+        mode = @"Low Five";
+    }
+    
+    NSLog(@"%@ x: %f, y: %f, z: %f", mode, acceleration.x, acceleration.y, acceleration.z);
+    
     if ( [Slapperometer slapCheck:acceleration] ) {
 //        [self sendSlap];
         NSLog(@"Sending slap to %@!", targetRecipient);
         [SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
+        [self harakiri];
+
     }
 }
+
+//TODO if y > z == HIGH FIVE else LOW FIVE
 
 -(void)reset {
     currentMaxAccelX = 0;
     currentMaxAccelY = 0;
     currentMaxAccelZ = 0;
+}
+
+- (void) harakiri {
+    [self.motionManager stopAccelerometerUpdates];
+    [self.motionManager stopDeviceMotionUpdates ];
+    [self.motionManager stopGyroUpdates];
+    
+    self.motionManager = nil;
+    self.targetRecipient = nil;
 }
 
 - (void)dealloc

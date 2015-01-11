@@ -37,7 +37,7 @@
 		D929A9DE19C1482400F7F6C8 /* ContactInfoDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D929A9DD19C1482400F7F6C8 /* ContactInfoDelegate.m */; };
 		D95423061A5F6F2E00C1F91F /* Inbox.m in Sources */ = {isa = PBXBuildFile; fileRef = D95423051A5F6F2E00C1F91F /* Inbox.m */; };
 		D95423081A5F843D00C1F91F /* scroll-down-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D95423071A5F843D00C1F91F /* scroll-down-arrow.png */; };
-		D954230B1A5FB93100C1F91F /* SlapMotionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D954230A1A5FB93100C1F91F /* SlapMotionDelegate.m */; };
+		D954230B1A5FB93100C1F91F /* SlapMotionWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = D954230A1A5FB93100C1F91F /* SlapMotionWorker.m */; };
 		D96F2F2E198681EA00A41A6E /* HandWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = D96F2F2D198681EA00A41A6E /* HandWidget.m */; };
 		D96F2F31198B7FED00A41A6E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D96F2F30198B7FED00A41A6E /* User.m */; };
 		D96F2F33198BC07900A41A6E /* internet-high-five.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D96F2F32198BC07900A41A6E /* internet-high-five.jpeg */; };
@@ -104,8 +104,8 @@
 		D95423041A5F6F2E00C1F91F /* Inbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Inbox.h; sourceTree = "<group>"; };
 		D95423051A5F6F2E00C1F91F /* Inbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Inbox.m; sourceTree = "<group>"; };
 		D95423071A5F843D00C1F91F /* scroll-down-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scroll-down-arrow.png"; sourceTree = "<group>"; };
-		D95423091A5FB93100C1F91F /* SlapMotionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlapMotionDelegate.h; sourceTree = "<group>"; };
-		D954230A1A5FB93100C1F91F /* SlapMotionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlapMotionDelegate.m; sourceTree = "<group>"; };
+		D95423091A5FB93100C1F91F /* SlapMotionWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlapMotionWorker.h; sourceTree = "<group>"; };
+		D954230A1A5FB93100C1F91F /* SlapMotionWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlapMotionWorker.m; sourceTree = "<group>"; };
 		D96F2F2C198681EA00A41A6E /* HandWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandWidget.h; sourceTree = "<group>"; };
 		D96F2F2D198681EA00A41A6E /* HandWidget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandWidget.m; sourceTree = "<group>"; };
 		D96F2F2F198B7FED00A41A6E /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -158,6 +158,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D90F85071A63085B001D13BF /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				D96F2F2C198681EA00A41A6E /* HandWidget.h */,
+				D96F2F2D198681EA00A41A6E /* HandWidget.m */,
+			);
+			name = Widgets;
+			sourceTree = "<group>";
+		};
 		D926676D197A42110096B50C = {
 			isa = PBXGroup;
 			children = (
@@ -199,8 +208,7 @@
 			children = (
 				D9266788197A42110096B50C /* AppDelegate.h */,
 				D9266789197A42110096B50C /* AppDelegate.m */,
-				D9749F261A5BBD8C00D01778 /* Cells */,
-				D9D8C39319DA6DE800AE0DB3 /* Alerts */,
+				D96F2F35198F552D00A41A6E /* Views */,
 				D9CC14B919C6AEFC00D6761B /* Com */,
 				D9CC14B819C6AEE700D6761B /* Utilities */,
 				D929A9DB19C147F400F7F6C8 /* Delegates */,
@@ -210,7 +218,6 @@
 				D9749F201A5B86C300D01778 /* TableController.h */,
 				D9749F211A5B86C300D01778 /* TableController.m */,
 				D9266791197A42120096B50C /* Images.xcassets */,
-				D96F2F35198F552D00A41A6E /* Views */,
 				D96F2F34198F552000A41A6E /* Models */,
 				D9266780197A42110096B50C /* Supporting Files */,
 			);
@@ -256,8 +263,8 @@
 			children = (
 				D929A9DC19C1482400F7F6C8 /* ContactInfoDelegate.h */,
 				D929A9DD19C1482400F7F6C8 /* ContactInfoDelegate.m */,
-				D95423091A5FB93100C1F91F /* SlapMotionDelegate.h */,
-				D954230A1A5FB93100C1F91F /* SlapMotionDelegate.m */,
+				D95423091A5FB93100C1F91F /* SlapMotionWorker.h */,
+				D954230A1A5FB93100C1F91F /* SlapMotionWorker.m */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -278,8 +285,9 @@
 		D96F2F35198F552D00A41A6E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D96F2F2C198681EA00A41A6E /* HandWidget.h */,
-				D96F2F2D198681EA00A41A6E /* HandWidget.m */,
+				D9D8C39319DA6DE800AE0DB3 /* Alerts */,
+				D9749F261A5BBD8C00D01778 /* Cells */,
+				D90F85071A63085B001D13BF /* Widgets */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -445,7 +453,7 @@
 				D90F85061A61DD90001D13BF /* SlapLocalNotification.m in Sources */,
 				D96F2F31198B7FED00A41A6E /* User.m in Sources */,
 				D96F2F2E198681EA00A41A6E /* HandWidget.m in Sources */,
-				D954230B1A5FB93100C1F91F /* SlapMotionDelegate.m in Sources */,
+				D954230B1A5FB93100C1F91F /* SlapMotionWorker.m in Sources */,
 				D981A70A19C7EF400056EC71 /* Invitron.m in Sources */,
 				D9CC14B719C6668E00D6761B /* AddressNameLookup.m in Sources */,
 				D9749F291A5BBDBC00D01778 /* ContactCell.m in Sources */,
