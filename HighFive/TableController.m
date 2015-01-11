@@ -38,6 +38,9 @@ SlapMotionWorker *slapWorker;
                                                      self.tableView.contentInset.left,
                                                      self.tableView.contentInset.bottom,
                                                      self.tableView.contentInset.right)];
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(reset) name: @"harakiri" object:nil];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -49,11 +52,11 @@ SlapMotionWorker *slapWorker;
 #pragma mark - Controller phase methods
 - (void) reset {
     headline = defaultHeadline;
+    [self.tableView reloadData];
 }
 
 - (void) slapModeFor:(User*) user {
-    headline = [NSString stringWithFormat:
-                @"Slap %@ some skin", user.name];
+    headline = [NSString stringWithFormat: @"Slap %@ some skin", user.name];
     //TODO Heavy handed?
     [self.tableView reloadData];
     slapWorker = [[SlapMotionWorker alloc] init: user];

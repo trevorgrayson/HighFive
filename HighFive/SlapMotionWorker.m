@@ -52,8 +52,14 @@ double currentMaxAccelZ;
     
     if ( [Slapperometer slapCheck:acceleration] ) {
 //        [self sendSlap];
+        
         NSLog(@"Sending slap to %@!", targetRecipient);
+        
         [SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
+        
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc postNotificationName: @"harakiri" object: self];
+        
         [self harakiri];
 
     }

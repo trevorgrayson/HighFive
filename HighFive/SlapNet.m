@@ -83,7 +83,8 @@ User *pendingUser;
                 //UIAlertView *confirm = [[UIAlertView alloc] initWithTitle:@"High Five!" message:@"Don't know who that is bro." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
                 //[confirm show];
             } else {
-                UIAlertView *confirm = [[UIAlertView alloc] initWithTitle:@"Slap!" message:@"Nice Five-skis bro." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                NSString *message = [NSString stringWithFormat: @"Nice Five-skis bro."];
+                UIAlertView *confirm = [[UIAlertView alloc] initWithTitle:@"Slap!" message: message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
                 [confirm show];
             }
         }
