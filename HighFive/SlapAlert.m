@@ -25,9 +25,9 @@
     //[alert setFrame: CGRectMake(0, 0, 500, 800)];
     CGSize theSize = [alert frame].size;
     
-    UIGraphicsBeginImageContext(theSize);
-    [img drawInRect:CGRectMake(0, 0, theSize.width, theSize.height)];
-    img = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsBeginImageContext(theSize);
+//    [img drawInRect:CGRectMake(0, 0, theSize.width, theSize.height)];
+//    img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     [[alert layer] setContents: iv];
     return alert;

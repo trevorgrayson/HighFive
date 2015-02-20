@@ -14,8 +14,7 @@
 @implementation AppDelegate
 
 @synthesize notificationCount;
-
-SystemSoundID slapSound;
+@synthesize slapSound;
 
 //- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -119,6 +118,10 @@ SystemSoundID slapSound;
 
 //    SlapAlert *alert = [SlapAlert newAlert: incoming];
 //    [alert show];
+    [self playSlapSound];
+}
+
+- (void) playSlapSound {
     AudioServicesPlaySystemSound(slapSound);
 }
 

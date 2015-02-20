@@ -10,6 +10,7 @@
 
 @implementation User
 @synthesize name;
+@synthesize contact;
 
 - (id) init
 {
@@ -19,11 +20,12 @@
     return self;
 }
 
--(id) init:(NSString*) n with:(NSString*) contact {
+-(id) init:(NSString*) n with:(NSString*) c {
     self = [super init];
     if (self) {
         name = n;
-        self.contact = contact;
+        //format contact
+        self.contact = c;
     }
     return self;
 }
@@ -38,5 +40,11 @@
 
 +(User*) named: (NSString*) name identifiedBy:(NSString*) contact {
     return [[User alloc] init: name with:contact];
+}
+
+- (void)dealloc
+{
+    name = nil;
+    contact = nil;
 }
 @end

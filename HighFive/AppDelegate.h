@@ -17,4 +17,8 @@
 
 @property int notificationCount;
 
+@property (readwrite, nonatomic, assign) SystemSoundID slapSound;
+
+- (void) playSlapSound;
+
 @end

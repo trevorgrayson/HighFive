@@ -9,6 +9,7 @@
 #import "SlapNet.h"
 #import "SlapAlert.h"
 #import "Inbox.h"
+#import "AppDelegate.h"
 
 @implementation SlapNet
 
@@ -32,6 +33,8 @@ NSString *domain = @"http://ipsumllc.com:8080";
 }
 
 +(void) sendSlap:(double) ferocity to:(User*) user {
+    AppDelegate *appDell = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDell playSlapSound];
     [self sendNotification: ferocity to: user];
 }
 

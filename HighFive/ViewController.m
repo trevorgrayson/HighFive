@@ -69,6 +69,7 @@ NSMutableDictionary *handWidgets = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     if([self checkContact] && uiMode == kINVITE_ONLY) {
         [self waitingMode];
     }

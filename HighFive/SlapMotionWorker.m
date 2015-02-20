@@ -51,7 +51,6 @@ double currentMaxAccelZ;
     NSLog(@"%@ x: %f, y: %f, z: %f", mode, acceleration.x, acceleration.y, acceleration.z);
     
     if ( [Slapperometer slapCheck:acceleration] ) {
-//        [self sendSlap];
         
         NSLog(@"Sending slap to %@!", targetRecipient);
         

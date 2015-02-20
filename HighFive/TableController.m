@@ -28,6 +28,7 @@ const int kContactSection = 2;
 NSString *defaultHeadline = @"Tap to Slap";
 
 SlapMotionWorker *slapWorker;
+CGPoint lastScrollOffset;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,7 +53,13 @@ SlapMotionWorker *slapWorker;
 #pragma mark - Controller phase methods
 - (void) reset {
     headline = defaultHeadline;
+    [slapWorker harakiri];
+    slapWorker = nil;
     [self.tableView reloadData];
+}
+
+- (bool) inSlapMode {
+    return slapWorker != nil;
 }
 
 - (void) slapModeFor:(User*) user {
@@ -114,14 +121,14 @@ SlapMotionWorker *slapWorker;
 - (UITableViewCell *) contactForInbox:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ContactCell *cell = [tableView dequeueReusableCellWithIdentifier: @"inboxCell"];
     Slap *slap = [Inbox messageAtIndex: [indexPath row]];
-    cell.name.text = slap.slapper.name;
+    cell.name.text = [NSString stringWithFormat:@"%@ slapped a %0.2f", slap.slapper.name, slap.ferocity];
     cell.icon.image = [UIImage imageNamed:@"internet-high-five.jpeg"];
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if( [indexPath section] == 0 ) {
-        return self.view.frame.size.height - 20;
+        return self.view.frame.size.height;
     } else {
         return 60.0;
     }
@@ -145,6 +152,7 @@ SlapMotionWorker *slapWorker;
     if( last )
         name = [NSString stringWithFormat: @"%@ %@", name, last];
     
+    
     NSData *imgData   = (__bridge NSData*)ABPersonCopyImageDataWithFormat(contact, kABPersonImageFormatThumbnail);
     UIImage  *icon    = [UIImage imageWithData: imgData];
     
@@ -156,17 +164,22 @@ SlapMotionWorker *slapWorker;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //Why can't I make variables in `default`??
+    Slap *slap;
     NSInteger contactLetterIndex = [indexPath section] - 2;
     NSInteger row = [indexPath row];
     
     switch ([indexPath section]) {
         case kHeaderSection:
-            [self checkInbox];
+            if(![self inSlapMode]) {
+                [self checkInbox];
+            }
+
             break;
             
         case kInboxSection:
-            //TODO
+            slap = [Inbox messageAtIndex: [indexPath row]];
+            [self slapModeFor: slap.slapper];
+            [self scrollToTop];
             break;
         
         default:
@@ -175,6 +188,10 @@ SlapMotionWorker *slapWorker;
             [tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: 0 inSection: 0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             break;
     }
+}
+
+-(void) scrollToTop {
+    [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: 0 inSection: 0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 //SECTION TITLES
@@ -206,10 +223,10 @@ SlapMotionWorker *slapWorker;
 
 - (void)checkInbox {
 
-    NSInteger targetSection = kContactSection;
-    
-    if( [Inbox count] > 0 )
-        targetSection = kInboxSection;
+//    NSInteger targetSection = kContactSection;
+//    
+//    if( [Inbox count] > 0 )
+//        targetSection = kInboxSection;
     
     NSIndexPath *path = [NSIndexPath indexPathForRow: 0 inSection: kContactSection];
     [self.tableView scrollToRowAtIndexPath: path atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -218,14 +235,24 @@ SlapMotionWorker *slapWorker;
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.tableView reloadSectionIndexTitles];
-    /*
-    if( slapWorker != nil ) {
-     [slapWorker harakiri];
-     [self reset];
+    
+    if( [self inSlapMode]  &&
+        (scrollView.contentOffset.y > self.view.frame.size.height/2) &&
+        (lastScrollOffset.y < scrollView.contentOffset.y)
+       ) {
+        [self reset];
     }
-     */
+    
+    lastScrollOffset = scrollView.contentOffset;
 }
 
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if( [self inSlapMode] &&
+        (scrollView.contentOffset.y < self.view.frame.size.height/2)
+       ) {
+        [self scrollToTop];
+    }
+}
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
@@ -239,8 +266,10 @@ SlapMotionWorker *slapWorker;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"IOU" message:@"I owe you." delegate:nil cancelButtonTitle:@"You suck Trevor" otherButtonTitles: nil];
-        [alert show];
+        
+        [Inbox removeMessageAtIndex: [indexPath row]];
+        //[tableView reloadData];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 //        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view

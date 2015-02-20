@@ -154,10 +154,11 @@
                             <outlet property="delegate" destination="YVG-hJ-Gdi" id="8Yz-Ug-hfo"/>
                         </connections>
                     </tableView>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YhW-kj-BfN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="421" y="9"/>
+            <point key="canvasLocation" x="437" y="3"/>
         </scene>
     </scenes>
     <resources>

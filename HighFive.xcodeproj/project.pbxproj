@@ -35,6 +35,8 @@
 		D92667BF197B36E20096B50C /* SlapNet.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667BE197B36E20096B50C /* SlapNet.m */; };
 		D92667C3197C6E550096B50C /* Slap.m in Sources */ = {isa = PBXBuildFile; fileRef = D92667C2197C6E550096B50C /* Slap.m */; };
 		D929A9DE19C1482400F7F6C8 /* ContactInfoDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D929A9DD19C1482400F7F6C8 /* ContactInfoDelegate.m */; };
+		D93641DB1A95A40500F7878C /* 5hand120x120.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D93641DA1A95A40500F7878C /* 5hand120x120.jpg */; };
+		D93641DD1A95AB0700F7878C /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D93641DC1A95AB0600F7878C /* Icon-60@2x.png */; };
 		D95423061A5F6F2E00C1F91F /* Inbox.m in Sources */ = {isa = PBXBuildFile; fileRef = D95423051A5F6F2E00C1F91F /* Inbox.m */; };
 		D95423081A5F843D00C1F91F /* scroll-down-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D95423071A5F843D00C1F91F /* scroll-down-arrow.png */; };
 		D954230B1A5FB93100C1F91F /* SlapMotionWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = D954230A1A5FB93100C1F91F /* SlapMotionWorker.m */; };
@@ -101,6 +103,8 @@
 		D92667C2197C6E550096B50C /* Slap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slap.m; sourceTree = "<group>"; };
 		D929A9DC19C1482400F7F6C8 /* ContactInfoDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactInfoDelegate.h; sourceTree = "<group>"; };
 		D929A9DD19C1482400F7F6C8 /* ContactInfoDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactInfoDelegate.m; sourceTree = "<group>"; };
+		D93641DA1A95A40500F7878C /* 5hand120x120.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5hand120x120.jpg; sourceTree = "<group>"; };
+		D93641DC1A95AB0600F7878C /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
 		D95423041A5F6F2E00C1F91F /* Inbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Inbox.h; sourceTree = "<group>"; };
 		D95423051A5F6F2E00C1F91F /* Inbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Inbox.m; sourceTree = "<group>"; };
 		D95423071A5F843D00C1F91F /* scroll-down-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scroll-down-arrow.png"; sourceTree = "<group>"; };
@@ -227,6 +231,8 @@
 		D9266780197A42110096B50C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D93641DA1A95A40500F7878C /* 5hand120x120.jpg */,
+				D93641DC1A95AB0600F7878C /* Icon-60@2x.png */,
 				D95423071A5F843D00C1F91F /* scroll-down-arrow.png */,
 				D9206F991A1D00A300535B7C /* highfive-0.m4a */,
 				D9206F971A1B1BEE00535B7C /* slap.jpg */,
@@ -427,8 +433,10 @@
 				D96F2F33198BC07900A41A6E /* internet-high-five.jpeg in Resources */,
 				D9206F981A1B1BEE00535B7C /* slap.jpg in Resources */,
 				D9266792197A42120096B50C /* Images.xcassets in Resources */,
+				D93641DB1A95A40500F7878C /* 5hand120x120.jpg in Resources */,
 				D9266784197A42110096B50C /* InfoPlist.strings in Resources */,
 				D95423081A5F843D00C1F91F /* scroll-down-arrow.png in Resources */,
+				D93641DD1A95AB0700F7878C /* Icon-60@2x.png in Resources */,
 				D926678D197A42120096B50C /* Main.storyboard in Resources */,
 				D9206F9A1A1DB05D00535B7C /* highfive-0.m4a in Resources */,
 				D9D8C39519DA926800AE0DB3 /* internet-high-five09.png in Resources */,
@@ -601,7 +609,7 @@
 				INFOPLIST_FILE = "HighFive/HighFive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b7ce2d9e-c1d5-470c-ad8f-566c8e973492";
+				PROVISIONING_PROFILE = "a3082259-39ca-4609-a352-9ec65bb478c0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -618,7 +626,7 @@
 				INFOPLIST_FILE = "HighFive/HighFive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b7ce2d9e-c1d5-470c-ad8f-566c8e973492";
+				PROVISIONING_PROFILE = "a3082259-39ca-4609-a352-9ec65bb478c0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

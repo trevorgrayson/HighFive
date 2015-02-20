@@ -40,6 +40,11 @@ NSMutableArray *_slaps;
     return self.slaps;
 }
 
++(void) removeMessageAtIndex:(NSInteger) index
+{
+    [_slaps removeObjectAtIndex: index];
+}
+
 //NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 //NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
 //NSString *contact = [prefs objectForKey: @"contact"];

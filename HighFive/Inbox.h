@@ -16,4 +16,5 @@
 +(NSInteger) count;
 +(Slap*) messageAtIndex:(NSInteger) index;
 +(NSArray*) messages;
++(void) removeMessageAtIndex:(NSInteger) index;
 @end
