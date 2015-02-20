@@ -11,10 +11,13 @@
 #import "SlapAlert.h"
 #import "SlapLocalNotification.h"
 #import "Inbox.h"
+#import "InviteWallController.h"
+
 @implementation AppDelegate
 
 @synthesize notificationCount;
 @synthesize slapSound;
+@synthesize invitationWall;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -67,7 +70,9 @@
     NSString *contact = [prefs objectForKey: @"contact"];
 
     if( contact == nil ) {
-        NSLog(@"Who are you dawg?");
+        [self invitationBlock];
+    } else {
+        [self welcome];
     }
     
     NSLog(@"thinking about registering: %@ %@", deviceToken, contact);
@@ -167,4 +172,25 @@
     [alert show];
 }
 
+-(void) welcome {
+    if( self.window.rootViewController == invitationWall )
+    {
+        [self.window.rootViewController.navigationController popViewControllerAnimated:NO];
+        
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"tableCont"];
+        vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        [self.window.rootViewController presentViewController:vc animated:YES completion:NULL];
+    }
+
+}
+
+-(void) invitationBlock {
+    if( invitationWall == nil) {
+        InviteWallController *wall = [[InviteWallController alloc] init];
+        self.window.rootViewController = wall;
+        invitationWall = wall;
+        NSLog(@"Register son");
+    }
+}
 @end

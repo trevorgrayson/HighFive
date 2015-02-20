@@ -19,6 +19,8 @@
 
 @property (readwrite, nonatomic, assign) SystemSoundID slapSound;
 
+@property (strong, nonatomic) UIViewController *invitationWall;
+
 - (void) playSlapSound;
 
 @end
