@@ -221,9 +221,15 @@ CGPoint lastScrollOffset;
 }
 
 - (void)checkInbox {
-    NSIndexPath *path = [NSIndexPath indexPathForRow: 0 inSection: kContactSection];
-    [self.tableView scrollToRowAtIndexPath: path atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    NSIndexPath *path;
     
+    if( [Inbox count] > 0) {
+        path = [NSIndexPath indexPathForRow: 0 inSection: kInboxSection];
+    } else {
+        path = [NSIndexPath indexPathForRow: 0 inSection: kContactSection];
+    }
+    
+    [self.tableView scrollToRowAtIndexPath: path atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {

@@ -66,6 +66,10 @@
     NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
     NSString *contact = [prefs objectForKey: @"contact"];
 
+    if( contact == nil ) {
+        NSLog(@"Who are you dawg?");
+    }
+    
     NSLog(@"thinking about registering: %@ %@", deviceToken, contact);
     
     if( deviceToken != nil && contact != nil ) {
