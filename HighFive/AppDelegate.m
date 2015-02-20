@@ -16,6 +16,32 @@
 @synthesize notificationCount;
 @synthesize slapSound;
 
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    //clear notifications
+    //[[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
+    NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"highfive-0" withExtension:@"m4a"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &slapSound);
+    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    } else {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
+#else
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+#endif
+    
+    [self attemptRegistration];
+    
+    return YES;
+}
+
 //- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
@@ -46,27 +72,6 @@
         [SlapNet registerUser:deviceToken identifiedBy:contact];
     }
 }
-
-
-//- (void) receiveHighFiveFromOpenUrl {
-//ensure/request deviceToken
-//if invite link = get link from invite code
-//[SlapNet registerUser: @"" identifiedBy:@""];
-//ViewController *root = (ViewController*) self.window.rootViewController;
-//    //if [url path] == ridiculous
-//    NSArray *urlArray = [[url query] componentsSeparatedByString:@"&"];
-//    
-//    double fierocity = [urlArray[0] doubleValue];
-//    NSString *senderId = urlArray[1];
-//    NSString *name = senderId;
-//    User *slapper = [[User alloc] init:name with:senderId];
-//    
-//    if([urlArray count] > 2) {
-//        name = urlArray[2];
-//    }
-//    
-//    [root receiveHighFive:fierocity from: slapper];
-//}
 
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
@@ -100,39 +105,6 @@
 - (void) respondToSlap:(double)ferocity from:(User*) user {
     ViewController *root = (ViewController*) self.window.rootViewController;
     [root receiveHighFive:ferocity from:user];
-}
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    //clear notifications
-    //[[UIApplication sharedApplication] cancelAllLocalNotifications];
-    
-//    [[NSNotificationCenter defaultCenter] addObserverForName: @"SLAP" object:nil queue:nil usingBlock:^(NSNotification *note) {
-//        Slap *slap = (Slap*)note.object;
-//        ViewController* vc= (ViewController*)self.window.rootViewController;
-//        
-//        [vc slapModeFor: slap];
-//    }];
-     //addObserver: self selector: @selector(respondToSlap:from:) name:@"SLAP" object:nil];
-    NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"highfive-0" withExtension:@"m4a"];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &slapSound);
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
-    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-        UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    } else {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    }
-#else
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-#endif
-    
-    [self attemptRegistration];
-    
-    return YES;
 }
 
 #ifdef __IPHONE_8_0

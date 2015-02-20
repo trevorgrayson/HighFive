@@ -98,8 +98,8 @@
                                                 <constraint firstAttribute="height" constant="40" id="vA7-At-Q4F"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Slap." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmP-AP-Ql3">
-                                            <rect key="frame" x="30" y="1" width="260" height="38"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap to Slap." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmP-AP-Ql3">
+                                            <rect key="frame" x="30" y="2" width="260" height="38"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="38" id="0eJ-2f-mI3"/>
                                             </constraints>

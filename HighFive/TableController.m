@@ -35,10 +35,9 @@ CGPoint lastScrollOffset;
     [self reset];
     
     //Avoiding status bar?
-    [self.tableView setContentInset:UIEdgeInsetsMake(20,
-                                                     self.tableView.contentInset.left,
-                                                     self.tableView.contentInset.bottom,
-                                                     self.tableView.contentInset.right)];
+    [self.tableView setContentInset:UIEdgeInsetsMake(20, self.tableView.contentInset.left,
+            self.tableView.contentInset.bottom,
+            self.tableView.contentInset.right)];
     
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(reset) name: @"harakiri" object:nil];
@@ -222,12 +221,6 @@ CGPoint lastScrollOffset;
 }
 
 - (void)checkInbox {
-
-//    NSInteger targetSection = kContactSection;
-//    
-//    if( [Inbox count] > 0 )
-//        targetSection = kInboxSection;
-    
     NSIndexPath *path = [NSIndexPath indexPathForRow: 0 inSection: kContactSection];
     [self.tableView scrollToRowAtIndexPath: path atScrollPosition:UITableViewScrollPositionTop animated:YES];
     
