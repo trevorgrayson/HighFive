@@ -35,44 +35,13 @@
     return YES;
 }
 
-
-#ifdef __IPHONE_8_0
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
-{
-    //register to receive notifications
-    [application registerForRemoteNotifications];
-}
-
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)newDeviceToken forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
-{
-    //handle the actions
-    if ([newDeviceToken isEqualToString:@"declineAction"]){
-        NSLog(@"User Declined Notifications");
-    }
-    else if ([newDeviceToken isEqualToString:@"answerAction"]){
-        NSString *devTokenStr = [[[[newDeviceToken description]
-                                   stringByReplacingOccurrencesOfString: @"<" withString: @""]
-                                  stringByReplacingOccurrencesOfString: @">" withString: @""]
-                                 stringByReplacingOccurrencesOfString: @" " withString: @""];
-        
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        NSLog(@"setting %@", devTokenStr);
-        [prefs setObject: devTokenStr forKey:@"deviceToken"];
-        [prefs synchronize];
-        [self attemptRegistration];
-        
-        NSLog(@"My token is: %@", devTokenStr);
-    }
-}
-#endif
-
-
-
 - (void) attemptRegistration {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
     NSString *contact = [prefs objectForKey: @"contact"];
 
+    NSLog(@"thinking about registering: %@ %@", deviceToken, contact);
+    
     if( deviceToken != nil && contact != nil ) {
         [SlapNet registerUser:deviceToken identifiedBy:contact];
     }
@@ -116,8 +85,11 @@
     [Inbox addMessage: incoming];
     [self respondToSlap: jerk from: slapper];
 
-//    SlapAlert *alert = [SlapAlert newAlert: incoming];
-//    [alert show];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = [Inbox count];
+    
+    //SlapAlert *alert = [SlapAlert newAlert: incoming];
+    //[alert show];
+    
     [self playSlapSound];
 }
 
@@ -132,6 +104,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //clear notifications
+    //[[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
 //    [[NSNotificationCenter defaultCenter] addObserverForName: @"SLAP" object:nil queue:nil usingBlock:^(NSNotification *note) {
 //        Slap *slap = (Slap*)note.object;
 //        ViewController* vc= (ViewController*)self.window.rootViewController;
@@ -142,13 +117,6 @@
     NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"highfive-0" withExtension:@"m4a"];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &slapSound);
 
-    [self attemptRegistration];
-    
-    return YES;
-}
-
-- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)newDeviceToken
-{
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
@@ -162,6 +130,43 @@
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 #endif
     
+    [self attemptRegistration];
+    
+    return YES;
+}
+
+#ifdef __IPHONE_8_0
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    //register to receive notifications
+    [application registerForRemoteNotifications];
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)newDeviceToken forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
+{
+    //handle the actions
+    if ([newDeviceToken isEqualToString:@"declineAction"]){
+        NSLog(@"User Declined Notifications");
+    }
+    else if ([newDeviceToken isEqualToString:@"answerAction"]){
+        NSString *devTokenStr = [[[[newDeviceToken description]
+                                   stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                                  stringByReplacingOccurrencesOfString: @">" withString: @""]
+                                 stringByReplacingOccurrencesOfString: @" " withString: @""];
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSLog(@"setting %@", devTokenStr);
+        [prefs setObject: devTokenStr forKey:@"deviceToken"];
+        [prefs synchronize];
+        [self attemptRegistration];
+        
+        NSLog(@"My token is: %@", devTokenStr);
+    }
+}
+#endif
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)newDeviceToken
+{
     NSString *devTokenStr = [[[[newDeviceToken description]
                                stringByReplacingOccurrencesOfString: @"<" withString: @""]
                                stringByReplacingOccurrencesOfString: @">" withString: @""]

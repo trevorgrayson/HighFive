@@ -114,6 +114,7 @@ User *pendingUser;
 }
 
 +(void) registerUser:(NSString *) deviceToken identifiedBy:(NSString*) contact as:(NSString*) name {
+    NSLog(@"registering device deviceToken: %@ with contact: %@", deviceToken, contact);
     NSString *uri =[NSString stringWithFormat: @"%@/users/%@/%@", domain, contact, deviceToken];
 
     if( contact != nil) {
