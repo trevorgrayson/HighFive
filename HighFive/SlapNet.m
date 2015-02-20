@@ -10,6 +10,7 @@
 #import "SlapAlert.h"
 #import "Inbox.h"
 #import "AppDelegate.h"
+#import "SlapWidget.h"
 
 @implementation SlapNet
 
@@ -35,6 +36,12 @@ NSString *domain = @"http://ipsumllc.com:8080";
 +(void) sendSlap:(double) ferocity to:(User*) user {
     AppDelegate *appDell = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDell playSlapSound];
+    
+    //TODO doesn't belong here
+    SlapWidget * widget = [[SlapWidget alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+    widget.score.text = [NSString stringWithFormat:@"%0.2f", ferocity];
+    [appDell.window.rootViewController.view.superview addSubview: widget];
+    
     [self sendNotification: ferocity to: user];
 }
 

@@ -13,6 +13,8 @@
 #import "AllYourAddress.h"
 #import "Inbox.h"
 
+#import "SlapWidget.h"
+
 //TODO -2 section situation
 @interface TableController ()
 
@@ -33,6 +35,7 @@ CGPoint lastScrollOffset;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self reset];
+    
     
     //Avoiding status bar?
     [self.tableView setContentInset:UIEdgeInsetsMake(20, self.tableView.contentInset.left,
