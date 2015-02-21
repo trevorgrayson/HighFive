@@ -13,7 +13,7 @@
 		D913B7C51A976B8E0076E608 /* InviteWallController.m in Sources */ = {isa = PBXBuildFile; fileRef = D913B7C31A976B8E0076E608 /* InviteWallController.m */; };
 		D913B7C61A976B8E0076E608 /* InviteWallController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D913B7C41A976B8E0076E608 /* InviteWallController.xib */; };
 		D913B7CA1A97791A0076E608 /* SlapWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = D913B7C91A97791A0076E608 /* SlapWidget.m */; };
-		D913B7CC1A9792820076E608 /* SlapWid.xib in Resources */ = {isa = PBXBuildFile; fileRef = D913B7CB1A9792820076E608 /* SlapWid.xib */; };
+		D913B7CC1A9792820076E608 /* SlapWidget.xib in Resources */ = {isa = PBXBuildFile; fileRef = D913B7CB1A9792820076E608 /* SlapWidget.xib */; };
 		D9206F981A1B1BEE00535B7C /* slap.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D9206F971A1B1BEE00535B7C /* slap.jpg */; };
 		D9206F9A1A1DB05D00535B7C /* highfive-0.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D9206F991A1D00A300535B7C /* highfive-0.m4a */; };
 		D926677A197A42110096B50C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9266779197A42110096B50C /* Foundation.framework */; };
@@ -78,7 +78,7 @@
 		D913B7C41A976B8E0076E608 /* InviteWallController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InviteWallController.xib; sourceTree = "<group>"; };
 		D913B7C81A97791A0076E608 /* SlapWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlapWidget.h; sourceTree = "<group>"; };
 		D913B7C91A97791A0076E608 /* SlapWidget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlapWidget.m; sourceTree = "<group>"; };
-		D913B7CB1A9792820076E608 /* SlapWid.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlapWid.xib; sourceTree = "<group>"; };
+		D913B7CB1A9792820076E608 /* SlapWidget.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlapWidget.xib; sourceTree = "<group>"; };
 		D9206F971A1B1BEE00535B7C /* slap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = slap.jpg; sourceTree = "<group>"; };
 		D9206F991A1D00A300535B7C /* highfive-0.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "highfive-0.m4a"; sourceTree = "<group>"; };
 		D9266776197A42110096B50C /* HighFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HighFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,7 +179,7 @@
 				D96F2F2D198681EA00A41A6E /* HandWidget.m */,
 				D913B7C81A97791A0076E608 /* SlapWidget.h */,
 				D913B7C91A97791A0076E608 /* SlapWidget.m */,
-				D913B7CB1A9792820076E608 /* SlapWid.xib */,
+				D913B7CB1A9792820076E608 /* SlapWidget.xib */,
 			);
 			name = Widgets;
 			sourceTree = "<group>";
@@ -187,9 +187,9 @@
 		D913B7C71A976C050076E608 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D913B7C41A976B8E0076E608 /* InviteWallController.xib */,
 				D913B7C21A976B8E0076E608 /* InviteWallController.h */,
 				D913B7C31A976B8E0076E608 /* InviteWallController.m */,
-				D913B7C41A976B8E0076E608 /* InviteWallController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -455,7 +455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D96F2F33198BC07900A41A6E /* internet-high-five.jpeg in Resources */,
-				D913B7CC1A9792820076E608 /* SlapWid.xib in Resources */,
+				D913B7CC1A9792820076E608 /* SlapWidget.xib in Resources */,
 				D913B7C61A976B8E0076E608 /* InviteWallController.xib in Resources */,
 				D9206F981A1B1BEE00535B7C /* slap.jpg in Resources */,
 				D9266792197A42120096B50C /* Images.xcassets in Resources */,

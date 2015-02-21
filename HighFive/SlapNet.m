@@ -34,15 +34,12 @@ NSString *domain = @"http://ipsumllc.com:8080";
 }
 
 +(void) sendSlap:(double) ferocity to:(User*) user {
-    AppDelegate *appDell = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDell playSlapSound];
-    
-    //TODO doesn't belong here
-    SlapWidget * widget = [[SlapWidget alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
-    widget.score.text = [NSString stringWithFormat:@"%0.2f", ferocity];
-    [appDell.window.rootViewController.view.superview addSubview: widget];
-    
+    [self.appDelegate playSlapSound];
     [self sendNotification: ferocity to: user];
+}
+
++ (AppDelegate*) appDelegate {
+    return (AppDelegate*)[[UIApplication sharedApplication] delegate];
 }
 
 + (void) receiveHighFive:(double) ferocity from:(User*) slapper
@@ -90,13 +87,16 @@ User *pendingUser;
             NSString *body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             if([body isEqual: @"NOT_REGISTERED"]) {
                 [SlapNet sendInvite: pendingFerocity to: pendingUser];
-                //UIAlertView *confirm = [[UIAlertView alloc] initWithTitle:@"High Five!" message:@"Don't know who that is bro." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                //[confirm show];
             } else {
                 //[NSString stringWithFormat: @"Nice Five-skis bro."];
-                NSString *message = [NSString stringWithFormat: @"HIGH FIVE! You slapped a %@ %4.2f slap.", [self highFiveDescription:ferocity], ferocity];
-                UIAlertView *confirm = [[UIAlertView alloc] initWithTitle:@"Slap!" message: message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                [confirm show];
+               // NSString *message = [NSString stringWithFormat: @"HIGH FIVE! You slapped a %@ %4.2f slap.", [self highFiveDescription:ferocity], ferocity];
+                //UIAlertView *confirm = [[UIAlertView alloc] initWithTitle:@"Slap!" message: message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                //[confirm show];
+                //TODO doesn't belong here
+                UIView *view = self.appDelegate.window.rootViewController.view.superview;
+                SlapWidget * widget = [[SlapWidget alloc] initWithFrame: view.frame];
+                widget.score.text = [NSString stringWithFormat:@"%0.2f", ferocity];
+                [self.appDelegate.window.rootViewController.view.superview addSubview: widget];
             }
         }
     }];

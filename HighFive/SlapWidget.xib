@@ -16,13 +16,26 @@
             <rect key="frame" x="0.0" y="0.0" width="241" height="178"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mN4-i7-QCO">
-                    <rect key="frame" x="28" y="47" width="185" height="83"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mN4-i7-QCO">
+                    <rect key="frame" x="55" y="45" width="132" height="87"/>
                     <attributedString key="attributedText">
-                        <fragment content="1.24">
+                        <fragment content="0.00">
                             <attributes>
                                 <color key="NSColor" red="1" green="0.079033484523494901" blue="0.14339437596881144" alpha="1" colorSpace="calibratedRGB"/>
                                 <font key="NSFont" size="75" name="Cochin"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzP-88-0P1">
+                    <rect key="frame" x="80" y="3" width="81" height="42"/>
+                    <attributedString key="attributedText">
+                        <fragment content="Slap!">
+                            <attributes>
+                                <color key="NSColor" red="1" green="0.079033484523494901" blue="0.14339437596881144" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="36" name="Cochin"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -34,10 +47,18 @@
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="mN4-i7-QCO" secondAttribute="centerX" id="PdU-Em-wjc"/>
                 <constraint firstAttribute="centerY" secondItem="mN4-i7-QCO" secondAttribute="centerY" id="QNm-Zd-mba"/>
+                <constraint firstItem="xzP-88-0P1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="SIn-FH-gVM"/>
+                <constraint firstAttribute="centerX" secondItem="xzP-88-0P1" secondAttribute="centerX" id="as5-aH-crM"/>
+                <constraint firstItem="mN4-i7-QCO" firstAttribute="top" secondItem="xzP-88-0P1" secondAttribute="bottom" id="zxj-RI-Dy7"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="65.5" y="78"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="SIn-FH-gVM"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="65.5" y="91"/>
         </view>
     </objects>
 </document>

@@ -24,7 +24,7 @@
     }
     
     NSBundle *mainBundle = [NSBundle mainBundle];
-    [mainBundle loadNibNamed: @"SlapWid" owner:self options:nil];
+    [mainBundle loadNibNamed: @"SlapWidget" owner:self options:nil];
     self.view.frame = frame;
     self.bounds = self.view.bounds;
     
@@ -36,6 +36,8 @@
 }
 
 - (void) touch:(id) sender {
-    [self removeFromSuperview];
+    [UIView transitionWithView: self duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{ self.alpha = 0.0; } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
 }
 @end

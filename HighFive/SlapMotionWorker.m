@@ -48,7 +48,7 @@ double currentMaxAccelZ;
         mode = @"Low Five";
     }
     
-    NSLog(@"%@ x: %f, y: %f, z: %f", mode, acceleration.x, acceleration.y, acceleration.z);
+    //NSLog(@"%@ x: %f, y: %f, z: %f", mode, acceleration.x, acceleration.y, acceleration.z);
     
     if ( [Slapperometer slapCheck:acceleration] ) {
         
