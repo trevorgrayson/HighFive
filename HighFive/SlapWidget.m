@@ -28,16 +28,15 @@
     self.view.frame = frame;
     self.bounds = self.view.bounds;
     
-    UITapGestureRecognizer *touch = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touch:)];
-    [self.view addGestureRecognizer:touch];
     [self addSubview: self.view];
     
     return self;
 }
 
-- (void) touch:(id) sender {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [UIView transitionWithView: self duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{ self.alpha = 0.0; } completion:^(BOOL finished) {
         [self removeFromSuperview];
     }];
 }
+
 @end
