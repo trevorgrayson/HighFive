@@ -23,6 +23,7 @@
 {
     //clear notifications
     //[[UIApplication sharedApplication] cancelAllLocalNotifications];
+    application.applicationSupportsShakeToEdit = YES;
     
     NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"highfive-0" withExtension:@"m4a"];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &slapSound);

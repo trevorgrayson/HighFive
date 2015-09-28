@@ -73,6 +73,7 @@ NSMutableDictionary *handWidgets = nil;
     if([self checkContact] && uiMode == kINVITE_ONLY) {
         [self waitingMode];
     }
+    [self becomeFirstResponder];
 }
 
 - (void) receiveHighFive:(double) ferocity from:(User*) user
@@ -296,9 +297,14 @@ NSMutableDictionary *handWidgets = nil;
 //DEBUG CODE
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if( motion == UIEventSubtypeMotionShake ) {
-        //1User *slapper = [[User alloc] init: @"T-Dizzle" with: @"8603849759"];
-        //[SlapNet receiveHighFive: 1.0 from:slapper];
+        User *slapper = [[User alloc] init: @"T-Dizzle" with: @"8603849759"];
+        [SlapNet receiveHighFive: 1.0 from:slapper];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self resignFirstResponder];
+    [super viewWillDisappear:animated];
 }
 
 - (IBAction)pinchhack:(id)sender {
