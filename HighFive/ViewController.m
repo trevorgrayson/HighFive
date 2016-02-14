@@ -173,7 +173,8 @@ NSMutableDictionary *handWidgets = nil;
 }
 
 -(void) sendSlap {
-    //[SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
+    User *targetRecipient = [[User alloc] init:@"Steve" with:@"8605559759"];
+    [SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
     AudioServicesPlaySystemSound(slapSound);
 }
 
