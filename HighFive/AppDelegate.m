@@ -88,9 +88,14 @@
     
     NSDictionary *slap = [userInfo valueForKeyPath:@"slap"];
     
-    NSString *phone = [slap valueForKeyPath:@"id"];
+    NSString *phone = [slap valueForKey:@"id"];
     //NSString *name = [slap valueForKeyPath:@"name"];
-    NSString *name = [AddressNameLookup contactContainingPhoneNumber: phone];
+    NSString *name = [slap valueForKey:@"name"];
+    
+    if(name == nil) {
+        [AddressNameLookup contactContainingPhoneNumber: phone];
+    }
+
     double jerk = [[slap valueForKeyPath:@"jerk"] doubleValue];
     
     User *slapper = [[User alloc] init: name with: phone];

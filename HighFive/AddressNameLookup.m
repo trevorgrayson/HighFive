@@ -24,7 +24,7 @@
 +(NSArray *)contactsContainingPhoneNumber:(NSString *)phoneNumber {
     // Remove non numeric characters from the phone number
     phoneNumber = [[phoneNumber componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]] componentsJoinedByString:@""];
-    
+
     // Create a new address book object with data from the Address Book database
     CFErrorRef error = nil;
     ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
