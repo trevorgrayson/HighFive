@@ -56,6 +56,7 @@
 		D9CC14B719C6668E00D6761B /* AddressNameLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CC14B619C6668E00D6761B /* AddressNameLookup.m */; };
 		D9D8C39219DA6AAB00AE0DB3 /* SlapAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D8C39119DA6AAB00AE0DB3 /* SlapAlert.m */; };
 		D9D8C39519DA926800AE0DB3 /* internet-high-five09.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D8C39419DA926800AE0DB3 /* internet-high-five09.png */; };
+		D9DB179F1C759D240092E843 /* SlapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DB179E1C759D240092E843 /* SlapRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +143,8 @@
 		D9D8C39019DA6AAB00AE0DB3 /* SlapAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlapAlert.h; sourceTree = "<group>"; };
 		D9D8C39119DA6AAB00AE0DB3 /* SlapAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlapAlert.m; sourceTree = "<group>"; };
 		D9D8C39419DA926800AE0DB3 /* internet-high-five09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "internet-high-five09.png"; sourceTree = "<group>"; };
+		D9DB179D1C759D230092E843 /* HighFive-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HighFive-Bridging-Header.h"; sourceTree = "<group>"; };
+		D9DB179E1C759D240092E843 /* SlapRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlapRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -354,10 +357,12 @@
 		D9CC14B919C6AEFC00D6761B /* Com */ = {
 			isa = PBXGroup;
 			children = (
+				D9DB179E1C759D240092E843 /* SlapRouter.swift */,
 				D92667BD197B36E20096B50C /* SlapNet.h */,
 				D92667BE197B36E20096B50C /* SlapNet.m */,
 				D901C3D319BBE36C004891D6 /* InviteController.h */,
 				D901C3D419BBE36C004891D6 /* InviteController.m */,
+				D9DB179D1C759D230092E843 /* HighFive-Bridging-Header.h */,
 			);
 			name = Com;
 			sourceTree = "<group>";
@@ -492,6 +497,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D90F85061A61DD90001D13BF /* SlapLocalNotification.m in Sources */,
+				D9DB179F1C759D240092E843 /* SlapRouter.swift in Sources */,
 				D96F2F31198B7FED00A41A6E /* User.m in Sources */,
 				D96F2F2E198681EA00A41A6E /* HandWidget.m in Sources */,
 				D954230B1A5FB93100C1F91F /* SlapMotionWorker.m in Sources */,
@@ -638,15 +644,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HighFive/HighFive-Prefix.pch";
 				INFOPLIST_FILE = "HighFive/HighFive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ipsumllc.HighFive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "HighFive/HighFive-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -656,15 +666,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HighFive/HighFive-Prefix.pch";
 				INFOPLIST_FILE = "HighFive/HighFive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ipsumllc.HighFive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "HighFive/HighFive-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

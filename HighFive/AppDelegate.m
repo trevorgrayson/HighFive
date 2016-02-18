@@ -153,7 +153,7 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
     NSString *contact     = [prefs objectForKey: @"contact"];
-    //NSString *name        = [prefs objectForKey: @"name"];
+    NSString *name        = [prefs objectForKey: @"name"];
     
     if( contact == nil ) {
         [self invitationBlock];
@@ -164,7 +164,7 @@
     NSLog(@"thinking about registering: %@ %@", deviceToken, contact);
     
     if( deviceToken != nil && contact != nil ) {
-        [SlapNet registerUser:deviceToken identifiedBy:contact];
+        [SlapNet registerUser:deviceToken identifiedBy:contact as:name];
     }
 }
 

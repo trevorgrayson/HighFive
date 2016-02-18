@@ -14,7 +14,7 @@
 
 @implementation SlapNet
 
-NSString *domain = @"http://ipsumllc.com:8080";
+NSString *domain = @"http://192.168.1.6:8080";
 
 +(InviteController*) sendInvite:(double) ferocity to:(User*) user
 {
@@ -121,15 +121,7 @@ User *pendingUser;
 
 +(void) registerUser:(NSString *) deviceToken identifiedBy:(NSString*) contact as:(NSString*) name {
     NSLog(@"registering device deviceToken: %@ with contact: %@", deviceToken, contact);
-    NSString *uri =[NSString stringWithFormat: @"%@/users/%@/%@", domain, contact, deviceToken];
-
-    if( contact != nil) {
-        uri = [NSString stringWithFormat: @"%@/users/%@/%@", domain, deviceToken, contact];
-    }
-    
-    if( name != nil) {
-        uri = [NSString stringWithFormat: @"%@/%@", uri, name];
-    }
+    NSString *uri =[NSString stringWithFormat: @"%@/register?invite=%@&deviceId=%@&name=%@", domain, contact, deviceToken, name];
 
     NSLog(@"%@", uri);
     

@@ -24,10 +24,10 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="1E6BB2F2-1DCE-4465-A247-4C14A291B7FF" translatesAutoresizingMaskIntoConstraints="NO" id="XJp-mT-oJ6">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="02E8D973-48CF-4ECD-90BC-31A02B542F0F" translatesAutoresizingMaskIntoConstraints="NO" id="XJp-mT-oJ6">
                                 <rect key="frame" x="10" y="74" width="301" height="380"/>
                             </imageView>
-                            <imageView alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DBD3904F-9F4F-4B24-9347-28A2B3948748" translatesAutoresizingMaskIntoConstraints="NO" id="mpb-lY-mBY">
+                            <imageView alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="76891988-3E55-4063-808C-C9011C2F84B9" translatesAutoresizingMaskIntoConstraints="NO" id="mpb-lY-mBY">
                                 <rect key="frame" x="10" y="74" width="301" height="380"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSt-am-sJL">
@@ -179,7 +179,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="1E6BB2F2-1DCE-4465-A247-4C14A291B7FF" width="575" height="556">
+        <image name="02E8D973-48CF-4ECD-90BC-31A02B542F0F" width="575" height="556">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -16237,7 +16237,7 @@ AA6xIwAOsSgADrEqAA6xLAAOsTEADrE5AA6xPAAOsUEADrFJAA6xTAAOsV4ADrFhAA6xZgAAAAAAAAQB
 AAAAAAAAAD8AAAAAAAAAAAAAAAAADrFoA
 </mutableData>
         </image>
-        <image name="DBD3904F-9F4F-4B24-9347-28A2B3948748" width="575" height="556">
+        <image name="76891988-3E55-4063-808C-C9011C2F84B9" width="575" height="556">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
