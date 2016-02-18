@@ -417,7 +417,7 @@
 		D926676E197A42110096B50C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Ipsum LLC";
 				TargetAttributes = {
 					D9266775197A42110096B50C = {
@@ -580,6 +580,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -643,6 +644,7 @@
 				GCC_PREFIX_HEADER = "HighFive/HighFive-Prefix.pch";
 				INFOPLIST_FILE = "HighFive/HighFive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ipsumllc.HighFive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -660,6 +662,7 @@
 				GCC_PREFIX_HEADER = "HighFive/HighFive-Prefix.pch";
 				INFOPLIST_FILE = "HighFive/HighFive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ipsumllc.HighFive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -682,6 +685,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "HighFiveTests/HighFiveTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ipsumllc.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -700,6 +704,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HighFive/HighFive-Prefix.pch";
 				INFOPLIST_FILE = "HighFiveTests/HighFiveTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ipsumllc.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

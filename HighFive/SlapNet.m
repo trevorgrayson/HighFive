@@ -46,8 +46,6 @@ NSString *domain = @"http://ipsumllc.com:8080";
 {
     Slap *slap = [Slap from: slapper with: ferocity];
     [Inbox addMessage: slap];
-    //SlapAlert * alert = [SlapAlert newAlert: slap];
-    //[alert show];
 }
 
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

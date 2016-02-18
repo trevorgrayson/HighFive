@@ -22,12 +22,6 @@
     UIImage *img = [[UIImage alloc] initWithContentsOfFile: @"slap.jpg"];
     UIImageView * iv = [[UIImageView alloc] initWithImage: img];
     [iv setFrame: CGRectMake(10, 40, 264, 200)];
-    //[alert setFrame: CGRectMake(0, 0, 500, 800)];
-    CGSize theSize = [alert frame].size;
-    
-//    UIGraphicsBeginImageContext(theSize);
-//    [img drawInRect:CGRectMake(0, 0, theSize.width, theSize.height)];
-//    img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     [[alert layer] setContents: iv];
     return alert;

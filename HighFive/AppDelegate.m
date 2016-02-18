@@ -45,41 +45,30 @@
     return YES;
 }
 
-//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    NSArray *urlArray = [[url path] componentsSeparatedByString:@"/"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    for (NSString *param in [[url query] componentsSeparatedByString:@"&"]) {
+        NSArray *parts = [param componentsSeparatedByString:@"="];
+        if([parts count] < 2) continue;
+        [params setObject:[parts objectAtIndex:1] forKey:[parts objectAtIndex:0]];
+    }
     
     if([url.host isEqual: @"invite"]) {
-        NSString *contact = urlArray[1];
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSString *contact = [params objectForKey:@"invite"];
+        NSString *name    = [params objectForKey:@"name"];
         NSLog(@"setting contact: %@", contact);
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         [prefs setObject: contact forKey:@"contact"];
+        [prefs setObject: name    forKey:@"name"];
         [prefs synchronize];
         
         [self attemptRegistration];
-        //ViewController *root = (ViewController*) self.window.rootViewController;
     }
     
     return YES;
-}
-
-- (void) attemptRegistration {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
-    NSString *contact = [prefs objectForKey: @"contact"];
-
-    if( contact == nil ) {
-        [self invitationBlock];
-    } else {
-        [self welcome];
-    }
-    
-    NSLog(@"thinking about registering: %@ %@", deviceToken, contact);
-    
-    if( deviceToken != nil && contact != nil ) {
-        [SlapNet registerUser:deviceToken identifiedBy:contact];
-    }
 }
 
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
@@ -89,8 +78,7 @@
     NSDictionary *slap = [userInfo valueForKeyPath:@"slap"];
     
     NSString *phone = [slap valueForKey:@"id"];
-    //NSString *name = [slap valueForKeyPath:@"name"];
-    NSString *name = [slap valueForKey:@"name"];
+    NSString *name  = [slap valueForKey:@"name"];
     
     if(name == nil) {
         [AddressNameLookup contactContainingPhoneNumber: phone];
@@ -106,19 +94,7 @@
 
     [UIApplication sharedApplication].applicationIconBadgeNumber = [Inbox count];
     
-    //SlapAlert *alert = [SlapAlert newAlert: incoming];
-    //[alert show];
-    
     [self playSlapSound];
-}
-
-- (void) playSlapSound {
-    AudioServicesPlaySystemSound(slapSound);
-}
-
-- (void) respondToSlap:(double)ferocity from:(User*) user {
-    ViewController *root = (ViewController*) self.window.rootViewController;
-    [root receiveHighFive:ferocity from:user];
 }
 
 #ifdef __IPHONE_8_0
@@ -155,21 +131,50 @@
 {
     NSString *devTokenStr = [[[[newDeviceToken description]
                                stringByReplacingOccurrencesOfString: @"<" withString: @""]
-                               stringByReplacingOccurrencesOfString: @">" withString: @""]
-                               stringByReplacingOccurrencesOfString: @" " withString: @""];
+                              stringByReplacingOccurrencesOfString: @">" withString: @""]
+                             stringByReplacingOccurrencesOfString: @" " withString: @""];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSLog(@"setting %@", devTokenStr);
     [prefs setObject: devTokenStr forKey:@"deviceToken"];
     [prefs synchronize];
     [self attemptRegistration];
-
-	NSLog(@"My token is: %@", devTokenStr);
+    
+    NSLog(@"My token is: %@", devTokenStr);
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
-	NSLog(@"Failed to get token, error: %@", error);
+    NSLog(@"Failed to get token, error: %@", error);
+}
+
+//Could cache result and stop multiple requests
+- (void) attemptRegistration {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
+    NSString *contact     = [prefs objectForKey: @"contact"];
+    //NSString *name        = [prefs objectForKey: @"name"];
+    
+    if( contact == nil ) {
+        [self invitationBlock];
+    } else {
+        [self welcome];
+    }
+    
+    NSLog(@"thinking about registering: %@ %@", deviceToken, contact);
+    
+    if( deviceToken != nil && contact != nil ) {
+        [SlapNet registerUser:deviceToken identifiedBy:contact];
+    }
+}
+
+- (void) playSlapSound {
+    AudioServicesPlaySystemSound(slapSound);
+}
+
+- (void) respondToSlap:(double)ferocity from:(User*) user {
+    ViewController *root = (ViewController*) self.window.rootViewController;
+    [root receiveHighFive:ferocity from:user];
 }
 
 -(void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
@@ -182,8 +187,8 @@
     {
         [self.window.rootViewController.navigationController popViewControllerAnimated:NO];
         
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"tableCont"];
+        UIStoryboard *sb        = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc    = [sb instantiateViewControllerWithIdentifier:@"tableCont"];
         vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
         [self.window.rootViewController presentViewController:vc animated:YES completion:NULL];
     }
