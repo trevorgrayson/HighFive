@@ -57,28 +57,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HighFive/AppDelegate.m"
-            timestampString = "477470604.067143"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "-attemptRegistration"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "HighFive/SlapNet.m"
-            timestampString = "477470651.386929"
+            timestampString = "477626984.845156"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "+registerUser:identifiedBy:as:"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,13 +74,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HighFive/SlapNet.m"
-            timestampString = "477471185.135938"
+            timestampString = "477626984.845156"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "+registerUser:identifiedBy:as:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[SlapNet registerUser:identifiedBy:as:]"
+                  moduleName = "HighFive"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tgrayson/projects/HighFive/HighFive/SlapNet.m"
+                  timestampString = "477629552.408661"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "608">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__40+[SlapNet registerUser:identifiedBy:as:]_block_invoke"
+                  moduleName = "HighFive"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tgrayson/projects/HighFive/HighFive/SlapNet.m"
+                  timestampString = "477629552.409036"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "104">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

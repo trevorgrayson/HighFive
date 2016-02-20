@@ -24,10 +24,10 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="02E8D973-48CF-4ECD-90BC-31A02B542F0F" translatesAutoresizingMaskIntoConstraints="NO" id="XJp-mT-oJ6">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="6C68E43C-84BD-4627-8F83-5C6DE9206CD7" translatesAutoresizingMaskIntoConstraints="NO" id="XJp-mT-oJ6">
                                 <rect key="frame" x="10" y="74" width="301" height="380"/>
                             </imageView>
-                            <imageView alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="76891988-3E55-4063-808C-C9011C2F84B9" translatesAutoresizingMaskIntoConstraints="NO" id="mpb-lY-mBY">
+                            <imageView alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="A3880C5B-C9C2-4EC0-9611-2F3B476B25CE" translatesAutoresizingMaskIntoConstraints="NO" id="mpb-lY-mBY">
                                 <rect key="frame" x="10" y="74" width="301" height="380"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSt-am-sJL">
@@ -93,15 +93,14 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="486"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="scroll-down-arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="xS1-c6-9sg">
-                                            <rect key="frame" x="140" y="374" width="40" height="40"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="internet-high-five.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="qXI-7i-y3B">
+                                            <rect key="frame" x="140" y="32" width="320" height="421"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="40" id="NYJ-Yh-ep3"/>
-                                                <constraint firstAttribute="height" constant="40" id="vA7-At-Q4F"/>
+                                                <constraint firstAttribute="width" constant="320" id="h6d-a5-aka"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Slap." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmP-AP-Ql3">
-                                            <rect key="frame" x="30" y="2" width="540" height="38"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap to Slap." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmP-AP-Ql3">
+                                            <rect key="frame" x="0.0" y="2" width="600" height="38"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="38" id="0eJ-2f-mI3"/>
                                             </constraints>
@@ -109,20 +108,22 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="internet-high-five.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="qXI-7i-y3B">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="421"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="scroll-down-arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="xS1-c6-9sg">
+                                            <rect key="frame" x="280" y="413" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="NYJ-Yh-ep3"/>
+                                                <constraint firstAttribute="height" constant="40" id="vA7-At-Q4F"/>
+                                            </constraints>
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="xS1-c6-9sg" secondAttribute="bottom" constant="-1" id="6SU-Zn-3cU"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="qXI-7i-y3B" secondAttribute="trailing" id="L5s-cd-8mW"/>
-                                        <constraint firstItem="zmP-AP-Ql3" firstAttribute="top" secondItem="13C-Tb-bFn" secondAttribute="topMargin" constant="-7" id="Tlv-L1-Tc4"/>
-                                        <constraint firstItem="xS1-c6-9sg" firstAttribute="bottom" secondItem="13C-Tb-bFn" secondAttribute="bottomMargin" id="UH8-aP-dlg"/>
-                                        <constraint firstItem="zmP-AP-Ql3" firstAttribute="top" secondItem="13C-Tb-bFn" secondAttribute="topMargin" constant="-6" id="VD0-dD-9Kb"/>
-                                        <constraint firstItem="zmP-AP-Ql3" firstAttribute="leading" secondItem="13C-Tb-bFn" secondAttribute="leadingMargin" constant="22" id="dHn-re-h7b"/>
-                                        <constraint firstAttribute="centerX" secondItem="xS1-c6-9sg" secondAttribute="centerX" id="eqW-lG-MZl"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="zmP-AP-Ql3" secondAttribute="trailing" constant="22" id="ib5-Qg-DZK"/>
-                                        <constraint firstItem="qXI-7i-y3B" firstAttribute="leading" secondItem="13C-Tb-bFn" secondAttribute="leadingMargin" id="qkM-yJ-3i9"/>
+                                        <constraint firstItem="qXI-7i-y3B" firstAttribute="centerY" secondItem="13C-Tb-bFn" secondAttribute="centerY" id="15o-Bf-tHE"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="xS1-c6-9sg" secondAttribute="bottom" constant="50" id="6SU-Zn-3cU"/>
+                                        <constraint firstItem="xS1-c6-9sg" firstAttribute="centerX" secondItem="zmP-AP-Ql3" secondAttribute="centerX" id="RGB-et-dqt"/>
+                                        <constraint firstItem="xS1-c6-9sg" firstAttribute="centerX" secondItem="13C-Tb-bFn" secondAttribute="centerX" id="SkI-4d-u0s"/>
+                                        <constraint firstItem="zmP-AP-Ql3" firstAttribute="top" secondItem="13C-Tb-bFn" secondAttribute="topMargin" constant="50" id="Tlv-L1-Tc4"/>
+                                        <constraint firstItem="qXI-7i-y3B" firstAttribute="bottom" secondItem="xS1-c6-9sg" secondAttribute="bottom" id="UvJ-Mg-mxe"/>
+                                        <constraint firstItem="qXI-7i-y3B" firstAttribute="centerX" secondItem="xS1-c6-9sg" secondAttribute="centerX" id="ly5-Dn-Rcx"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -179,7 +180,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="02E8D973-48CF-4ECD-90BC-31A02B542F0F" width="575" height="556">
+        <image name="6C68E43C-84BD-4627-8F83-5C6DE9206CD7" width="575" height="556">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -16237,7 +16238,7 @@ AA6xIwAOsSgADrEqAA6xLAAOsTEADrE5AA6xPAAOsUEADrFJAA6xTAAOsV4ADrFhAA6xZgAAAAAAAAQB
 AAAAAAAAAD8AAAAAAAAAAAAAAAAADrFoA
 </mutableData>
         </image>
-        <image name="76891988-3E55-4063-808C-C9011C2F84B9" width="575" height="556">
+        <image name="A3880C5B-C9C2-4EC0-9611-2F3B476B25CE" width="575" height="556">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

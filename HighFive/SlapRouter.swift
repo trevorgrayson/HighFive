@@ -10,34 +10,34 @@ import UIKit
 
 public class SlapRouter: NSObject {
     
-    static let domain = "192.168.1.6:8080"
+    @objc public static let domain = "ipsumllc.com:8080"
     
-    @objc public class func slap(from: String, to: String, ferocity: Double) -> NSURL {
+    @objc public class func slap(from: String, to: String, ferocity: Double) -> String {
         let fString = String(format:"%4.2f", ferocity)
         
         return url(
-            [action("slap").absoluteString, from, to, fString].joinWithSeparator("/")
+            [action("slap"), from, to, fString].joinWithSeparator("/")
         )
     }
     
-    @objc public class func invite(idString: String) -> NSURL {
+    @objc public class func invite(idString: String) -> String {
         return url(
-            [action("invite").absoluteString, idString].joinWithSeparator("/")
+            [action("invite"), idString].joinWithSeparator("/")
         )
     }
     
-    @objc public class func action(name: String) -> NSURL {
+    @objc public class func action(name: String) -> String {
         return arrayToUrl([name])
     }
     
-    @objc public class func arrayToUrl(dirs: [String]) -> NSURL {
+    @objc public class func arrayToUrl(dirs: [String]) -> String {
         return url(
-            (["http://", domain] + dirs).joinWithSeparator("/")
+            (["http:/", domain] + dirs).joinWithSeparator("/")
         )
     }
     
-    class func url(path: String) -> NSURL {
-        return NSURL( string: path )!
+    class func url(path: String) -> String {
+        return path
     }
 
 }

@@ -11,10 +11,9 @@
 #import "Inbox.h"
 #import "AppDelegate.h"
 #import "SlapWidget.h"
+#import "HighFive-Swift.h"
 
 @implementation SlapNet
-
-NSString *domain = @"http://192.168.1.6:8080";
 
 +(InviteController*) sendInvite:(double) ferocity to:(User*) user
 {
@@ -23,7 +22,9 @@ NSString *domain = @"http://192.168.1.6:8080";
     InviteController *controller = [[InviteController alloc] init];
     if([InviteController canSendText])
     {
-        controller.body = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Slap me back: %@/invite/%@", [self highFiveDescription:ferocity], ferocity, domain, user.contact]; //ferocity, user.contact, user.name];
+        NSString *inviteUrl = [SlapRouter invite: user.contact];
+        NSLog(@"%@", inviteUrl);
+        controller.body = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Slap me back: %@", [self highFiveDescription:ferocity], ferocity, inviteUrl]; //ferocity, user.contact, user.name];
         controller.recipients = [NSArray arrayWithObjects: user.contact, nil];
         controller.messageComposeDelegate = controller;
         [topController presentViewController: controller animated:YES completion:nil];
@@ -69,7 +70,7 @@ User *pendingUser;
     NSString *fromContact = [prefs objectForKey:@"contact"];
     [prefs synchronize];
 
-    NSString *uri = [NSString stringWithFormat: @"%@/slap/%@/%@/%4.2f", domain, fromContact, user.contact, ferocity];
+    NSString *uri = [NSString stringWithFormat: @"http://%@/slap/%@/%@/%4.2f", [SlapRouter domain], fromContact, user.contact, ferocity];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: uri]
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -121,14 +122,24 @@ User *pendingUser;
 
 +(void) registerUser:(NSString *) deviceToken identifiedBy:(NSString*) contact as:(NSString*) name {
     NSLog(@"registering device deviceToken: %@ with contact: %@", deviceToken, contact);
-    NSString *uri =[NSString stringWithFormat: @"%@/register?invite=%@&deviceId=%@&name=%@", domain, contact, deviceToken, name];
+    NSString *uri = [SlapRouter action:@"register"];
+    uri = [uri stringByAppendingFormat: @"?invite=%@", contact];
+    
+    if ( deviceToken != nil ) { //REQUIRED
+        uri = [uri stringByAppendingFormat: @"&deviceId=%@", deviceToken];
+    }
+
+    if ( name != nil ) {
+        uri = [uri stringByAppendingFormat: @"&name=%@", name];
+    }
 
     NSLog(@"%@", uri);
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: uri]
+    NSURL *url = [[NSURL alloc] initWithString:uri];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: url
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                        timeoutInterval:10];
-    [request setHTTPMethod: @"POST"];
+    [request setHTTPMethod: @"GET"];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler: ^(NSURLResponse* response, NSData* data, NSError* connectionError) {
         if (connectionError) {

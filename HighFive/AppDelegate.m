@@ -40,8 +40,6 @@
          (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     }
     
-    [self attemptRegistration];
-    
     return YES;
 }
 
@@ -120,7 +118,6 @@
         NSLog(@"setting %@", devTokenStr);
         [prefs setObject: devTokenStr forKey:@"deviceToken"];
         [prefs synchronize];
-        [self attemptRegistration];
         
         NSLog(@"My token is: %@", devTokenStr);
     }
@@ -138,7 +135,6 @@
     NSLog(@"setting %@", devTokenStr);
     [prefs setObject: devTokenStr forKey:@"deviceToken"];
     [prefs synchronize];
-    [self attemptRegistration];
     
     NSLog(@"My token is: %@", devTokenStr);
 }
@@ -163,7 +159,7 @@
     
     NSLog(@"thinking about registering: %@ %@", deviceToken, contact);
     
-    if( deviceToken != nil && contact != nil ) {
+    if( contact != nil ) { //TODO deviceToken != nil && 
         [SlapNet registerUser:deviceToken identifiedBy:contact as:name];
     }
 }
