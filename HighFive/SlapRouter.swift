@@ -11,6 +11,7 @@ import UIKit
 public class SlapRouter: NSObject {
     
     @objc public static let domain = "ifive.club"
+    //@objc public static let domain = "192.168.1.6:8080"
     
     @objc public class func slap(from: String, to: String, ferocity: Double) -> String {
         let fString = String(format:"%4.2f", ferocity)
