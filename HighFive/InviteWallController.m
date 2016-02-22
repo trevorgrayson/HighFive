@@ -7,6 +7,7 @@
 //
 
 #import "InviteWallController.h"
+#import "HighFive-Swift.h"
 
 @interface InviteWallController ()
 
@@ -28,5 +29,8 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)linkToRegister:(id)sender {
+    [[UIApplication sharedApplication] openURL: [SlapRouter baseUrl]];
+}
 
 @end

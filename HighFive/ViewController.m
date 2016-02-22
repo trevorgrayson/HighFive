@@ -34,6 +34,8 @@ NSMutableDictionary *handWidgets = nil;
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0] ];
+    
     uiMode = kINVITE_ONLY;
     
     handWidgets = [[NSMutableDictionary alloc] init];
@@ -316,4 +318,5 @@ NSMutableDictionary *handWidgets = nil;
         [self waitingMode];
     }
 }
+
 @end

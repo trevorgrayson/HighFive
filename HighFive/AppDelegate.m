@@ -21,8 +21,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //clear notifications
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    NSLog(@"Did finish");
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
+    NSString *contact     = [prefs objectForKey: @"contact"];
+    NSString *name        = [prefs objectForKey: @"name"];
+    NSLog(@"%@ %@ %@", name, contact, deviceToken);
+    
+    [[UIApplication sharedApplication] cancelAllLocalNotifications]; //clear notifications
     application.applicationSupportsShakeToEdit = YES;
     
     NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"highfive-0" withExtension:@"m4a"];
@@ -33,11 +39,14 @@
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
-    // This code will work in iOS 7.0 and below:
     else
-    {
+    {   // This code will work in iOS 7.0 and below:
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
          (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
+    
+    if(contact == nil) {
+        [self invitationBlock];
     }
     
     return YES;
@@ -45,6 +54,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    NSLog(@"Opening URL");
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
     for (NSString *param in [[url query] componentsSeparatedByString:@"&"]) {
@@ -63,36 +73,13 @@
         [prefs setObject: name    forKey:@"name"];
         [prefs synchronize];
         
-        [self attemptRegistration];
+        if(contact != nil) {
+            [self welcome];
+            [self attemptRegistration];
+        }
     }
     
     return YES;
-}
-
-- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    notificationCount++;
-    
-    NSDictionary *slap = [userInfo valueForKeyPath:@"slap"];
-    
-    NSString *phone = [slap valueForKey:@"id"];
-    NSString *name  = [slap valueForKey:@"name"];
-    
-    if(name == nil) {
-        [AddressNameLookup contactContainingPhoneNumber: phone];
-    }
-
-    double jerk = [[slap valueForKeyPath:@"jerk"] doubleValue];
-    
-    User *slapper = [[User alloc] init: name with: phone];
-    Slap *incoming = [[Slap alloc] init:slapper with: jerk];
-    //if(UIApplication.application.state){
-    [Inbox addMessage: incoming];
-    [self respondToSlap: jerk from: slapper];
-
-    [UIApplication sharedApplication].applicationIconBadgeNumber = [Inbox count];
-    
-    [self playSlapSound];
 }
 
 #ifdef __IPHONE_8_0
@@ -159,9 +146,35 @@
     
     NSLog(@"thinking about registering: %@ %@", deviceToken, contact);
     
-    if( contact != nil ) { //TODO deviceToken != nil && 
+    if( deviceToken != nil && contact != nil ) { //TODO
         [SlapNet registerUser:deviceToken identifiedBy:contact as:name];
     }
+}
+
+- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    notificationCount++;
+    
+    NSDictionary *slap = [userInfo valueForKeyPath:@"slap"];
+    
+    NSString *phone = [slap valueForKey:@"id"];
+    NSString *name  = [slap valueForKey:@"name"];
+    
+    if(name == nil) {
+        [AddressNameLookup contactContainingPhoneNumber: phone];
+    }
+    
+    double jerk = [[slap valueForKeyPath:@"jerk"] doubleValue];
+    
+    User *slapper = [[User alloc] init: name with: phone];
+    Slap *incoming = [[Slap alloc] init:slapper with: jerk];
+    //if(UIApplication.application.state){
+    [Inbox addMessage: incoming];
+    [self respondToSlap: jerk from: slapper];
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = [Inbox count];
+    
+    [self playSlapSound];
 }
 
 - (void) playSlapSound {
