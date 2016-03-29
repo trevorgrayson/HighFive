@@ -53,7 +53,7 @@ NSArray *contacts;
     
     __block BOOL accessGranted = NO;
     
-    if (ABAddressBookRequestAccessWithCompletion != NULL) { // we're on iOS 6
+    if (&ABAddressBookRequestAccessWithCompletion != NULL) { // we're on iOS 6
         dispatch_semaphore_t sema = dispatch_semaphore_create(0);
         
         ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
