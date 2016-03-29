@@ -158,7 +158,7 @@
     NSDictionary *slap = [userInfo valueForKeyPath:@"slap"];
     
     NSString *phone = [slap valueForKey:@"id"];
-    NSString *name  = [slap valueForKey:@"name"];
+    NSString *name  = [slap valueForKey:@"from"];
     
     if(name == nil) {
         [AddressNameLookup contactContainingPhoneNumber: phone];
