@@ -16,7 +16,7 @@
 
 @implementation ViewController
 @synthesize messages;
-//@synthesize targetRecipient;
+@synthesize targetRecipient;
 @synthesize imagePicker;
 
 //TODO ENUMs
@@ -41,8 +41,8 @@ NSMutableDictionary *handWidgets = nil;
     handWidgets = [[NSMutableDictionary alloc] init];
     
     messages = [[NSMutableDictionary alloc] init];
-    [self reset:nil];
-    //targetRecipient = nil;
+    [self reset];
+    targetRecipient = nil;
     
     self.motionManager = [[CMMotionManager alloc] init];
     self.motionManager.accelerometerUpdateInterval = .2;
@@ -134,7 +134,7 @@ NSMutableDictionary *handWidgets = nil;
 
 - (void) slapModeFor:(User*) user with:(double) ferocity {
     self.fiveCompanion.text = user.name;
-    //targetRecipient = user;
+    targetRecipient = user;
     [self.redHand setAlpha: ferocity/10];
     uiMode = kSLAP_MODE;
 }
@@ -155,7 +155,7 @@ NSMutableDictionary *handWidgets = nil;
     }
 }
 
-- (IBAction)reset:(id)sender {
+- (void) reset {
     currentMaxAccelX = 0;
     currentMaxAccelY = 0;
     currentMaxAccelZ = 0;
@@ -169,14 +169,15 @@ NSMutableDictionary *handWidgets = nil;
     currentMaxAccelZ = MAX(fabs(acceleration.z), currentMaxAccelZ);
     
     if ( uiMode == kSLAP_MODE && [Slapperometer slapCheck:acceleration] ) {
-        [self sendSlap];
+        [self sendSlap: currentMaxAccelZ];
         [self waitingMode];
     }
+    
+    [self reset];
 }
 
--(void) sendSlap {
-    User *targetRecipient = [[User alloc] init:@"Steve" with:@"8605559759"];
-    [SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
+-(void) sendSlap:(double) ferocity {
+    [SlapNet sendSlap: ferocity to: targetRecipient];
     AudioServicesPlaySystemSound(slapSound);
 }
 
@@ -314,7 +315,7 @@ NSMutableDictionary *handWidgets = nil;
     if ( uiMode == kSLAP_MODE ) {
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         //[imagePicker takePicture];
-        [self sendSlap];
+        [self sendSlap: 1.0f];
         [self waitingMode];
     }
 }

@@ -11,7 +11,6 @@
 
 @interface Slapperometer : NSObject
 
-
 + (BOOL) slapCheck:(CMAcceleration) accel;
 
 @end

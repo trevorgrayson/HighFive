@@ -21,15 +21,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSLog(@"Did finish");
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
     NSString *contact     = [prefs objectForKey: @"contact"];
     NSString *name        = [prefs objectForKey: @"name"];
     NSLog(@"%@ %@ %@", name, contact, deviceToken);
     
-    [[UIApplication sharedApplication] cancelAllLocalNotifications]; //clear notifications
-    application.applicationSupportsShakeToEdit = YES;
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+    
+    for (UILocalNotification *notification in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
+        NSLog(@"%@", notification);
+        [self processNotification: [notification userInfo]];
+    }
+    //[[UIApplication sharedApplication] cancelAllLocalNotifications]; //clear notifications
     
     NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"highfive-0" withExtension:@"m4a"];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &slapSound);
@@ -126,6 +130,12 @@
     NSLog(@"My token is: %@", devTokenStr);
 }
 
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    NSArray *notifications = [application scheduledLocalNotifications];
+    NSLog(@"%@", notifications);
+}
+
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
     NSLog(@"Failed to get token, error: %@", error);
@@ -151,8 +161,22 @@
     }
 }
 
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    [self processNotification: userInfo];
+}
+
+//-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+//    
+//}
+
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
+    [self processNotification: userInfo];
+}
+
+- (void) processNotification:(NSDictionary*) userInfo {
     notificationCount++;
     
     NSDictionary *slap = [userInfo valueForKeyPath:@"slap"];
@@ -168,7 +192,7 @@
     
     User *slapper = [[User alloc] init: name with: phone];
     Slap *incoming = [[Slap alloc] init:slapper with: jerk];
-    //if(UIApplication.application.state){
+    
     [Inbox addMessage: incoming];
     [self respondToSlap: jerk from: slapper];
     
@@ -186,10 +210,10 @@
     [root receiveHighFive:ferocity from:user];
 }
 
--(void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Memory warning, bro." message:@"Close some apps guy, your device is out of control." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [alert show];
-}
+//-(void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Memory warning, bro." message:@"Close some apps guy, your device is out of control." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//    [alert show];
+//}
 
 -(void) welcome {
     if( self.window.rootViewController == invitationWall )

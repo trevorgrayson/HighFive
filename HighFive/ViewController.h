@@ -25,6 +25,7 @@ int uiMode;
 @interface ViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
     UITextFieldDelegate>
 
+@property (weak, nonatomic) User *targetRecipient;
 @property (weak, nonatomic) IBOutlet UIButton *nameTag;
 @property (weak, nonatomic) IBOutlet UIScrollView *inviteOnly;
 @property (weak, nonatomic) IBOutlet UIImageView *redHand;
