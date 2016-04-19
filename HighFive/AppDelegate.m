@@ -30,7 +30,6 @@
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
     
     for (UILocalNotification *notification in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
-        NSLog(@"%@", notification);
         [self processNotification: [notification userInfo]];
     }
     //[[UIApplication sharedApplication] cancelAllLocalNotifications]; //clear notifications
@@ -58,7 +57,6 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    NSLog(@"Opening URL");
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
     for (NSString *param in [[url query] componentsSeparatedByString:@"&"]) {
@@ -89,17 +87,14 @@
 #ifdef __IPHONE_8_0
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
-    //register to receive notifications
     [application registerForRemoteNotifications];
 }
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)newDeviceToken forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
 {
-    //handle the actions
     if ([newDeviceToken isEqualToString:@"declineAction"]){
         NSLog(@"User Declined Notifications");
-    }
-    else if ([newDeviceToken isEqualToString:@"answerAction"]){
+    } else if ([newDeviceToken isEqualToString:@"answerAction"]) {
         NSString *devTokenStr = [[[[newDeviceToken description]
                                    stringByReplacingOccurrencesOfString: @"<" withString: @""]
                                   stringByReplacingOccurrencesOfString: @">" withString: @""]
@@ -130,19 +125,8 @@
     NSLog(@"My token is: %@", devTokenStr);
 }
 
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    NSArray *notifications = [application scheduledLocalNotifications];
-    NSLog(@"%@", notifications);
-}
-
-- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
-{
-    NSLog(@"Failed to get token, error: %@", error);
-}
-
-//Could cache result and stop multiple requests
 - (void) attemptRegistration {
+    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
     NSString *contact     = [prefs objectForKey: @"contact"];
@@ -163,13 +147,8 @@
 
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    NSDictionary *userInfo = [notification userInfo];
-    [self processNotification: userInfo];
+    [self processNotification: [notification userInfo] ];
 }
-
-//-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-//    
-//}
 
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
@@ -209,11 +188,6 @@
     ViewController *root = (ViewController*) self.window.rootViewController;
     [root receiveHighFive:ferocity from:user];
 }
-
-//-(void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Memory warning, bro." message:@"Close some apps guy, your device is out of control." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-//    [alert show];
-//}
 
 -(void) welcome {
     if( self.window.rootViewController == invitationWall )
