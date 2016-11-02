@@ -24,7 +24,7 @@
     {
         NSString *inviteUrl = [SlapRouter invite: user.contact];
         NSLog(@"%@", inviteUrl);
-        controller.body = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Slap me back: %@", [self highFiveDescription:ferocity], ferocity, inviteUrl]; //ferocity, user.contact, user.name];
+        controller.body = [NSString stringWithFormat: @"HIGH FIVE! You just got hit with a %@ %4.2f slap. Slap me back: %@", [self highFiveDescription:ferocity], ferocity, inviteUrl];
         controller.recipients = [NSArray arrayWithObjects: user.contact, nil];
         controller.messageComposeDelegate = controller;
         [topController presentViewController: controller animated:YES completion:nil];
@@ -87,11 +87,6 @@ User *pendingUser;
             if([body isEqual: @"NOT_REGISTERED"]) {
                 [SlapNet sendInvite: pendingFerocity to: pendingUser];
             } else {
-                //[NSString stringWithFormat: @"Nice Five-skis bro."];
-               // NSString *message = [NSString stringWithFormat: @"HIGH FIVE! You slapped a %@ %4.2f slap.", [self highFiveDescription:ferocity], ferocity];
-                //UIAlertView *confirm = [[UIAlertView alloc] initWithTitle:@"Slap!" message: message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                //[confirm show];
-                //TODO doesn't belong here
                 UIView *view = self.appDelegate.window.rootViewController.view.superview;
                 SlapWidget * widget = [[SlapWidget alloc] initWithFrame: view.frame];
                 widget.score.text = [NSString stringWithFormat:@"%0.2f", ferocity];
@@ -133,8 +128,6 @@ User *pendingUser;
         uri = [uri stringByAppendingFormat: @"&name=%@", name];
     }
 
-    NSLog(@"%@", uri);
-    
     NSURL *url = [[NSURL alloc] initWithString:uri];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: url
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -157,10 +150,8 @@ User *pendingUser;
 
                 [prefs setObject: @"true" forKey:key];
                 [prefs synchronize];
-                
-//                ViewController *topController = (ViewController*)[UIApplication sharedApplication].keyWindow.rootViewController;
-//                [topController waitingMode];
             }
+            
             NSLog(@"Registered user %@, %@, %@", deviceToken, contact, name);
         }
     }];
@@ -169,4 +160,5 @@ User *pendingUser;
 +(UIViewController*) topController {
     return [UIApplication sharedApplication].keyWindow.rootViewController;
 }
+
 @end

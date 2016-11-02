@@ -427,6 +427,7 @@
 				TargetAttributes = {
 					D9266775197A42110096B50C = {
 						DevelopmentTeam = X68G8MHD24;
+						LastSwiftMigration = 0810;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
 								enabled = 0;
@@ -662,6 +663,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "HighFive/HighFive-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -685,6 +687,7 @@
 				PROVISIONING_PROFILE = "1f5fd317-c0d1-4afb-b73f-467a3645de2d";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "HighFive/HighFive-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

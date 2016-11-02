@@ -8,40 +8,40 @@
 
 import UIKit
 
-public class SlapRouter: NSObject {
+open class SlapRouter: NSObject {
     
     @objc public static let domain = "ifive.club"
-    //@objc public static let domain = "192.168.1.6:8080"
+    //@objc open static let domain = "127.0.0.1:8080"
     
-    @objc public class func slap(from: String, to: String, ferocity: Double) -> String {
+    @objc open class func slap(_ from: String, to: String, ferocity: Double) -> String {
         let fString = String(format:"%4.2f", ferocity)
         
         return url(
-            [action("slap"), from, to, fString].joinWithSeparator("/")
+            [action("slap"), from, to, fString].joined(separator: "/")
         )
     }
     
-    @objc public class func invite(idString: String) -> String {
+    @objc open class func invite(_ idString: String) -> String {
         return url(
-            [action("invite"), idString].joinWithSeparator("/")
+            [action("invite"), idString].joined(separator: "/")
         )
     }
     
-    @objc public class func action(name: String) -> String {
+    @objc open class func action(_ name: String) -> String {
         return arrayToUrl([name])
     }
     
-    @objc public class func arrayToUrl(dirs: [String]) -> String {
+    @objc open class func arrayToUrl(_ dirs: [String]) -> String {
         return url(
-            (["http:/", domain] + dirs).joinWithSeparator("/")
+            (["http:/", domain] + dirs).joined(separator: "/")
         )
     }
     
-    @objc public class func baseUrl() -> NSURL {
-        return NSURL(string: "http://" + domain)!
+    @objc open class func baseUrl() -> URL {
+        return URL(string: "http://" + domain)!
     }
     
-    class func url(path: String) -> String {
+    class func url(_ path: String) -> String {
         return path
     }
 

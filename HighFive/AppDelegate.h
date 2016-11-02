@@ -15,8 +15,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property int notificationCount;
-
 @property (readwrite, nonatomic, assign) SystemSoundID slapSound;
 
 @property (strong, nonatomic) UIViewController *invitationWall;

@@ -15,13 +15,13 @@
 
 @implementation AppDelegate
 
-@synthesize notificationCount;
 @synthesize slapSound;
 @synthesize invitationWall;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
     NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
     NSString *contact     = [prefs objectForKey: @"contact"];
     NSString *name        = [prefs objectForKey: @"name"];
@@ -32,21 +32,12 @@
     for (UILocalNotification *notification in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
         [self processNotification: [notification userInfo]];
     }
-    //[[UIApplication sharedApplication] cancelAllLocalNotifications]; //clear notifications
     
-    NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"highfive-0" withExtension:@"m4a"];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &slapSound);
     
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-    {
-        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-    }
-    else
-    {   // This code will work in iOS 7.0 and below:
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    }
+    [[UIApplication sharedApplication] cancelAllLocalNotifications]; //clear notifications
+    
+    [self initializeSound];
+    [self registerForNotifications];
     
     if(contact == nil) {
         [self invitationBlock];
@@ -55,8 +46,10 @@
     return YES;
 }
 
+
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    //TODO: This is requesting to access contacts. Do that preemptively, or let render first.
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
     for (NSString *param in [[url query] componentsSeparatedByString:@"&"]) {
@@ -66,6 +59,7 @@
     }
     
     if([url.host isEqual: @"invite"]) {
+        // hi5://invite?invite=8605559759&name=Trevor
         NSString *contact = [params objectForKey:@"invite"];
         NSString *name    = [params objectForKey:@"name"];
         NSLog(@"setting contact: %@", contact);
@@ -76,8 +70,28 @@
         [prefs synchronize];
         
         if(contact != nil) {
-            [self welcome];
-            [self attemptRegistration];
+            
+            if( self.window.rootViewController == invitationWall )
+            {
+                [self.window.rootViewController.navigationController popViewControllerAnimated:NO];
+                
+                UIStoryboard *sb        = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                UIViewController *vc    = [sb instantiateViewControllerWithIdentifier:@"tableCont"];
+                vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+                [self.window.rootViewController presentViewController:vc animated:YES completion:NULL];
+            }
+        
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
+            NSString *contact     = [prefs objectForKey: @"contact"];
+            NSString *name        = [prefs objectForKey: @"name"];
+            
+            NSLog(@"thinking about registering: %@ %@", deviceToken, contact);
+            
+            if( deviceToken != nil && contact != nil ) { //TODO
+                [SlapNet registerUser:deviceToken identifiedBy:contact as:name];
+            }
+            
         }
     }
     
@@ -90,86 +104,55 @@
     [application registerForRemoteNotifications];
 }
 
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)newDeviceToken forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)newDeviceToken
+    forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
 {
-    if ([newDeviceToken isEqualToString:@"declineAction"]){
-        NSLog(@"User Declined Notifications");
-    } else if ([newDeviceToken isEqualToString:@"answerAction"]) {
-        NSString *devTokenStr = [[[[newDeviceToken description]
-                                   stringByReplacingOccurrencesOfString: @"<" withString: @""]
-                                  stringByReplacingOccurrencesOfString: @">" withString: @""]
-                                 stringByReplacingOccurrencesOfString: @" " withString: @""];
-        
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        NSLog(@"setting %@", devTokenStr);
-        [prefs setObject: devTokenStr forKey:@"deviceToken"];
-        [prefs synchronize];
-        
-        NSLog(@"My token is: %@", devTokenStr);
+    if ([newDeviceToken isEqualToString:@"answerAction"]) {
+        [self setDeviceToken: newDeviceToken];
     }
 }
 #endif
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)newDeviceToken
 {
-    NSString *devTokenStr = [[[[newDeviceToken description]
+    [self setDeviceToken: [newDeviceToken description]];
+}
+
+- (void) setDeviceToken:(NSString*) newDeviceToken {
+    //[NSString stringEncodingForData:
+    NSString *devTokenStr = [[[newDeviceToken
                                stringByReplacingOccurrencesOfString: @"<" withString: @""]
                               stringByReplacingOccurrencesOfString: @">" withString: @""]
                              stringByReplacingOccurrencesOfString: @" " withString: @""];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSLog(@"setting %@", devTokenStr);
     [prefs setObject: devTokenStr forKey:@"deviceToken"];
     [prefs synchronize];
     
     NSLog(@"My token is: %@", devTokenStr);
 }
 
-- (void) attemptRegistration {
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
-    NSString *contact     = [prefs objectForKey: @"contact"];
-    NSString *name        = [prefs objectForKey: @"name"];
-    
-    if( contact == nil ) {
-        [self invitationBlock];
-    } else {
-        [self welcome];
-    }
-    
-    NSLog(@"thinking about registering: %@ %@", deviceToken, contact);
-    
-    if( deviceToken != nil && contact != nil ) { //TODO
-        [SlapNet registerUser:deviceToken identifiedBy:contact as:name];
-    }
-}
-
--(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
-{
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     [self processNotification: [notification userInfo] ];
 }
 
-- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
+- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [self processNotification: userInfo];
 }
 
 - (void) processNotification:(NSDictionary*) userInfo {
-    notificationCount++;
     
     NSDictionary *slap = [userInfo valueForKeyPath:@"slap"];
-    
     NSString *phone = [slap valueForKey:@"id"];
     NSString *name  = [slap valueForKey:@"from"];
+    double jerk = [[slap valueForKeyPath:@"jerk"] doubleValue];
     
     if(name == nil) {
         [AddressNameLookup contactContainingPhoneNumber: phone];
     }
     
-    double jerk = [[slap valueForKeyPath:@"jerk"] doubleValue];
     
-    User *slapper = [[User alloc] init: name with: phone];
+    User *slapper  = [[User alloc] init: name with: phone];
     Slap *incoming = [[Slap alloc] init:slapper with: jerk];
     
     [Inbox addMessage: incoming];
@@ -180,6 +163,7 @@
     [self playSlapSound];
 }
 
+
 - (void) playSlapSound {
     AudioServicesPlaySystemSound(slapSound);
 }
@@ -189,25 +173,40 @@
     [root receiveHighFive:ferocity from:user];
 }
 
--(void) welcome {
-    if( self.window.rootViewController == invitationWall )
-    {
-        [self.window.rootViewController.navigationController popViewControllerAnimated:NO];
-        
-        UIStoryboard *sb        = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc    = [sb instantiateViewControllerWithIdentifier:@"tableCont"];
-        vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-        [self.window.rootViewController presentViewController:vc animated:YES completion:NULL];
-    }
-
-}
-
 -(void) invitationBlock {
     if( invitationWall == nil) {
         InviteWallController *wall = [[InviteWallController alloc] init];
         self.window.rootViewController = wall;
         invitationWall = wall;
+        
         NSLog(@"Register son");
     }
 }
+
+- (void) initializeSound {
+    NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"highfive-0" withExtension:@"m4a"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &slapSound);
+}
+
+- (void) registerForNotifications {
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+    else
+    {   // This code will work in iOS 7.0 and below:
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
+    
+}
+
+-(void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"MEMORY" message:@"Ran out" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alert show];
+}
+
+
 @end

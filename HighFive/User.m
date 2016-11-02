@@ -24,7 +24,6 @@
     self = [super init];
     if (self) {
         name = n;
-        //format contact
         self.contact = c;
     }
     return self;

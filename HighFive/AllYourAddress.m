@@ -14,7 +14,7 @@ NSArray *contacts;
 +(NSArray*) contactsStartingWith:(NSString*) letter {
 
     NSPredicate* predicate = [NSPredicate predicateWithBlock: ^(id record, NSDictionary* bindings) {
-        NSString *first = (__bridge NSString *)(ABRecordCopyValue((__bridge ABRecordRef)(record), kABPersonFirstNameProperty));
+        NSString *first = CFBridgingRelease(ABRecordCopyValue((__bridge ABRecordRef)(record), kABPersonFirstNameProperty));
         
         return [first hasPrefix:letter];
     }];
