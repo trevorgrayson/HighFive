@@ -31,43 +31,21 @@ NSMutableDictionary *handWidgets = nil;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    uiMode = kINVITE_ONLY;
+    handWidgets = [[NSMutableDictionary alloc] init];
+    messages = [[NSMutableDictionary alloc] init];
+    targetRecipient = nil;
+    [self resetAccelerometer];
+    [self decorateView];
+    [self bindRecognizers];
+    
+    // Redundant?
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
-
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0] ];
-    
-    uiMode = kINVITE_ONLY;
-    
-    handWidgets = [[NSMutableDictionary alloc] init];
-    
-    messages = [[NSMutableDictionary alloc] init];
-    [self reset];
-    targetRecipient = nil;
-    
-    self.motionManager = [[CMMotionManager alloc] init];
-    self.motionManager.accelerometerUpdateInterval = .2;
-    
-    [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMAccelerometerData  *accelerometerData, NSError *error) {
-        [self outputAccelertionData:accelerometerData.acceleration];
-        
-        if(error){ NSLog(@"%@", error); }
-    }];
-    //[self configureCamera];
-    
-    //GYRO DATA
-    //[self.motionManager startGyroUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
-    //[self outputRotationData:gyroData.rotationRate]; }];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(screenTap:)];
-    [self.hand addGestureRecognizer: tap];
-    
-//    UIAlertView* contactInfoDel = [ContactInfoDelegate checkForContactInfo];
-//    if( contactInfoDel ) {
-//        [contactInfoDel show];
-//    }
-    
     NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"highfive-0" withExtension:@"m4a"];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &slapSound);
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -76,6 +54,26 @@ NSMutableDictionary *handWidgets = nil;
         [self waitingMode];
     }
     [self becomeFirstResponder];
+}
+
+- (void) decorateView {
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0] ];
+}
+
+- (void) bindRecognizers {
+    // Screen tap
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(screenTap:)];
+    [self.hand addGestureRecognizer: tap];
+    
+    // Slap motion manager
+    self.motionManager = [[CMMotionManager alloc] init];
+    self.motionManager.accelerometerUpdateInterval = .2;
+    
+    [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMAccelerometerData  *accelerometerData, NSError *error) {
+        [self outputAccelertionData:accelerometerData.acceleration];
+        
+        if(error){ NSLog(@"%@", error); }
+    }];
 }
 
 - (void) receiveHighFive:(double) ferocity from:(User*) user
@@ -155,7 +153,7 @@ NSMutableDictionary *handWidgets = nil;
     }
 }
 
-- (void) reset {
+- (void) resetAccelerometer {
     currentMaxAccelX = 0;
     currentMaxAccelY = 0;
     currentMaxAccelZ = 0;
@@ -173,7 +171,7 @@ NSMutableDictionary *handWidgets = nil;
         [self waitingMode];
     }
     
-    [self reset];
+    [self resetAccelerometer];
 }
 
 -(void) sendSlap:(double) ferocity {
@@ -253,40 +251,6 @@ NSMutableDictionary *handWidgets = nil;
 //SMS MESSAGE Compose
 -(void) messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 { [self dismissViewControllerAnimated:YES completion:nil];}
-
-//image capture
-/*
-- (void) configureCamera
-{
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        NSLog(@"Camera loaded.");
-        //NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
-        imagePicker = [[UIImagePickerController alloc] init];
-        imagePicker.delegate = self;
-        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        //imagePicker.cameraCaptureMode = UIImagePickerControllerSourceTypeCamera;
-        imagePicker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
-        imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-        //imagePicker.showsCameraControls = NO;
-        //imagePicker.cameraOverlayView = self.view;
-        //imagePicker.allowsEditing = YES;
-        [self.navigationController presentViewController:imagePicker animated:YES completion:nil];
-    } else {
-        NSLog(@"Sorry! No Camera");
-    }
-    //UIImage * flippedImage = [UIImage imageWithCGImage:picture.CGImage scale:picture.scale orientation:UIImageOrientationLeftMirrored];
-
-}
-
-- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    NSLog(@"photo taken");
-    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    UIImageView *iv = [[UIImageView alloc] initWithImage:image];
-    [self.view addSubview: iv];
-    
-}*/
-
 //textfield
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -305,6 +269,48 @@ NSMutableDictionary *handWidgets = nil;
         [SlapNet receiveHighFive: 1.0 from:slapper];
     }
 }
+
+
+// camera bootstrap
+//[self configureCamera];
+
+//GYRO DATA
+//[self.motionManager startGyroUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
+//[self outputRotationData:gyroData.rotationRate]; }];
+
+
+//image capture
+/*
+ - (void) configureCamera
+ {
+ if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+ NSLog(@"Camera loaded.");
+ //NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+ imagePicker = [[UIImagePickerController alloc] init];
+ imagePicker.delegate = self;
+ imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+ //imagePicker.cameraCaptureMode = UIImagePickerControllerSourceTypeCamera;
+ imagePicker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+ imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+ //imagePicker.showsCameraControls = NO;
+ //imagePicker.cameraOverlayView = self.view;
+ //imagePicker.allowsEditing = YES;
+ [self.navigationController presentViewController:imagePicker animated:YES completion:nil];
+ } else {
+ NSLog(@"Sorry! No Camera");
+ }
+ //UIImage * flippedImage = [UIImage imageWithCGImage:picture.CGImage scale:picture.scale orientation:UIImageOrientationLeftMirrored];
+ 
+ }
+ 
+ - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+ {
+ NSLog(@"photo taken");
+ UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+ UIImageView *iv = [[UIImageView alloc] initWithImage:image];
+ [self.view addSubview: iv];
+ 
+ }*/
 
 - (void)viewWillDisappear:(BOOL)animated {
     [self resignFirstResponder];

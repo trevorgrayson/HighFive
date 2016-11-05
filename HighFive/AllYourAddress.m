@@ -6,10 +6,46 @@
 //  Copyright (c) 2015 Ipsum LLC. All rights reserved.
 //
 
+#import <AddressBookUI/AddressBookUI.h>
 #import "AllYourAddress.h"
 @implementation AllYourAddress
 
 NSArray *contacts;
+
+UIAlertView *alert;
+
++(void) isSharingContactsWithCallback:(void (^)(void))callback {
+    if( ![self isSharingContacts]) {
+        if (&ABAddressBookRequestAccessWithCompletion != NULL) {
+            ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, nil);
+            ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
+                if(granted) {
+                    callback();
+                }
+            });
+        }
+    }
+}
+
++(Boolean) isSharingContacts {
+    
+    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined) {
+        return NO;
+    }
+    else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized) {
+        return YES;
+    }
+    else {
+        // The user has previously denied access
+        if(alert == nil) {
+            alert = [[UIAlertView alloc] initWithTitle:@"Can't access contacts" message:@"Hi Fives can't be sent without acess to your address book. Please update your settings in the Settings App." delegate:NULL cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        }
+        [alert show];
+        
+        return NO;
+    }
+
+}
 
 +(NSArray*) contactsStartingWith:(NSString*) letter {
 

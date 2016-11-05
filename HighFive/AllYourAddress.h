@@ -18,6 +18,9 @@
 +(NSArray*) contactsStartingWith:(NSString*) letter;
 +(NSInteger) contactsStartingWithCount: (NSString*) letter;
 
++(Boolean) isSharingContacts;
++(void) isSharingContactsWithCallback:(void (^)(void))callback;
+
 +(User*) contactAtIndex:(NSUInteger) index;
 
 +(User*) contactStartingWith:(NSString*) letter atIndex:(NSUInteger) index;

@@ -20,24 +20,27 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    // Preload sounds
+    [self initializeSound];
     
-    NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
-    NSString *contact     = [prefs objectForKey: @"contact"];
-    NSString *name        = [prefs objectForKey: @"name"];
-    NSLog(@"%@ %@ %@", name, contact, deviceToken);
-    
+    // Notifications
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
     
     for (UILocalNotification *notification in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
         [self processNotification: [notification userInfo]];
     }
     
-    
     [[UIApplication sharedApplication] cancelAllLocalNotifications]; //clear notifications
     
-    [self initializeSound];
-    [self registerForNotifications];
+    //[self registerForNotifications];
+    
+    // Is user signed up?
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
+    NSString *contact     = [prefs objectForKey: @"contact"];
+    NSString *name        = [prefs objectForKey: @"name"];
+    NSLog(@"%@ %@ %@", name, contact, deviceToken);
     
     if(contact == nil) {
         [self invitationBlock];
@@ -98,26 +101,6 @@
     return YES;
 }
 
-#ifdef __IPHONE_8_0
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
-{
-    [application registerForRemoteNotifications];
-}
-
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)newDeviceToken
-    forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
-{
-    if ([newDeviceToken isEqualToString:@"answerAction"]) {
-        [self setDeviceToken: newDeviceToken];
-    }
-}
-#endif
-
-- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)newDeviceToken
-{
-    [self setDeviceToken: [newDeviceToken description]];
-}
-
 - (void) setDeviceToken:(NSString*) newDeviceToken {
     //[NSString stringEncodingForData:
     NSString *devTokenStr = [[[newDeviceToken
@@ -163,11 +146,6 @@
     [self playSlapSound];
 }
 
-
-- (void) playSlapSound {
-    AudioServicesPlaySystemSound(slapSound);
-}
-
 - (void) respondToSlap:(double)ferocity from:(User*) user {
     ViewController *root = (ViewController*) self.window.rootViewController;
     [root receiveHighFive:ferocity from:user];
@@ -183,11 +161,21 @@
     }
 }
 
+/*
+ *  Sounds
+ */
 - (void) initializeSound {
     NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"highfive-0" withExtension:@"m4a"];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &slapSound);
 }
 
+- (void) playSlapSound {
+    AudioServicesPlaySystemSound(slapSound);
+}
+
+/*
+ *  Register for Notifications
+ */
 - (void) registerForNotifications {
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
@@ -203,6 +191,31 @@
     
 }
 
+#ifdef __IPHONE_8_0
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    [application registerForRemoteNotifications];
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)newDeviceToken
+forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
+{
+    if ([newDeviceToken isEqualToString:@"answerAction"]) {
+        [self setDeviceToken: newDeviceToken];
+    }
+}
+#endif
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)newDeviceToken
+{
+    [self setDeviceToken: [newDeviceToken description]];
+}
+
+
+
+/*
+ *  Memory notification
+ */
 -(void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"MEMORY" message:@"Ran out" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
     [alert show];

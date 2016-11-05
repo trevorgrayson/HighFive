@@ -52,6 +52,16 @@ CGPoint lastScrollOffset;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    // ask for access to address book
+    int contactCount = sizeof([AllYourAddress allContacts]);
+    
+    
+    if( contactCount > 0 ) {
+        [self.tableView reloadData];
+    }
+}
+
 #pragma mark - Controller phase methods
 - (void) reset {
     headline = defaultHeadline;
@@ -79,7 +89,11 @@ CGPoint lastScrollOffset;
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2 + [self.arrayOfLetters count];
+    if([AllYourAddress isSharingContacts]) {
+        return 2 + [self.arrayOfLetters count];
+    } else {
+        return 2;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -173,6 +187,10 @@ CGPoint lastScrollOffset;
     switch ([indexPath section]) {
         case kHeaderSection:
             if(![self inSlapMode]) {
+                [AllYourAddress isSharingContactsWithCallback:^(void){
+                    [self.tableView reloadData];
+                }];
+                
                 [self checkInbox];
             }
 
@@ -226,13 +244,22 @@ CGPoint lastScrollOffset;
 - (void)checkInbox {
     NSIndexPath *path;
     
+    path = [NSIndexPath indexPathForRow: 0 inSection: 0];
+    
     if( [Inbox count] > 0) {
         path = [NSIndexPath indexPathForRow: 0 inSection: kInboxSection];
-    } else {
+    } else if ([self.tableView numberOfSections] > 3) {
         path = [NSIndexPath indexPathForRow: 0 inSection: kContactSection];
     }
     
     [self.tableView scrollToRowAtIndexPath: path atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [AllYourAddress isSharingContactsWithCallback:^(void){
+        [self.tableView reloadData];
+    }];
+    
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {

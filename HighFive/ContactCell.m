@@ -16,6 +16,7 @@
     // Initialization code
     self.icon.clipsToBounds = YES;
     self.icon.layer.cornerRadius = self.icon.layer.bounds.size.width / 2;
+    [super awakeFromNib];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
