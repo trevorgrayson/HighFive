@@ -15,6 +15,7 @@ double currentMaxAccelY;
 double currentMaxAccelZ;
 
 @synthesize targetRecipient;
+@synthesize deviceToken;
 
 - (id) init: (User*) recipient
 {
@@ -52,12 +53,17 @@ double currentMaxAccelZ;
     
     if ( [Slapperometer slapCheck:acceleration] ) {
         
-        NSLog(@"Sending slap to %@!", targetRecipient);
-        
-        [SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
-        
-        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        [nc postNotificationName: @"harakiri" object: self];
+        if( deviceToken != nil ) {
+            //DO REGISTER
+            [SlapNet registerUser: deviceToken identifiedBy: targetRecipient.contact];
+        } else {
+            NSLog(@"Sending slap to %@!", targetRecipient);
+                
+            [SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
+            
+            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+            [nc postNotificationName: @"harakiri" object: self];
+        }
         
         [self harakiri];
 
@@ -85,6 +91,7 @@ double currentMaxAccelZ;
 {
     self.motionManager = nil;
     self.targetRecipient = nil;
+    self.deviceToken = nil;
 }
 
 @end

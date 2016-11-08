@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreMotion/CoreMotion.h>
+#import "SlapNet.h"
+#import "User.h"
 
 @interface Slapperometer : NSObject
+
+@property (weak, nonatomic) User *targetRecipient;
 
 + (BOOL) slapCheck:(CMAcceleration) accel;
 

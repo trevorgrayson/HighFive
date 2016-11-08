@@ -7,9 +7,11 @@
 //
 
 #import "Slapperometer.h"
+#import "AppDelegate.h"
 
 @implementation Slapperometer
-    BOOL midSlap;
+
+BOOL midSlap;
 
 + (BOOL) slapCheck:(CMAcceleration) accel {
     if(fabs(accel.z) > 1.1f) {
@@ -23,4 +25,5 @@
     
     return NO;
 }
+
 @end

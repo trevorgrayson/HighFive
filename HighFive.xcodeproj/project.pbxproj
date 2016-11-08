@@ -52,6 +52,8 @@
 		D9749F251A5B9D9E00D01778 /* AllYourAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = D9749F241A5B9D9E00D01778 /* AllYourAddress.m */; };
 		D9749F291A5BBDBC00D01778 /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9749F281A5BBDBC00D01778 /* ContactCell.m */; };
 		D9749F2C1A5BC08600D01778 /* HeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9749F2B1A5BC08600D01778 /* HeaderCell.m */; };
+		D9793FE01DCE480E00D46287 /* RegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9793FDF1DCE480E00D46287 /* RegisterController.m */; };
+		D9793FE21DCE483A00D46287 /* RegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9793FE11DCE483A00D46287 /* RegisterController.xib */; };
 		D981A70A19C7EF400056EC71 /* Invitron.m in Sources */ = {isa = PBXBuildFile; fileRef = D981A70919C7EF400056EC71 /* Invitron.m */; };
 		D9CC14B719C6668E00D6761B /* AddressNameLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CC14B619C6668E00D6761B /* AddressNameLookup.m */; };
 		D9D8C39219DA6AAB00AE0DB3 /* SlapAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D8C39119DA6AAB00AE0DB3 /* SlapAlert.m */; };
@@ -136,6 +138,9 @@
 		D9749F281A5BBDBC00D01778 /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
 		D9749F2A1A5BC08600D01778 /* HeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderCell.h; sourceTree = "<group>"; };
 		D9749F2B1A5BC08600D01778 /* HeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderCell.m; sourceTree = "<group>"; };
+		D9793FDE1DCE480E00D46287 /* RegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterController.h; sourceTree = "<group>"; };
+		D9793FDF1DCE480E00D46287 /* RegisterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterController.m; sourceTree = "<group>"; };
+		D9793FE11DCE483A00D46287 /* RegisterController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterController.xib; sourceTree = "<group>"; };
 		D981A70819C7EF400056EC71 /* Invitron.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Invitron.h; sourceTree = "<group>"; };
 		D981A70919C7EF400056EC71 /* Invitron.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invitron.m; sourceTree = "<group>"; };
 		D9CC14B519C6668E00D6761B /* AddressNameLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressNameLookup.h; sourceTree = "<group>"; };
@@ -195,6 +200,9 @@
 				D913B7C41A976B8E0076E608 /* InviteWallController.xib */,
 				D913B7C21A976B8E0076E608 /* InviteWallController.h */,
 				D913B7C31A976B8E0076E608 /* InviteWallController.m */,
+				D9793FE11DCE483A00D46287 /* RegisterController.xib */,
+				D9793FDE1DCE480E00D46287 /* RegisterController.h */,
+				D9793FDF1DCE480E00D46287 /* RegisterController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -428,6 +436,7 @@
 					D9266775197A42110096B50C = {
 						DevelopmentTeam = X68G8MHD24;
 						LastSwiftMigration = 0810;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
 								enabled = 0;
@@ -474,6 +483,7 @@
 				D93641DB1A95A40500F7878C /* 5hand120x120.jpg in Resources */,
 				D9266784197A42110096B50C /* InfoPlist.strings in Resources */,
 				D95423081A5F843D00C1F91F /* scroll-down-arrow.png in Resources */,
+				D9793FE21DCE483A00D46287 /* RegisterController.xib in Resources */,
 				D93641DD1A95AB0700F7878C /* Icon-60@2x.png in Resources */,
 				D935F1701C70436A0044E28D /* 4inch.png in Resources */,
 				D926678D197A42120096B50C /* Main.storyboard in Resources */,
@@ -498,6 +508,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D90F85061A61DD90001D13BF /* SlapLocalNotification.m in Sources */,
+				D9793FE01DCE480E00D46287 /* RegisterController.m in Sources */,
 				D9DB179F1C759D240092E843 /* SlapRouter.swift in Sources */,
 				D96F2F31198B7FED00A41A6E /* User.m in Sources */,
 				D96F2F2E198681EA00A41A6E /* HandWidget.m in Sources */,
@@ -651,7 +662,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ipsum LLC (X68G8MHD24)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HighFive/HighFive-Prefix.pch";
 				INFOPLIST_FILE = "HighFive/HighFive-Info.plist";
@@ -659,7 +671,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ipsumllc.HighFive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "980e948e-5de0-41a5-b8b9-19bb348b4599";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "HighFive/HighFive-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -676,7 +689,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ipsum LLC (X68G8MHD24)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HighFive/HighFive-Prefix.pch";
 				INFOPLIST_FILE = "HighFive/HighFive-Info.plist";
@@ -684,7 +698,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ipsumllc.HighFive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1f5fd317-c0d1-4afb-b73f-467a3645de2d";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "HighFive/HighFive-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

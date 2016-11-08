@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Ipsum LLC. All rights reserved.
 //
 
-#import "ViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface InviteWallController : ViewController
+@interface InviteWallController : UIViewController
 
 @end

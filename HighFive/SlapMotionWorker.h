@@ -18,6 +18,8 @@
 
 @property (strong, nonatomic) User *targetRecipient;
 
+@property (strong, nonatomic) NSString *deviceToken;
+
 - (id) init: (User*) recipient;
 - (void) harakiri;
 

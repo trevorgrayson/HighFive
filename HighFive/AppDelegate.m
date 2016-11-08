@@ -8,17 +8,16 @@
 
 #import "AppDelegate.h"
 #import "AddressNameLookup.h"
-#import "SlapAlert.h"
 #import "SlapLocalNotification.h"
+#import "SlapAlert.h"
 #import "Inbox.h"
-#import "InviteWallController.h"
 
 @implementation AppDelegate
 
 @synthesize slapSound;
 @synthesize invitationWall;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(UIApplication *) application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Preload sounds
     [self initializeSound];
@@ -30,7 +29,8 @@
         [self processNotification: [notification userInfo]];
     }
     
-    [[UIApplication sharedApplication] cancelAllLocalNotifications]; //clear notifications
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
     
     //[self registerForNotifications];
     
@@ -52,7 +52,6 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    //TODO: This is requesting to access contacts. Do that preemptively, or let render first.
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
     for (NSString *param in [[url query] componentsSeparatedByString:@"&"]) {
@@ -153,7 +152,7 @@
 
 -(void) invitationBlock {
     if( invitationWall == nil) {
-        InviteWallController *wall = [[InviteWallController alloc] init];
+        RegisterController *wall = [[RegisterController alloc] init];
         self.window.rootViewController = wall;
         invitationWall = wall;
         

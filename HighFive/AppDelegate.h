@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SlapNet.h"
+#import "InviteWallController.h"
+#import "RegisterController.h"
 #import "ViewController.h"
+#import "SlapNet.h"
 #import "User.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
