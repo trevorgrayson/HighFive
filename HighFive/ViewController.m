@@ -251,7 +251,6 @@ NSMutableDictionary *handWidgets = nil;
 //SMS MESSAGE Compose
 -(void) messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 { [self dismissViewControllerAnimated:YES completion:nil];}
-//textfield
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
@@ -262,59 +261,17 @@ NSMutableDictionary *handWidgets = nil;
     return YES;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [self resignFirstResponder];
+    [super viewWillDisappear:animated];
+}
+
 //DEBUG CODE
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if( motion == UIEventSubtypeMotionShake ) {
         User *slapper = [[User alloc] init: @"T-Dizzle" with: @"8603849759"];
         [SlapNet receiveHighFive: 1.0 from:slapper];
     }
-}
-
-
-// camera bootstrap
-//[self configureCamera];
-
-//GYRO DATA
-//[self.motionManager startGyroUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
-//[self outputRotationData:gyroData.rotationRate]; }];
-
-
-//image capture
-/*
- - (void) configureCamera
- {
- if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
- NSLog(@"Camera loaded.");
- //NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
- imagePicker = [[UIImagePickerController alloc] init];
- imagePicker.delegate = self;
- imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
- //imagePicker.cameraCaptureMode = UIImagePickerControllerSourceTypeCamera;
- imagePicker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
- imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
- //imagePicker.showsCameraControls = NO;
- //imagePicker.cameraOverlayView = self.view;
- //imagePicker.allowsEditing = YES;
- [self.navigationController presentViewController:imagePicker animated:YES completion:nil];
- } else {
- NSLog(@"Sorry! No Camera");
- }
- //UIImage * flippedImage = [UIImage imageWithCGImage:picture.CGImage scale:picture.scale orientation:UIImageOrientationLeftMirrored];
- 
- }
- 
- - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
- {
- NSLog(@"photo taken");
- UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
- UIImageView *iv = [[UIImageView alloc] initWithImage:image];
- [self.view addSubview: iv];
- 
- }*/
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self resignFirstResponder];
-    [super viewWillDisappear:animated];
 }
 
 - (IBAction)pinchhack:(id)sender {
