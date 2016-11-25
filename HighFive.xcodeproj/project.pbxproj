@@ -141,6 +141,7 @@
 		D9793FDE1DCE480E00D46287 /* RegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterController.h; sourceTree = "<group>"; };
 		D9793FDF1DCE480E00D46287 /* RegisterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterController.m; sourceTree = "<group>"; };
 		D9793FE11DCE483A00D46287 /* RegisterController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterController.xib; sourceTree = "<group>"; };
+		D9793FEB1DD198D900D46287 /* HighFive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HighFive.entitlements; sourceTree = "<group>"; };
 		D981A70819C7EF400056EC71 /* Invitron.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Invitron.h; sourceTree = "<group>"; };
 		D981A70919C7EF400056EC71 /* Invitron.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invitron.m; sourceTree = "<group>"; };
 		D9CC14B519C6668E00D6761B /* AddressNameLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressNameLookup.h; sourceTree = "<group>"; };
@@ -246,6 +247,7 @@
 		D926677F197A42110096B50C /* HighFive */ = {
 			isa = PBXGroup;
 			children = (
+				D9793FEB1DD198D900D46287 /* HighFive.entitlements */,
 				D9266788197A42110096B50C /* AppDelegate.h */,
 				D9266789197A42110096B50C /* AppDelegate.m */,
 				D96F2F35198F552D00A41A6E /* Views */,
@@ -661,6 +663,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HighFive/HighFive.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
@@ -688,6 +691,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HighFive/HighFive.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";

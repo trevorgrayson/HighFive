@@ -23,4 +23,6 @@
 
 - (void) playSlapSound;
 
+- (void) registerForNotifications;
+
 @end

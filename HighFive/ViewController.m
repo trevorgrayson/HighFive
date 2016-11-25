@@ -57,7 +57,9 @@ NSMutableDictionary *handWidgets = nil;
 }
 
 - (void) decorateView {
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0] ];
+    [self.navigationController.navigationBar setBarTintColor:
+      [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1.0]
+    ];
 }
 
 - (void) bindRecognizers {

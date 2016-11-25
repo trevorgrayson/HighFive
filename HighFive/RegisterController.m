@@ -57,6 +57,8 @@ float originalOffset = 0;
         [self dismissKeyboard];
         
         //Ask for deviceToken access
+        [self requestNotification];
+        //TODO and hook from return answer
         NSString *deviceToken = @"";
         
         User *user = [[User alloc] init];
@@ -65,6 +67,15 @@ float originalOffset = 0;
         slapWorker.deviceToken = deviceToken;
     } else {
         self.commandText.text = STATE_REGISTER;
+    }
+}
+
+-(void) requestNotification {
+    //UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+    //TODO older versions?
+    if(! [[UIApplication sharedApplication] isRegisteredForRemoteNotifications] ) {
+        AppDelegate *del = (AppDelegate*)[UIApplication sharedApplication];
+        [del registerForNotifications];
     }
 }
 
@@ -97,6 +108,8 @@ float originalOffset = 0;
 
 -(void)dismissKeyboard {
     [self.mobileField resignFirstResponder];
+    [self setViewMovedUp:NO];
 }
 
+//TODO: need to check before trying to register bug
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SlapMotionWorker.h"
+#import "AppDelegate.h"
 
 @interface RegisterController : UIViewController <UITextFieldDelegate>
 
