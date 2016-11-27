@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SlapMotionWorker.h"
 #import "AppDelegate.h"
+#import "ReachUp.h"
 
 @interface RegisterController : UIViewController <UITextFieldDelegate>
 

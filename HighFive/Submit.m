@@ -1,9 +1,9 @@
 //
-//  MotionDelegate.m
+//  Submit.m
 //  HighFive
 //
-//  Created by Trevor Grayson on 1/8/15.
-//  Copyright (c) 2015 Ipsum LLC. All rights reserved.
+//  Created by Trevor Grayson on 11/27/16.
+//  Copyright (c) 2016 Ipsum LLC. All rights reserved.
 //
 
 #import "SlapMotionWorker.h"
@@ -13,6 +13,8 @@
 double currentMaxAccelX;
 double currentMaxAccelY;
 double currentMaxAccelZ;
+
+void (^completion)(void);
 
 @synthesize targetRecipient;
 @synthesize deviceToken;
@@ -35,6 +37,11 @@ double currentMaxAccelZ;
     return self;
 }
 
+
+- (void) registerAction:(void(^)()) action {
+    completion = action;
+}
+
 -(void)outputAccelertionData:(CMAcceleration)acceleration
 {
     currentMaxAccelX = MAX(fabs(acceleration.x), currentMaxAccelX);
@@ -55,7 +62,7 @@ double currentMaxAccelZ;
             [SlapNet registerUser: deviceToken identifiedBy: targetRecipient.contact];
         } else {
             NSLog(@"Sending slap to %@!", targetRecipient);
-                
+            
             [SlapNet sendSlap: currentMaxAccelZ to: targetRecipient];
             
             NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -63,7 +70,7 @@ double currentMaxAccelZ;
         }
         
         [self harakiri];
-
+        
     }
 }
 

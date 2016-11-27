@@ -24,5 +24,6 @@
 - (void) playSlapSound;
 
 - (void) registerForNotifications;
+- (void) showMainController;
 
 @end

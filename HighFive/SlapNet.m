@@ -152,6 +152,9 @@ User *pendingUser;
                 [prefs synchronize];
             }
             
+
+            [self.appDelegate showMainController];
+            
             NSLog(@"Registered user %@, %@, %@", deviceToken, contact, name);
         }
     }];

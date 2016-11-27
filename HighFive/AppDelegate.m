@@ -49,6 +49,14 @@
     return YES;
 }
 
+- (void) showMainController {
+    [self.window.rootViewController.navigationController popViewControllerAnimated:NO];
+    
+    UIStoryboard *sb        = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *vc    = [sb instantiateViewControllerWithIdentifier:@"tableCont"];
+    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self.window.rootViewController presentViewController:vc animated:YES completion:NULL];
+}
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
