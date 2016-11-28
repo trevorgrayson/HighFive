@@ -44,6 +44,13 @@
     
     if(contact == nil) {
         [self invitationBlock];
+    } else {
+        [self.window.rootViewController.navigationController popViewControllerAnimated:NO];
+        
+        UIStoryboard *sb        = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc    = [sb instantiateViewControllerWithIdentifier:@"tableCont"];
+        vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        [self.window.rootViewController presentViewController:vc animated:YES completion:NULL];
     }
     
     return YES;

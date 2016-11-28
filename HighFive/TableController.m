@@ -6,6 +6,9 @@
 //  Copyright (c) 2015 Ipsum LLC. All rights reserved.
 //
 
+// record devicekey
+// get name
+// register with all data
 #import "TableController.h"
 #import "ContactCell.h"
 #import "HeaderCell.h"
@@ -36,20 +39,13 @@ CGPoint lastScrollOffset;
     [super viewDidLoad];
     [self reset];
     
-    
-    //Avoiding status bar?
+    //Avoiding status bar
     [self.tableView setContentInset:UIEdgeInsetsMake(20, self.tableView.contentInset.left,
             self.tableView.contentInset.bottom,
             self.tableView.contentInset.right)];
     
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(reset) name: @"harakiri" object:nil];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -282,16 +278,14 @@ CGPoint lastScrollOffset;
         [self scrollToTop];
     }
 }
-// Override to support conditional editing of the table view.
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
     if ([indexPath section] == 1) {
         return YES;
     }
     return NO;
 }
 
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
@@ -299,26 +293,10 @@ CGPoint lastScrollOffset;
         [Inbox removeMessageAtIndex: [indexPath row]];
         //[tableView reloadData];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 /*
 #pragma mark - Navigation
