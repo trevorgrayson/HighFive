@@ -10,9 +10,9 @@
 
 @implementation SlapMotionWorker
 
-double currentMaxAccelX;
-double currentMaxAccelY;
-double currentMaxAccelZ;
+double currMaxAccelX;
+double currMaxAccelY;
+double currMaxAccelZ;
 
 void (^completion)(void);
 
@@ -44,9 +44,9 @@ void (^completion)(void);
 
 -(void)outputAccelertionData:(CMAcceleration)acceleration
 {
-    currentMaxAccelX = MAX(fabs(acceleration.x), currentMaxAccelX);
-    currentMaxAccelY = MAX(fabs(acceleration.y), currentMaxAccelY);
-    currentMaxAccelZ = MAX(fabs(acceleration.z), currentMaxAccelZ);
+    currMaxAccelX = MAX(fabs(acceleration.x), currMaxAccelX);
+    currMaxAccelY = MAX(fabs(acceleration.y), currMaxAccelY);
+    currMaxAccelZ = MAX(fabs(acceleration.z), currMaxAccelZ);
     
     NSString *mode;
     //Mode should not change if value is much > 1 (gravity)
@@ -77,9 +77,9 @@ void (^completion)(void);
 //TODO if y > z == HIGH FIVE else LOW FIVE
 
 -(void)reset {
-    currentMaxAccelX = 0;
-    currentMaxAccelY = 0;
-    currentMaxAccelZ = 0;
+    currMaxAccelX = 0;
+    currMaxAccelY = 0;
+    currMaxAccelZ = 0;
 }
 
 - (void) harakiri {

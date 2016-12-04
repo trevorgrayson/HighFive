@@ -13,6 +13,13 @@
 #import "SlapNet.h"
 #import "User.h"
 
+#import "AddressNameLookup.h"
+#import "SlapLocalNotification.h"
+#import "SlapAlert.h"
+#import "Inbox.h"
+#import "TableController.h"
+
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -21,9 +28,13 @@
 
 @property (strong, nonatomic) UIViewController *invitationWall;
 
+@property BOOL mainControllerPresent;
+
 - (void) playSlapSound;
 
 - (void) registerForNotifications;
 - (void) showMainController;
+
+- (void) setContact:(NSString*) newContact;
 
 @end

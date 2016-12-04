@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "SlapWidget.h"
 #import "HighFive-Swift.h"
+#import "TableController.h"
 
 @implementation SlapNet
 
@@ -45,6 +46,7 @@
 
 + (void) receiveHighFive:(double) ferocity from:(User*) slapper
 {
+    NSLog(@"received HIGH FIVE ===============");
     Slap *slap = [Slap from: slapper with: ferocity];
     [Inbox addMessage: slap];
 }
@@ -115,6 +117,19 @@ User *pendingUser;
     [self registerUser:deviceToken identifiedBy: contact as:nil];
 }
 
++(void) registerDefaultUser {
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
+    NSString *contact     = [prefs objectForKey: @"contact"];
+    NSString *name        = [prefs objectForKey: @"name"];
+    
+    if(name == nil)
+        name = @"Anonymous";
+    
+    [SlapNet registerUser:deviceToken identifiedBy:contact as:name];
+}
+
 +(void) registerUser:(NSString *) deviceToken identifiedBy:(NSString*) contact as:(NSString*) name {
     NSLog(@"registering device deviceToken: %@ with contact: %@", deviceToken, contact);
     NSString *uri = [SlapRouter action:@"register"];
@@ -152,7 +167,6 @@ User *pendingUser;
                 [prefs synchronize];
             }
             
-
             [self.appDelegate showMainController];
             
             NSLog(@"Registered user %@, %@, %@", deviceToken, contact, name);

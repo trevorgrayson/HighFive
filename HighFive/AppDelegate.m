@@ -7,20 +7,18 @@
 //
 
 #import "AppDelegate.h"
-#import "AddressNameLookup.h"
-#import "SlapLocalNotification.h"
-#import "SlapAlert.h"
-#import "Inbox.h"
 
 @implementation AppDelegate
 
 @synthesize slapSound;
 @synthesize invitationWall;
+@synthesize mainControllerPresent;
 
 - (BOOL)application:(UIApplication *) application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Preload sounds
     [self initializeSound];
+    mainControllerPresent = NO;
     
     // Notifications
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
@@ -47,10 +45,16 @@
     } else {
         [self.window.rootViewController.navigationController popViewControllerAnimated:NO];
         
-        UIStoryboard *sb        = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc    = [sb instantiateViewControllerWithIdentifier:@"tableCont"];
-        vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-        [self.window.rootViewController presentViewController:vc animated:YES completion:NULL];
+        if(!mainControllerPresent) {
+            UIStoryboard *sb        = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UIViewController *vc    = [sb instantiateViewControllerWithIdentifier:@"tableCont"];
+            vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+            
+            [self.window.rootViewController presentViewController:vc animated:YES completion:NULL];
+            
+            mainControllerPresent = YES;
+        }
+        
     }
     
     return YES;
@@ -59,10 +63,14 @@
 - (void) showMainController {
     [self.window.rootViewController.navigationController popViewControllerAnimated:NO];
     
-    UIStoryboard *sb        = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *vc    = [sb instantiateViewControllerWithIdentifier:@"tableCont"];
-    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self.window.rootViewController presentViewController:vc animated:YES completion:NULL];
+    if(!self.mainControllerPresent) {
+        UIStoryboard *sb        = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc    = [sb instantiateViewControllerWithIdentifier:@"tableCont"];
+        vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        [self.window.rootViewController presentViewController:vc animated:YES completion:NULL];
+        self.mainControllerPresent = YES;
+    }
+    
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -115,6 +123,15 @@
     return YES;
 }
 
+- (void) setContact:(NSString*) newContact {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject: newContact forKey:@"contact"];
+    [prefs setObject: newContact forKey:@"name"];
+    [prefs synchronize];
+    
+    NSLog(@"Name/Contact is: %@", newContact);
+}
+
 - (void) setDeviceToken:(NSString*) newDeviceToken {
     //[NSString stringEncodingForData:
     NSString *devTokenStr = [[[newDeviceToken
@@ -134,6 +151,7 @@
 }
 
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@"did receive remote notification");
     [self processNotification: userInfo];
 }
 

@@ -20,6 +20,12 @@
 
 @property (strong, nonatomic) NSString *deviceToken;
 
+
+@property double currentMaxAccelX;
+@property double currentMaxAccelY;
+@property double currentMaxAccelZ;
+
+
 - (id) init: (User*) recipient;
 - (void) harakiri;
 

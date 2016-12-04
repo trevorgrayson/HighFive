@@ -15,6 +15,13 @@
 @end
 
 @implementation ViewController
+
+@synthesize currentMaxAccelX;
+@synthesize currentMaxAccelY;
+@synthesize currentMaxAccelZ;
+
+@synthesize uiMode;
+
 @synthesize messages;
 @synthesize targetRecipient;
 @synthesize imagePicker;

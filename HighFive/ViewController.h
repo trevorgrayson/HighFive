@@ -16,14 +16,14 @@
 #import "HandWidget.h"
 #import "User.h"
 
-double currentMaxAccelX;
-double currentMaxAccelY;
-double currentMaxAccelZ;
-
-int uiMode;
-
 @interface ViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
     UITextFieldDelegate>
+
+@property double currentMaxAccelX;
+@property double currentMaxAccelY;
+@property double currentMaxAccelZ;
+
+@property int uiMode;
 
 @property (weak, nonatomic) User *targetRecipient;
 @property (weak, nonatomic) IBOutlet UIButton *nameTag;

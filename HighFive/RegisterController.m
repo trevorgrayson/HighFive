@@ -46,12 +46,16 @@ NSString* STATE_SLAP_PHONE = @"Slap your phone to sign in!";
         [self setViewMovedUp: NO];
         [self dismissKeyboard];
         
+        AppDelegate *deleg = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        [deleg setContact: self.mobileField.text];
+        
         //Ask for deviceToken access
-        //[self requestNotification];
+        [self requestNotification];
         
         //TODO and hook from return answer
         NSString *deviceToken = @"";
         
+        // save number
         ReachUp *reachUp = [[ReachUp alloc] init];
         [reachUp registerActionOnReachUp:^(void) {
             self.commandText.text = STATE_SLAP_PHONE;
@@ -81,7 +85,7 @@ NSString* STATE_SLAP_PHONE = @"Slap your phone to sign in!";
     //UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
     //TODO older versions?
     if(! [[UIApplication sharedApplication] isRegisteredForRemoteNotifications] ) {
-        AppDelegate *del = (AppDelegate*)[UIApplication sharedApplication];
+        AppDelegate *del = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         //TODO I O U
         [del registerForNotifications];
     }

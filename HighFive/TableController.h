@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "SlapMotionWorker.h"
+#import "ContactCell.h"
+#import "HeaderCell.h"
+
+#import "AllYourAddress.h"
+#import "Inbox.h"
+
+#import "SlapWidget.h"
 
 @interface TableController : UITableViewController<UITableViewDelegate, UIScrollViewDelegate>
 

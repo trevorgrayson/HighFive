@@ -22,6 +22,7 @@
 
 +(void) receiveHighFive:(double) ferocity from:(User*) user;
 
++(void) registerDefaultUser;
 +(void) registerUser:(NSString *) deviceToken identifiedBy:(NSString *)contact;
 +(void) registerUser:(NSString *) deviceToken identifiedBy:(NSString*) contact as:(NSString*) name;
 

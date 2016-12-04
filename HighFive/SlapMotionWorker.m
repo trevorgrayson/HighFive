@@ -10,12 +10,12 @@
 
 @implementation SlapMotionWorker
 
-double currentMaxAccelX;
-double currentMaxAccelY;
-double currentMaxAccelZ;
-
 @synthesize targetRecipient;
 @synthesize deviceToken;
+
+@synthesize currentMaxAccelX;
+@synthesize currentMaxAccelY;
+@synthesize currentMaxAccelZ;
 
 - (id) init: (User*) recipient
 {

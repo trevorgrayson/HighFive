@@ -6,17 +6,13 @@
 //  Copyright (c) 2015 Ipsum LLC. All rights reserved.
 //
 
+// TODO
+// register for push notifications
 // record devicekey
 // get name
 // register with all data
+
 #import "TableController.h"
-#import "ContactCell.h"
-#import "HeaderCell.h"
-
-#import "AllYourAddress.h"
-#import "Inbox.h"
-
-#import "SlapWidget.h"
 
 //TODO -2 section situation
 @interface TableController ()
@@ -32,7 +28,7 @@ const int kInboxSection   = 1;
 const int kContactSection = 2;
 NSString *defaultHeadline = @"Tap to Slap";
 
-SlapMotionWorker *slapWorker;
+SlapMotionWorker *slapWorker1;
 CGPoint lastScrollOffset;
 
 - (void)viewDidLoad {
@@ -46,12 +42,15 @@ CGPoint lastScrollOffset;
     
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(reset) name: @"harakiri" object:nil];
+    [SlapNet registerDefaultUser];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     // ask for access to address book
     int contactCount = sizeof([AllYourAddress allContacts]);
-    
+    // ask for push notifications? double whammy needs work
+    AppDelegate *deleg = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    [deleg registerForNotifications];
     
     if( contactCount > 0 ) {
         [self.tableView reloadData];
@@ -61,20 +60,20 @@ CGPoint lastScrollOffset;
 #pragma mark - Controller phase methods
 - (void) reset {
     headline = defaultHeadline;
-    [slapWorker harakiri];
-    slapWorker = nil;
+    [slapWorker1 harakiri];
+    slapWorker1 = nil;
     [self.tableView reloadData];
 }
 
 - (bool) inSlapMode {
-    return slapWorker != nil;
+    return slapWorker1 != nil;
 }
 
 - (void) slapModeFor:(User*) user {
     headline = [NSString stringWithFormat: @"Slap %@ some skin", user.name];
     //TODO Heavy handed?
     [self.tableView reloadData];
-    slapWorker = [[SlapMotionWorker alloc] init: user];
+    slapWorker1 = [[SlapMotionWorker alloc] init: user];
 }
 
 - (void) receiveHighFive:(double) ferocity from:(User*) user
@@ -104,7 +103,7 @@ CGPoint lastScrollOffset;
 
 - (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch( section ) {
-        case kContactSection: return @"High Five Someone";
+        case kContactSection: return @"Send a High Five";
         case kInboxSection:
             if([Inbox count] > 0 )
                 return @"You've been High Fived!";
