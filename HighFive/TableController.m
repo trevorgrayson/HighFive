@@ -7,10 +7,16 @@
 //
 
 // TODO
-// register for push notifications
-// record devicekey
 // get name
 // register with all data
+
+// uncomment out controller change before commit
+// TextField delegate for search  SearchTextfieldDelegate
+// dismissable
+// can submit
+
+// move search to top, if possible?
+// each letter narrows down results?
 
 #import "TableController.h"
 
@@ -23,19 +29,25 @@
 
 @synthesize headline;
 
-const int kHeaderSection  = 0;
-const int kInboxSection   = 1;
-const int kContactSection = 2;
+const int kBaseSectionCount  = 2;
+
+const int kHeaderSection     = 0;
+const int kInboxSection      = 1;
+const int kSearchSection     = 2;
+const int kContactSection    = 3;
+
 NSString *defaultHeadline = @"Tap to Slap";
 
-SlapMotionWorker *slapWorker1;
 CGPoint lastScrollOffset;
+
+SlapMotionWorker *slapWorker1;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self reset];
     
-    //Avoiding status bar
+    // Avoiding status bar
     [self.tableView setContentInset:UIEdgeInsetsMake(20, self.tableView.contentInset.left,
             self.tableView.contentInset.bottom,
             self.tableView.contentInset.right)];
@@ -60,9 +72,15 @@ CGPoint lastScrollOffset;
 #pragma mark - Controller phase methods
 - (void) reset {
     headline = defaultHeadline;
-    [slapWorker1 harakiri];
+    
+    if(slapWorker1) {
+        [slapWorker1 harakiri];
+    }
+    
     slapWorker1 = nil;
-    [self.tableView reloadData];
+    if(self.tableView) {
+        [self.tableView reloadData];
+    }
 }
 
 - (bool) inSlapMode {
@@ -84,11 +102,7 @@ CGPoint lastScrollOffset;
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if([AllYourAddress isSharingContacts]) {
-        return 2 + [self.arrayOfLetters count];
-    } else {
-        return 2;
-    }
+    return kBaseSectionCount + ([AllYourAddress isSharingContacts] ? 2 : 0);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -96,6 +110,7 @@ CGPoint lastScrollOffset;
         //case kContactSection: return [AllYourAddress allContactsCount];
         case kInboxSection:   return [Inbox count];
         case kHeaderSection:  return 1;
+        case kSearchSection: return 1;
         default: return [AllYourAddress contactsStartingWithCount:
                          [self letterAt: section - 2]];
     }
@@ -115,8 +130,9 @@ CGPoint lastScrollOffset;
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     switch( [indexPath section] ) {
-        case kHeaderSection:  return [self contactForHeader:tableView cellForRowAtIndexPath: indexPath];
-        case kInboxSection:   return [self contactForInbox: tableView cellForRowAtIndexPath: indexPath];
+        case kHeaderSection: return [self contactForHeader:tableView cellForRowAtIndexPath: indexPath];
+        case kInboxSection:  return [self contactForInbox: tableView cellForRowAtIndexPath: indexPath];
+        case kSearchSection: return [self searchCell: tableView];
         //case kContactSection: return [self contactForRow:   tableView cellForRowAtIndexPath: indexPath];
         default: return [self contactForRow:  tableView cellForRowAtIndexPath: indexPath];
     }
@@ -126,6 +142,12 @@ CGPoint lastScrollOffset;
 - (UITableViewCell *) contactForHeader:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HeaderCell *cell = [tableView dequeueReusableCellWithIdentifier: @"headerCell"];
     cell.headline.text = headline;
+    return cell;
+}
+
+- (UITableViewCell *) searchCell:(UITableView *)tableView {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: @"searchCell"];
+    //cell.headline.text = headline;
     return cell;
 }
 
@@ -147,7 +169,6 @@ CGPoint lastScrollOffset;
 
 - (UITableViewCell *) contactForRow:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ContactCell *cell = [tableView dequeueReusableCellWithIdentifier: @"inboxCell"];
-
     //    ABRecordRef contact = [AllYourAddress contactAtIndex: [indexPath row]];
     NSInteger offset = [indexPath section] - 2;
     NSString *letter = [[self arrayOfLetters] objectAtIndex: offset];
@@ -180,6 +201,7 @@ CGPoint lastScrollOffset;
     NSInteger row = [indexPath row];
     
     switch ([indexPath section]) {
+        case kSearchSection: return;
         case kHeaderSection:
             if(![self inSlapMode]) {
                 [AllYourAddress isSharingContactsWithCallback:^(void){
@@ -227,9 +249,7 @@ CGPoint lastScrollOffset;
 }
 
 -(NSArray*) arrayOfLetters {
-    return [NSArray arrayWithObjects: @"A",@"B",@"C",@"D",@"E",@"F",@"G",
-            @"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",
-            @"T",@"U",@"V",@"W",@"X",@"Y",@"Z", nil];
+    return [NSArray arrayWithObjects: @"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z", nil];
 }
 
 -(NSString*) letterAt:(NSInteger) i {

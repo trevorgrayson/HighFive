@@ -5,8 +5,17 @@
 //  Created by Trevor Grayson on 7/18/14.
 //  Copyright (c) 2014 Ipsum LLC. All rights reserved.
 //
+// TODO
+// phone number in slap notification, use username
+// * remove notifications on click----------
+// * notification if in app
+// * inbox persists
+// jammers
+//   * search for person
+//   * type phone number
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 @implementation AppDelegate
 
@@ -40,9 +49,7 @@
     NSString *name        = [prefs objectForKey: @"name"];
     NSLog(@"%@ %@ %@", name, contact, deviceToken);
     
-    if(contact == nil) {
-        [self invitationBlock];
-    } else {
+    
         [self.window.rootViewController.navigationController popViewControllerAnimated:NO];
         
         if(!mainControllerPresent) {
@@ -55,9 +62,18 @@
             mainControllerPresent = YES;
         }
         
-    }
+    
+    
+//    NSArray *keys = [NSArray arrayWithObjects:@"id", @"from", @"jerk", nil];
+//    NSArray *objects = [NSArray arrayWithObjects:@"8603849759", @"bob", @"1.2", nil];
+//    NSDictionary *dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+//    [self processNotification:  [NSDictionary dictionaryWithObject:dict forKey:@"slap"]];
     
     return YES;
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
 }
 
 - (void) showMainController {
@@ -162,10 +178,12 @@
     NSString *name  = [slap valueForKey:@"from"];
     double jerk = [[slap valueForKeyPath:@"jerk"] doubleValue];
     
-    if(name == nil) {
-        [AddressNameLookup contactContainingPhoneNumber: phone];
-    }
+    // if contact approved
+    NSString *localName = [AddressNameLookup contactContainingPhoneNumber: phone];
     
+    if([localName length] > 0) {
+        name = localName;
+    }
     
     User *slapper  = [[User alloc] init: name with: phone];
     Slap *incoming = [[Slap alloc] init:slapper with: jerk];

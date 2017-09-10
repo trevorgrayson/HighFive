@@ -45,8 +45,4 @@ NSMutableArray *_slaps;
     [_slaps removeObjectAtIndex: index];
 }
 
-//NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-//NSString *deviceToken = [prefs objectForKey: @"deviceToken"];
-//NSString *contact = [prefs objectForKey: @"contact"];
-
 @end

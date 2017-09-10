@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AudioToolbox/AudioToolbox.h>
+
 #import "InviteWallController.h"
 #import "RegisterController.h"
-#import "ViewController.h"
 #import "SlapNet.h"
 #import "User.h"
 

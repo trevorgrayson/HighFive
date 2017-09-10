@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <MessageUI/MessageUI.h>
-#import "ViewController.h"
 #import "AppDelegate.h"
 #import "Slap.h"
 #import "User.h"

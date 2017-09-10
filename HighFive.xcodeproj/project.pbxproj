@@ -14,6 +14,7 @@
 		D913B7C61A976B8E0076E608 /* InviteWallController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D913B7C41A976B8E0076E608 /* InviteWallController.xib */; };
 		D913B7CA1A97791A0076E608 /* SlapWidget.m in Sources */ = {isa = PBXBuildFile; fileRef = D913B7C91A97791A0076E608 /* SlapWidget.m */; };
 		D913B7CC1A9792820076E608 /* SlapWidget.xib in Resources */ = {isa = PBXBuildFile; fileRef = D913B7CB1A9792820076E608 /* SlapWidget.xib */; };
+		D91581B51F5E03B800D34E38 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D91581B41F5E03B800D34E38 /* Images.xcassets */; };
 		D9206F981A1B1BEE00535B7C /* slap.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D9206F971A1B1BEE00535B7C /* slap.jpg */; };
 		D9206F9A1A1DB05D00535B7C /* highfive-0.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D9206F991A1D00A300535B7C /* highfive-0.m4a */; };
 		D926677A197A42110096B50C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9266779197A42110096B50C /* Foundation.framework */; };
@@ -55,6 +56,7 @@
 		D9793FE21DCE483A00D46287 /* RegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9793FE11DCE483A00D46287 /* RegisterController.xib */; };
 		D9793FF11DE8366A00D46287 /* ReachUp.m in Sources */ = {isa = PBXBuildFile; fileRef = D9793FF01DE8366A00D46287 /* ReachUp.m */; };
 		D981A70A19C7EF400056EC71 /* Invitron.m in Sources */ = {isa = PBXBuildFile; fileRef = D981A70919C7EF400056EC71 /* Invitron.m */; };
+		D98572A71F64C4B100C9D0DC /* search-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D98572A61F64C4B100C9D0DC /* search-icon.png */; };
 		D99BD0971DF401500051E2E2 /* Default-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = D99BD0961DF401500051E2E2 /* Default-568h.png */; };
 		D99BD09D1DF4104D0051E2E2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D99BD0981DF4104D0051E2E2 /* Default-568h@2x.png */; };
 		D99BD09E1DF4104D0051E2E2 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D99BD0991DF4104D0051E2E2 /* Default-667h@2x.png */; };
@@ -90,6 +92,7 @@
 		D913B7C81A97791A0076E608 /* SlapWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlapWidget.h; sourceTree = "<group>"; };
 		D913B7C91A97791A0076E608 /* SlapWidget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlapWidget.m; sourceTree = "<group>"; };
 		D913B7CB1A9792820076E608 /* SlapWidget.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlapWidget.xib; sourceTree = "<group>"; };
+		D91581B41F5E03B800D34E38 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D9206F971A1B1BEE00535B7C /* slap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = slap.jpg; sourceTree = "<group>"; };
 		D9206F991A1D00A300535B7C /* highfive-0.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "highfive-0.m4a"; sourceTree = "<group>"; };
 		D9266776197A42110096B50C /* HighFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HighFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,7 +157,10 @@
 		D9793FF41DEADF9700D46287 /* Submit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Submit.m; sourceTree = "<group>"; };
 		D981A70819C7EF400056EC71 /* Invitron.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Invitron.h; sourceTree = "<group>"; };
 		D981A70919C7EF400056EC71 /* Invitron.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invitron.m; sourceTree = "<group>"; };
-		D99BD0961DF401500051E2E2 /* Default-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h.png"; path = "HighFive/Default-568h.png"; sourceTree = "<group>"; };
+		D98572A61F64C4B100C9D0DC /* search-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-icon.png"; sourceTree = "<group>"; };
+		D98572A81F65324800C9D0DC /* SearchDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDelegate.h; sourceTree = "<group>"; };
+		D98572AA1F65329000C9D0DC /* SearchDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchDelegate.m; path = ../SearchDelegate.m; sourceTree = "<group>"; };
+		D99BD0961DF401500051E2E2 /* Default-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h.png"; sourceTree = "<group>"; };
 		D99BD0981DF4104D0051E2E2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D99BD0991DF4104D0051E2E2 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
 		D99BD09A1DF4104D0051E2E2 /* Default-736@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736@2x.png"; sourceTree = "<group>"; };
@@ -229,7 +235,6 @@
 			isa = PBXGroup;
 			children = (
 				D99BD0A41DF47F6D0051E2E2 /* LaunchScreen.storyboard */,
-				D99BD0961DF401500051E2E2 /* Default-568h.png */,
 				D926677F197A42110096B50C /* HighFive */,
 				D926679E197A42120096B50C /* HighFiveTests */,
 				D9266778197A42110096B50C /* Frameworks */,
@@ -279,6 +284,7 @@
 				D9749F201A5B86C300D01778 /* TableController.h */,
 				D9749F211A5B86C300D01778 /* TableController.m */,
 				D96F2F34198F552000A41A6E /* Models */,
+				D91581B41F5E03B800D34E38 /* Images.xcassets */,
 				D9266780197A42110096B50C /* Supporting Files */,
 			);
 			path = HighFive;
@@ -287,6 +293,8 @@
 		D9266780197A42110096B50C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D98572A61F64C4B100C9D0DC /* search-icon.png */,
+				D99BD0961DF401500051E2E2 /* Default-568h.png */,
 				D93641DA1A95A40500F7878C /* 5hand120x120.jpg */,
 				D99BD0981DF4104D0051E2E2 /* Default-568h@2x.png */,
 				D99BD0991DF4104D0051E2E2 /* Default-667h@2x.png */,
@@ -337,6 +345,8 @@
 				D9793FF01DE8366A00D46287 /* ReachUp.m */,
 				D9793FF31DEADF2C00D46287 /* Submit.h */,
 				D9793FF41DEADF9700D46287 /* Submit.m */,
+				D98572A81F65324800C9D0DC /* SearchDelegate.h */,
+				D98572AA1F65329000C9D0DC /* SearchDelegate.m */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -514,6 +524,7 @@
 				D99BD09F1DF4104D0051E2E2 /* Default-736@2x.png in Resources */,
 				D95423081A5F843D00C1F91F /* scroll-down-arrow.png in Resources */,
 				D9793FE21DCE483A00D46287 /* RegisterController.xib in Resources */,
+				D91581B51F5E03B800D34E38 /* Images.xcassets in Resources */,
 				D93641DD1A95AB0700F7878C /* Icon-60@2x.png in Resources */,
 				D99BD0A01DF4104D0051E2E2 /* Default.png in Resources */,
 				D99BD0A11DF4104D0051E2E2 /* Default@2x.png in Resources */,
@@ -522,6 +533,7 @@
 				D99BD09E1DF4104D0051E2E2 /* Default-667h@2x.png in Resources */,
 				D926678D197A42120096B50C /* Main.storyboard in Resources */,
 				D99BD09D1DF4104D0051E2E2 /* Default-568h@2x.png in Resources */,
+				D98572A71F64C4B100C9D0DC /* search-icon.png in Resources */,
 				D99BD0A51DF47F6D0051E2E2 /* LaunchScreen.storyboard in Resources */,
 				D9206F9A1A1DB05D00535B7C /* highfive-0.m4a in Resources */,
 				D9D8C39519DA926800AE0DB3 /* internet-high-five09.png in Resources */,
@@ -707,6 +719,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = HighFive/HighFive.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -734,6 +747,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = HighFive/HighFive.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

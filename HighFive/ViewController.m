@@ -26,7 +26,7 @@
 @synthesize targetRecipient;
 @synthesize imagePicker;
 
-//TODO ENUMs
+// TODO ENUMs
 int kWAITING_MODE = 0;
 int kSLAP_MODE    = 1;
 int kINVITE_ONLY  = 2;
@@ -88,7 +88,6 @@ NSMutableDictionary *handWidgets = nil;
 - (void) receiveHighFive:(double) ferocity from:(User*) user
 {
     NSString *key = user.contact;
-    //[self slapModeFor: name at: contact with:ferocity];
     NSNumber *newValue;
     
     if( [messages objectForKey: key] == nil ) {
@@ -153,7 +152,7 @@ NSMutableDictionary *handWidgets = nil;
     [self.inviteOnly setHidden: YES];
 }
 
-//screen touch
+// screen touch
 - (IBAction)screenTap:(UITapGestureRecognizer*)sender {
     if (uiMode == kWAITING_MODE) {
         ABPeoplePickerNavigationController *picker =[[ABPeoplePickerNavigationController alloc] init];
@@ -168,7 +167,7 @@ NSMutableDictionary *handWidgets = nil;
     currentMaxAccelZ = 0;
 }
 
-//accelerometer
+// accelerometer
 -(void)outputAccelertionData:(CMAcceleration)acceleration
 {
     currentMaxAccelX = MAX(fabs(acceleration.x), currentMaxAccelX);
@@ -224,6 +223,7 @@ NSMutableDictionary *handWidgets = nil;
             [contactInfoDict setObject:(__bridge NSString *)currentPhoneValue forKey:@"homeNumber"];
         }
         
+        name = nil;
         CFRelease(currentPhoneLabel);
         CFRelease(currentPhoneValue);
     }

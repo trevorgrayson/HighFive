@@ -8,11 +8,19 @@
 
 #import <AddressBookUI/AddressBookUI.h>
 #import "AllYourAddress.h"
+
 @implementation AllYourAddress
 
 NSArray *contacts;
-
 UIAlertView *alert;
+
++ (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+
+    }
+}
+
 
 +(void) isSharingContactsWithCallback:(void (^)(void))callback {
     if( ![self isSharingContacts]) {
@@ -38,14 +46,18 @@ UIAlertView *alert;
     else {
         // The user has previously denied access
         if(alert == nil) {
-            alert = [[UIAlertView alloc] initWithTitle:@"Can't access contacts" message:@"Hi Fives can't be sent without acess to your address book. Please update your settings in the Settings App." delegate:NULL cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            alert = [[UIAlertView alloc] initWithTitle:@"Can't access contacts" message:@"High Fives can't be sent without acess to your address book. Please update your \"Contacts\" setting in the Settings App." delegate:NULL cancelButtonTitle:@"OK" otherButtonTitles: @"Update Settings", nil];
+            alert.delegate = self;
         }
         [alert show];
+        
         
         return NO;
     }
 
 }
+
+
 
 +(NSArray*) contactsStartingWith:(NSString*) letter {
 
